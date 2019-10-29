@@ -51,15 +51,25 @@ public interface IDocumoListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitPlaceholder([NotNull] DocumoParser.PlaceholderContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="DocumoParser.expr"/>.
+	/// Enter a parse tree produced by <see cref="DocumoParser.object"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterExpr([NotNull] DocumoParser.ExprContext context);
+	void EnterObject([NotNull] DocumoParser.ObjectContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="DocumoParser.expr"/>.
+	/// Exit a parse tree produced by <see cref="DocumoParser.object"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitExpr([NotNull] DocumoParser.ExprContext context);
+	void ExitObject([NotNull] DocumoParser.ObjectContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.objectFieldAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterObjectFieldAccess([NotNull] DocumoParser.ObjectFieldAccessContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.objectFieldAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitObjectFieldAccess([NotNull] DocumoParser.ObjectFieldAccessContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="DocumoParser.objectName"/>.
 	/// </summary>
@@ -80,4 +90,34 @@ public interface IDocumoListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitObjectField([NotNull] DocumoParser.ObjectFieldContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStartRepeatingSection([NotNull] DocumoParser.StartRepeatingSectionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStartRepeatingSection([NotNull] DocumoParser.StartRepeatingSectionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.endRepeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEndRepeatingSection([NotNull] DocumoParser.EndRepeatingSectionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.endRepeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEndRepeatingSection([NotNull] DocumoParser.EndRepeatingSectionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.repeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.repeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context);
 }

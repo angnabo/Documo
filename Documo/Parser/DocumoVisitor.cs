@@ -44,11 +44,17 @@ public interface IDocumoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitPlaceholder([NotNull] DocumoParser.PlaceholderContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="DocumoParser.expr"/>.
+	/// Visit a parse tree produced by <see cref="DocumoParser.object"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitExpr([NotNull] DocumoParser.ExprContext context);
+	Result VisitObject([NotNull] DocumoParser.ObjectContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DocumoParser.objectFieldAccess"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitObjectFieldAccess([NotNull] DocumoParser.ObjectFieldAccessContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="DocumoParser.objectName"/>.
 	/// </summary>
@@ -61,4 +67,22 @@ public interface IDocumoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitObjectField([NotNull] DocumoParser.ObjectFieldContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStartRepeatingSection([NotNull] DocumoParser.StartRepeatingSectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DocumoParser.endRepeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEndRepeatingSection([NotNull] DocumoParser.EndRepeatingSectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="DocumoParser.repeatingSection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context);
 }
