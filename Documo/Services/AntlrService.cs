@@ -16,8 +16,6 @@ namespace Documo.Services
 
             var visitor = new DocumoVisitor();
             visitor.Visit(stmtContext);
-            var s =  visitor.Placeholders;
-            var v =  visitor.RepeatingSection;
             return visitor.Placeholders;
         }
     }

@@ -5,8 +5,7 @@ namespace Documo.Visitor
 {
     public class DocumoVisitor : DocumoBaseVisitor<object>
     {
-        public List<DocumentPlaceholder> Placeholders = new List<DocumentPlaceholder>();
-        public List<RepeatingSection> RepeatingSection = new List<RepeatingSection>();
+        public readonly List<DocumentPlaceholder> Placeholders = new List<DocumentPlaceholder>();
 
 //        public override object VisitPlaceholder(DocumoParser.PlaceholderContext context)
 //        {
@@ -29,14 +28,14 @@ namespace Documo.Visitor
         public override object VisitPlaceholder(DocumoParser.PlaceholderContext context)
         {
             
-            DocumentPlaceholder placeholder = new DocumentPlaceholder();
+            DocumentPlaceholder placeholder;
             if (context.repeatingSection() != null)
             {
-                placeholder.RepeatingSection = (RepeatingSection)VisitRepeatingSection(context.repeatingSection());
+                placeholder = (RepeatingSection)VisitRepeatingSection(context.repeatingSection());
             }
             else
             {
-                placeholder.DocumentObject = (DocumentObject)VisitObject(context.@object());
+                placeholder = (DocumentObject)VisitObject(context.@object());
             }
             
             Placeholders.Add(placeholder);
@@ -70,7 +69,6 @@ namespace Documo.Visitor
             var repeatingSection = new RepeatingSection
             {
                 ObjectName = VisitStartRepeatingSection(context.startRepeatingSection()).ToString()
-                
             };
 
             foreach (var placeholder in context.placeholder())

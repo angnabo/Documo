@@ -26,15 +26,14 @@ namespace Documo.Renderer
 
                 foreach (var placeholder in placeholders)
                 {
-                    var nodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.DocumentObject.GetPlaceholder());
+                    
+                    var nodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.GetPlaceholder());
 
                     foreach (var node in nodes)
                     {
                         HtmlNodeProcessor.ProcessPlaceholderNode(node, "");
                     }
                 }
-
-                
             }
             catch (Exception ex)
             {

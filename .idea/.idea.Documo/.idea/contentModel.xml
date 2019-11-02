@@ -28,6 +28,10 @@
           <e p="AntlrService.cs" t="Include" />
           <e p="HtmlNodeExtractor.cs" t="Include" />
           <e p="HtmlNodeProcessor.cs" t="Include" />
+          <e p="JsonDataExtractor.cs" t="Include" />
+        </e>
+        <e p="Strategies" t="Include">
+          <e p="IGetJsonDataStrategy.cs" t="Include" />
         </e>
         <e p="Visitor" t="Include">
           <e p="DocumentPlaceholder.cs" t="Include" />
