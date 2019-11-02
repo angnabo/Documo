@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Antlr4.Runtime;
 
 namespace Documo.Visitor
 {
     public class DocumoVisitor : DocumoBaseVisitor<object>
     {
         public List<DocumentPlaceholder> Placeholders = new List<DocumentPlaceholder>();
+        public List<RepeatingSection> RepeatingSection = new List<RepeatingSection>();
 
 //        public override object VisitPlaceholder(DocumoParser.PlaceholderContext context)
 //        {
@@ -24,31 +26,65 @@ namespace Documo.Visitor
 //            return placeholder;
 //        }
 
-        public override object VisitObjectFieldAccess(DocumoParser.ObjectFieldAccessContext context)
+        public override object VisitPlaceholder(DocumoParser.PlaceholderContext context)
         {
-            DocumentObject obj = new DocumentObject
+            
+            DocumentPlaceholder placeholder = new DocumentPlaceholder();
+            if (context.repeatingSection() != null)
             {
-                ObjectField = context.objectField().GetText(),
-                ObjectName = context.objectName().GetText()
-            };
+                placeholder.RepeatingSection = (RepeatingSection)VisitRepeatingSection(context.repeatingSection());
+            }
+            else
+            {
+                placeholder.DocumentObject = (DocumentObject)VisitObject(context.@object());
+            }
             
-            Placeholders.Add(new DocumentPlaceholder {DocumentObject = obj});
-            
+            Placeholders.Add(placeholder);
+            return placeholder;
+        }
+
+        public object VisitObject(DocumoParser.ObjectContext context)
+        {
+            DocumentObject obj;
+            if (context.objectFieldAccess() != null)
+            {
+                obj = new DocumentObject
+                {
+                    ObjectField = context.objectFieldAccess().objectField().GetText(),
+                    ObjectName = context.objectFieldAccess().objectName().GetText()
+                };
+            }
+            else
+            {
+                obj = new DocumentObject
+                {
+                    ObjectName = context.objectName().GetText()
+                };
+            }
+
             return obj;
         }
 
-        public override object VisitObjectName(DocumoParser.ObjectNameContext context)
+        public object VisitRepeatingSection(DocumoParser.RepeatingSectionContext context)
         {
-            DocumentObject obj = new DocumentObject
+            var repeatingSection = new RepeatingSection
             {
-                ObjectName = context.GetText()
+                ObjectName = VisitStartRepeatingSection(context.startRepeatingSection()).ToString()
+                
             };
+
+            foreach (var placeholder in context.placeholder())
+            {
+                repeatingSection.DocumentObject.Add((DocumentObject)VisitObject(placeholder.@object()));
+            }
             
-            Placeholders.Add(new DocumentPlaceholder {DocumentObject = obj});
-            
-            return obj;
+            return repeatingSection;
         }
 
+        public override object VisitStartRepeatingSection(DocumoParser.StartRepeatingSectionContext context)
+        {
+            return context.@object().objectName().GetText();
+        }
     }
 
 }

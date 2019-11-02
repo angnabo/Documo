@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Antlr4.Runtime;
 using Documo.Services;
@@ -16,19 +18,23 @@ namespace Documo.Renderer
                 var doc = new HtmlDocument();
                 doc.Load("/home/angelica/RiderProjects/Documo/Documo/NewFile1.html");
 
-                var nodes = HtmlNodeExtractor.ExtractNodeOuterHtml(doc, "//p[@class='placeholder']");
+                var placeholderNodes = HtmlNodeExtractor.ExtractNodeOuterHtml(doc, "//p[@class='placeholder']");
+                var input = string.Join("", placeholderNodes);
+                var antlrService = new AntlrService();
+                var placeholders = antlrService.Parse(input);
                 
-                var placeholders = string.Join("", nodes);
 
-                var inputStream = new AntlrInputStream(placeholders);
-                var speakLexer = new DocumoLexer(inputStream);
-                var commonTokenStream = new CommonTokenStream(speakLexer);
-                var speakParser = new DocumoParser(commonTokenStream);
-                DocumoParser.StmtContext stmtContext = speakParser.stmt();
+                foreach (var placeholder in placeholders)
+                {
+                    var nodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.DocumentObject.GetPlaceholder());
 
-                var visitor = new DocumoVisitor();
-                var s = visitor.Visit(stmtContext);
-                var placeholder = visitor.Placeholders;
+                    foreach (var node in nodes)
+                    {
+                        HtmlNodeProcessor.ProcessPlaceholderNode(node, "");
+                    }
+                }
+
+                
             }
             catch (Exception ex)
             {

@@ -25,7 +25,9 @@
           <e p="HtmlRenderer.cs" t="Include" />
         </e>
         <e p="Services" t="Include">
+          <e p="AntlrService.cs" t="Include" />
           <e p="HtmlNodeExtractor.cs" t="Include" />
+          <e p="HtmlNodeProcessor.cs" t="Include" />
         </e>
         <e p="Visitor" t="Include">
           <e p="DocumentPlaceholder.cs" t="Include" />

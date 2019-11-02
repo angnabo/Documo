@@ -4,15 +4,15 @@ grammar Documo;
  */
 stmt                : placeholder+ EOF;
 placeholder         : STARTPLACEHOLDER object ENDPLACEHOLDER | repeatingSection ;
+repeatingSection    : startRepeatingSection placeholder+ endRepeatingSection;
+startRepeatingSection : STARTPLACEHOLDER STARTREPEATINGSECTION object ENDPLACEHOLDER;
+endRepeatingSection : STARTPLACEHOLDER ENDREPEATINGSECTION object ENDPLACEHOLDER;
 object              : objectFieldAccess | objectName;
 objectFieldAccess   : objectName ACCESSOPERATOR objectField;
 objectName          : WORD ;
 objectField         : WORD ;
 
-startRepeatingSection : STARTPLACEHOLDER STARTREPEATINGSECTION object ENDPLACEHOLDER;
-endRepeatingSection : STARTPLACEHOLDER ENDREPEATINGSECTION object ENDPLACEHOLDER;
 
-repeatingSection    : startRepeatingSection placeholder+ endRepeatingSection;
 /*
  * Lexer Rules
  */
