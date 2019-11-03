@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Antlr4.Runtime;
 using Documo.Services;
+using Documo.Strategies;
 using Documo.Visitor;
 using HtmlAgilityPack;
 
@@ -11,7 +12,14 @@ namespace Documo.Renderer
 {
     public class HtmlRenderer
     {
-        public void Render()
+        private List<IProcessPlaceholder> _placeholderStrategies = new List<IProcessPlaceholder>();
+        public HtmlRenderer()
+        {
+            _placeholderStrategies.Add(new ProcessObjectPlaceholder());
+
+        }
+
+        public void Render(object jsonData)
         {
             try
             {
@@ -25,14 +33,9 @@ namespace Documo.Renderer
                 
 
                 foreach (var placeholder in placeholders)
-                {
-                    
-                    var nodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.GetPlaceholder());
-
-                    foreach (var node in nodes)
-                    {
-                        HtmlNodeProcessor.ProcessPlaceholderNode(node, "");
-                    }
+                {                    
+                    var strategy = _placeholderStrategies.Single(x => x.AppliesTo(placeholder));
+                    strategy.ProcessPlaceholders(doc, placeholder, jsonData);
                 }
             }
             catch (Exception ex)
