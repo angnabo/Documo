@@ -16,5 +16,10 @@ namespace Documo.Services
         {
             return doc.DocumentNode.SelectNodes($"//p[@class='placeholder' and . = '{placeholderName}']");
         }
+        
+        public static HtmlNode SelectSinglePlaceholderNode(HtmlDocument doc, string placeholderName)
+        {
+            return doc.DocumentNode.SelectSingleNode($"//p[@class='placeholder' and . = '{placeholderName}']");
+        }
     }
 }

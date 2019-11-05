@@ -5,7 +5,7 @@ namespace Documo.Services
 {
     public static class HtmlNodeProcessor
     {
-        public static void ProcessPlaceholderNode(HtmlNode node, string placeholderValue)
+        public static HtmlNode ProcessPlaceholderNode(HtmlNode node, string placeholderValue)
         {
             node.Attributes["class"].Value = node.Attributes["class"].Value.Replace("placeholder", "");
                         
@@ -17,6 +17,8 @@ namespace Documo.Services
             {
                 node.AppendChild(HtmlNode.CreateNode(placeholderValue));
             }
+
+            return node;
         }
     }
 }

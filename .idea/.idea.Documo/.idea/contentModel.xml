@@ -7,7 +7,9 @@
       <e p="Documo" t="IncludeRecursive">
         <e p="Documo.csproj" t="IncludeRecursive" />
         <e p="Documo.g4" t="Include" />
+        <e p="NewFile1 - Copy.html" t="Include" />
         <e p="NewFile1.html" t="Include" />
+        <e p="OutputHtml.html" t="Include" />
         <e p="Parser" t="Include">
           <e p="Documo.interp" t="Include" />
           <e p="Documo.tokens" t="Include" />
@@ -31,7 +33,9 @@
           <e p="JsonDataExtractor.cs" t="Include" />
         </e>
         <e p="Strategies" t="Include">
-          <e p="IGetJsonDataStrategy.cs" t="Include" />
+          <e p="IProcessPlaceholder.cs" t="Include" />
+          <e p="ProcessObjectPlaceholder.cs" t="Include" />
+          <e p="ProcessRepeatingSectonPlaceholders.cs" t="Include" />
         </e>
         <e p="Visitor" t="Include">
           <e p="DocumentPlaceholder.cs" t="Include" />

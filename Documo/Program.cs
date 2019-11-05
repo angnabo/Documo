@@ -15,13 +15,14 @@ namespace Documo
 
             var json = new
             {
-                                        Address = new
-                        {
-                            AddressLine1 = "123 Street",
-                            AddressLine2 = "Leeds",
-                            Postcode = "LS1 2AB"
-                        },
-                        FullName = "Angelica N",
+                Address = new
+                {
+                    AddressLine1 = "456 Flat",
+                    AddressLine2 = "123 Street",
+                    AddressLine3 = "Leeds",
+                    Postcode = "LS1 2AB"
+                },
+                FullName = "Angelica N",
                 Services = new []
                 {
                     new {

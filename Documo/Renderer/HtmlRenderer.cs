@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Antlr4.Runtime;
 using Documo.Services;
 using Documo.Strategies;
@@ -26,17 +28,28 @@ namespace Documo.Renderer
                 var doc = new HtmlDocument();
                 doc.Load("/home/angelica/RiderProjects/Documo/Documo/NewFile1.html");
 
-                var placeholderNodes = HtmlNodeExtractor.ExtractNodeOuterHtml(doc, "//p[@class='placeholder']");
-                var input = string.Join("", placeholderNodes);
+                var placeholders = HtmlNodeExtractor.ExtractNodeOuterHtml(doc, "//p[@class='placeholder']");
+                var input = string.Join("", placeholders);
                 var antlrService = new AntlrService();
-                var placeholders = antlrService.Parse(input);
+                var parsedPlaceholders = antlrService.Parse(input);
                 
 
-                foreach (var placeholder in placeholders)
+                foreach (var placeholder in parsedPlaceholders)
                 {                    
-                    var strategy = _placeholderStrategies.Single(x => x.AppliesTo(placeholder));
-                    strategy.ProcessPlaceholders(doc, placeholder, jsonData);
+                    var strategy = _placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));
+                    
+                    var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.GetPlaceholder());
+                    
+                    if (placeholderNodes == null) continue;
+                    
+                    foreach (var node in placeholderNodes)
+                    {
+                        var n = HtmlNodeExtractor.SelectSinglePlaceholderNode(doc, placeholder.GetPlaceholder());
+                        var newNode = strategy?.ProcessPlaceholders(node.Clone(), placeholder, jsonData);
+                        n.ParentNode.ReplaceChild(newNode, n);
+                    }
                 }
+                doc.Save("/home/angelica/RiderProjects/Documo/Documo/OutputHtml.html");
             }
             catch (Exception ex)
             {
