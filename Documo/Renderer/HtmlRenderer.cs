@@ -18,7 +18,7 @@ namespace Documo.Renderer
         public HtmlRenderer()
         {
             _placeholderStrategies.Add(new ProcessObjectPlaceholder());
-
+            _placeholderStrategies.Add(new ProcessRepeatingSectionPlaceholders());
         }
 
         public void Render(object jsonData)
@@ -33,21 +33,15 @@ namespace Documo.Renderer
                 var antlrService = new AntlrService();
                 var parsedPlaceholders = antlrService.Parse(input);
                 
-
                 foreach (var placeholder in parsedPlaceholders)
-                {                    
-                    var strategy = _placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));
-                    
+                {  
                     var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.GetPlaceholder());
                     
                     if (placeholderNodes == null) continue;
                     
-                    foreach (var node in placeholderNodes)
-                    {
-                        var n = HtmlNodeExtractor.SelectSinglePlaceholderNode(doc, placeholder.GetPlaceholder());
-                        var newNode = strategy?.ProcessPlaceholders(node.Clone(), placeholder, jsonData);
-                        n.ParentNode.ReplaceChild(newNode, n);
-                    }
+                        var strategy = _placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));
+                        strategy?.ProcessPlaceholders(doc, placeholder, jsonData);
+                    
                 }
                 doc.Save("/home/angelica/RiderProjects/Documo/Documo/OutputHtml.html");
             }

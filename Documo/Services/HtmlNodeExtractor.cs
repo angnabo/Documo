@@ -9,7 +9,8 @@ namespace Documo.Services
         public static IEnumerable<string> ExtractNodeOuterHtml(HtmlDocument doc, string htmlNode)
         {
             var nodes = doc.DocumentNode.SelectNodes(htmlNode);
-            return nodes.Select(x => x.OuterHtml);
+
+            return nodes != null ? nodes.Select(x => x.OuterHtml) : new string[]{};
         }
         
         public static IEnumerable<HtmlNode> SelectPlaceholderNodes(HtmlDocument doc, string placeholderName)

@@ -4,12 +4,13 @@ namespace Documo.Visitor
 {
     public abstract class DocumentPlaceholder
     {
+        public abstract string ObjectName { set; get; }
         public abstract string GetPlaceholder();
     }
     
     public class DocumentObject : DocumentPlaceholder
     {
-        public string ObjectName { set; get; }
+        public override string ObjectName { set; get; }
         public string ObjectField { set; get; }
 
         public override string GetPlaceholder()
@@ -20,13 +21,18 @@ namespace Documo.Visitor
 
     public class RepeatingSection : DocumentPlaceholder
     {
-        public string ObjectName { set; get; }
+        public override string ObjectName { set; get; }
         
         public List<DocumentObject> DocumentObject = new List<DocumentObject>();
         
         public override string GetPlaceholder()
         {
-            return $"{ObjectName}";
+            return $"rs_{ObjectName}";
+        }
+        
+        public string GetEndPlaceholder()
+        {
+            return $"es_{ObjectName}";
         }
     }
 }

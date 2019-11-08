@@ -13,10 +13,18 @@ namespace Documo.Strategies
             return placeholder.GetType() == typeof(DocumentObject);
         }
 
-        public HtmlNode ProcessPlaceholders(HtmlNode node, DocumentPlaceholder placeholder, object jsonData)
+        public void ProcessPlaceholders(HtmlDocument doc, DocumentPlaceholder placeholder, object jsonData)
         {
                 var value = GetValue((DocumentObject)placeholder, jsonData);
-                return HtmlNodeProcessor.ProcessPlaceholderNode(node, value);
+                
+                var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.GetPlaceholder());
+                    
+                if (placeholderNodes == null) return;
+                
+                foreach (var node in placeholderNodes)
+                {
+                    HtmlNodeProcessor.ProcessPlaceholderNode(node, value);
+                }
         }
 
         private string GetValue(DocumentObject placeholder, object jsonData){
@@ -33,5 +41,8 @@ namespace Documo.Strategies
 
             return propertyValue?.ToString();
         }
+
     }
+    
+    
 }

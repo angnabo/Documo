@@ -35,7 +35,7 @@
         <e p="Strategies" t="Include">
           <e p="IProcessPlaceholder.cs" t="Include" />
           <e p="ProcessObjectPlaceholder.cs" t="Include" />
-          <e p="ProcessRepeatingSectonPlaceholders.cs" t="Include" />
+          <e p="ProcessRepeatingSectionPlaceholders.cs" t="Include" />
         </e>
         <e p="Visitor" t="Include">
           <e p="DocumentPlaceholder.cs" t="Include" />
