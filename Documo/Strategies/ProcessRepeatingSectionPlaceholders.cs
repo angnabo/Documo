@@ -1,7 +1,5 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
 using Documo.Services;
 using Documo.Visitor;
 using HtmlAgilityPack;
@@ -11,7 +9,7 @@ namespace Documo.Strategies
 {
     public class ProcessRepeatingSectionPlaceholders : IProcessPlaceholder
     {
-        private List<IProcessPlaceholder> _placeholderStrategies = new List<IProcessPlaceholder>();
+        private readonly List<IProcessPlaceholder> _placeholderStrategies = new List<IProcessPlaceholder>();
         public ProcessRepeatingSectionPlaceholders()
         {
             _placeholderStrategies.Add(new ProcessObjectPlaceholder());
@@ -32,19 +30,20 @@ namespace Documo.Strategies
             
             var htmlNodeCollection = new HtmlNodeCollection(startNode.ParentNode);
 
-            HtmlNode nextNode = startNode.NextSibling;
+            var nextNode = startNode.NextSibling;
             
             //get html between start and end node
             while (nextNode?.OuterHtml != endNode.OuterHtml)
             {
                 htmlNodeCollection.Add(nextNode);
+
                 nextNode = nextNode?.NextSibling;
             }
             
             var resolver = new Resolver();
             var array = (object[])resolver.Resolve(jsonData, placeholder.ObjectName); //services array
 
-            for (var i = 0; i < array.Count(); i++)
+            for (var i = 0; i < array.Length; i++)
             {
                 foreach (var htmlNode in htmlNodeCollection)
                 {
@@ -59,13 +58,9 @@ namespace Documo.Strategies
                     foreach (var p in parsedPlaceholders)
                     {  
                         var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderNodes(nodeDoc, p.GetPlaceholder());
-                        var d = nodeDoc.DocumentNode;
-                        var g = d.SelectNodes($"//p[@class='placeholder' and . = '{p.GetPlaceholder()}']");
+                        
                         if (placeholderNodes == null) continue;
-
-                        var objectAccessString = $"{placeholder.ObjectName}.{p.ObjectName}"; //[].name
-                        var value = array[i].GetType()?.GetProperty(p.ObjectName)?.GetValue(array[i], null).ToString(); //[].name
-
+                        
                         foreach (var placeholderNode in placeholderNodes)
                         {
                             if (AppliesTo(p))
@@ -74,22 +69,25 @@ namespace Documo.Strategies
                             }
                             else
                             {
-                                var newNode = HtmlNodeProcessor.ProcessPlaceholderNode(placeholderNode, value);
-                                //placeholderNode.ParentNode.ReplaceChild(newNode, placeholderNode);
+                                var value = resolver.Resolve(array, $"[{i}].{p.ObjectName}").ToString();
+                                HtmlNodeProcessor.ProcessPlaceholderNode(placeholderNode, value);
                             }
                         }
                     }
 
                     var n = HtmlNode.CreateNode(nodeDoc.DocumentNode.OuterHtml);
-                    doc.DocumentNode.InsertAfter(n, startNode);
+                    var d = endNode.ParentNode.ChildNodes[endNode];
+                    Console.WriteLine("Processing: " + n.OuterHtml + ", " + n.InnerHtml + ", " + n.InnerText);
+                    
+                    endNode.ParentNode.InsertAfter(n, endNode);
                 }
 
             }
-            doc.DocumentNode.RemoveChild(startNode);
-            doc.DocumentNode.RemoveChild(endNode);
+            startNode.ParentNode.RemoveChild(startNode);
+            endNode.ParentNode.RemoveChild(endNode);
             foreach (var h in htmlNodeCollection)
             {
-                doc.DocumentNode.RemoveChild(h);
+                h.ParentNode.RemoveChild(h);
             }
         }
 
