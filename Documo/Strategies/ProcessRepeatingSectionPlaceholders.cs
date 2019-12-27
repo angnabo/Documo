@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using AngleSharp;
+using AngleSharp.Dom;
+using AngleSharp.Html.Parser;
 using Documo.Services;
 using Documo.Visitor;
-using HtmlAgilityPack;
 using Pather.CSharp;
 
 namespace Documo.Strategies
@@ -20,24 +23,29 @@ namespace Documo.Strategies
             return placeholder.GetType() == typeof(RepeatingSection);
         }
 
-        public void ProcessPlaceholders(HtmlDocument doc, DocumentPlaceholder placeholder, object jsonData)
+        public void ProcessPlaceholders(IDocument doc, DocumentPlaceholder placeholder, object jsonData)
         {
             //get repeating section start node
             //get repeating section end node
             var repeatingSectionPlaceholder = (RepeatingSection) placeholder;
-            var startNode = HtmlNodeExtractor.SelectSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetPlaceholder());
-            var endNode = HtmlNodeExtractor.SelectSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
+            var startNode = doc.All.Single(x => x.LocalName == "p" 
+                                               && x.ClassList.Contains("placeholder") 
+                                               && x.TextContent == repeatingSectionPlaceholder.GetPlaceholder());
+            var endNode = doc.All.Single(x => x.LocalName == "p" 
+                                               && x.ClassList.Contains("placeholder") 
+                                               && x.TextContent == repeatingSectionPlaceholder.GetEndPlaceholder());
             
-            var htmlNodeCollection = new HtmlNodeCollection(startNode.ParentNode);
 
-            var nextNode = startNode.NextSibling;
+            var nodes = new List<IElement>();
+
+            var nextNode = startNode.NextElementSibling;
             
             //get html between start and end node
             while (nextNode?.OuterHtml != endNode.OuterHtml)
             {
-                htmlNodeCollection.Add(nextNode);
+                nodes.Add(nextNode);
 
-                nextNode = nextNode?.NextSibling;
+                nextNode = nextNode?.NextElementSibling;
             }
             
             var resolver = new Resolver();
@@ -45,21 +53,26 @@ namespace Documo.Strategies
 
             for (var i = 0; i < array.Length; i++)
             {
-                foreach (var htmlNode in htmlNodeCollection)
+                foreach (var htmlNode in nodes)
                 {
-                    var nodeDoc = new HtmlDocument();
-                    nodeDoc.LoadHtml(htmlNode.OuterHtml);
-                
-                    var placeholders = HtmlNodeExtractor.ExtractNodeOuterHtml(nodeDoc, "//p[@class='placeholder']");
+                    var config = Configuration.Default;
+                    var context = BrowsingContext.New(config);
+                    var parser = context.GetService<IHtmlParser>();
+                    var nodeDoc = parser.ParseDocument(htmlNode.OuterHtml);
+                    var placeholders = doc.All.Where(x => x.LocalName == "p" 
+                                                        && x.ClassList.Contains("placeholder"));
+                    
                     var input = string.Join("", placeholders);
                     var antlrService = new AntlrService();
                     var parsedPlaceholders = antlrService.Parse(input); // inner table placeholders
                     
                     foreach (var p in parsedPlaceholders)
                     {  
-                        var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderNodes(nodeDoc, p.GetPlaceholder());
+                        var placeholderNodes = doc.All.Where(x => x.LocalName == "p" 
+                                                            && x.ClassList.Contains("placeholder") 
+                                                            && x.TextContent == p.GetPlaceholder());
                         
-                        if (placeholderNodes == null) continue;
+                        if (!placeholderNodes.Any()) continue;
                         
                         foreach (var placeholderNode in placeholderNodes)
                         {
@@ -70,24 +83,25 @@ namespace Documo.Strategies
                             else
                             {
                                 var value = resolver.Resolve(array, $"[{i}].{p.ObjectName}").ToString();
-                                HtmlNodeProcessor.ProcessPlaceholderNode(placeholderNode, value);
+
+                                placeholderNode.TextContent = value;
                             }
                         }
                     }
 
-                    var n = HtmlNode.CreateNode(nodeDoc.DocumentNode.OuterHtml);
-                    var d = endNode.ParentNode.ChildNodes[endNode];
-                    Console.WriteLine("Processing: " + n.OuterHtml + ", " + n.InnerHtml + ", " + n.InnerText);
+                    //var n = HtmlNode.CreateNode(nodeDoc.ToHtml());
+                    //Console.WriteLine("Processing: " + n.OuterHtml + ", " + n.InnerHtml + ", " + n.InnerText);
                     
-                    endNode.ParentNode.InsertAfter(n, endNode);
+                    endNode.InsertAfter(nodeDoc);
                 }
 
             }
-            startNode.ParentNode.RemoveChild(startNode);
-            endNode.ParentNode.RemoveChild(endNode);
-            foreach (var h in htmlNodeCollection)
+
+            doc.RemoveChild(startNode);
+            doc.RemoveChild(endNode);
+            foreach (var h in nodes)
             {
-                h.ParentNode.RemoveChild(h);
+                doc.RemoveChild(h);
             }
         }
 

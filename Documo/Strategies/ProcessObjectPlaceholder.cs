@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AngleSharp.Dom;
 using Documo.Services;
 using Documo.Visitor;
 using HtmlAgilityPack;
@@ -13,17 +14,19 @@ namespace Documo.Strategies
             return placeholder.GetType() == typeof(DocumentObject);
         }
 
-        public void ProcessPlaceholders(HtmlDocument doc, DocumentPlaceholder placeholder, object jsonData)
+        public void ProcessPlaceholders(IDocument doc, DocumentPlaceholder placeholder, object jsonData)
         {
                 var value = GetValue((DocumentObject)placeholder, jsonData);
                 
-                var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderNodes(doc, placeholder.GetPlaceholder());
+                var placeholderNodes = doc.All.Where(x => x.LocalName == "p" 
+                                                    && x.ClassList.Contains("placeholder") 
+                                                    && x.TextContent == placeholder.GetPlaceholder());
                     
-                if (placeholderNodes == null) return;
+                if (!placeholderNodes.Any()) return;
                 
                 foreach (var node in placeholderNodes)
                 {
-                    HtmlNodeProcessor.ProcessPlaceholderNode(node, value);
+                    node.TextContent = value;
                 }
         }
 
