@@ -39,10 +39,7 @@ namespace Documo.Renderer
                 
                 var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/NewFile1.html");
                 
-
-                //var placeholders = HtmlNodeExtractor.ExtractNodeOuterHtml(doc, "//p[@class='placeholder']");
-                var placeholders = doc.All.Where(x => x.LocalName == "p" && x.ClassList.Contains("placeholder")).Select(x => x.TextContent);
-                
+                var placeholders = doc.QuerySelectorAll("p.placeholder").Select(x => x.OuterHtml);
                 
                 var input = string.Join("", placeholders);
                 var antlrService = new AntlrService();
@@ -50,9 +47,7 @@ namespace Documo.Renderer
                 
                 foreach (var placeholder in parsedPlaceholders)
                 {  
-                    var placeholderNodes = doc.All.Where(x => x.LocalName == "p" 
-                                                              && x.ClassList.Contains("placeholder") 
-                                                              && x.TextContent == placeholder.GetPlaceholder());
+                    var placeholderNodes = doc.QuerySelectorAll("p.placeholder").Where(x => x.TextContent == placeholder.GetPlaceholder());
                     if (!placeholderNodes.Any()) continue;
                     
                     var strategy = _placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));

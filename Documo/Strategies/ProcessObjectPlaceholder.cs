@@ -18,9 +18,7 @@ namespace Documo.Strategies
         {
                 var value = GetValue((DocumentObject)placeholder, jsonData);
                 
-                var placeholderNodes = doc.All.Where(x => x.LocalName == "p" 
-                                                    && x.ClassList.Contains("placeholder") 
-                                                    && x.TextContent == placeholder.GetPlaceholder());
+                var placeholderNodes = doc.QuerySelectorAll("p.placeholder").Where(x => x.TextContent == placeholder.GetPlaceholder());
                     
                 if (!placeholderNodes.Any()) return;
                 
