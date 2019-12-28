@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using Documo.Services;
 using Documo.Visitor;
@@ -23,13 +24,13 @@ namespace Documo.Strategies
             return placeholder.GetType() == typeof(RepeatingSection);
         }
 
-        public void ProcessPlaceholders(IDocument doc, DocumentPlaceholder placeholder, object jsonData)
+        public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
             //get repeating section start node
             //get repeating section end node
             var repeatingSectionPlaceholder = (RepeatingSection) placeholder;
-            var startNode = doc.QuerySelectorAll("p.placeholder").Single(x => x.TextContent == repeatingSectionPlaceholder.GetPlaceholder());
-            var endNode = doc.QuerySelectorAll("p.placeholder").Single(x => x.TextContent == repeatingSectionPlaceholder.GetEndPlaceholder());
+            var startNode = doc.QuerySelectorAll(".placeholder").Single(x => x.GetAttribute("data-placeholder") == repeatingSectionPlaceholder.GetPlaceholder());
+            var endNode = doc.QuerySelectorAll(".placeholder").Single(x => x.GetAttribute("data-placeholder") == repeatingSectionPlaceholder.GetEndPlaceholder());
             
             var nodes = new List<IElement>();
 
@@ -53,8 +54,7 @@ namespace Documo.Strategies
                     var config = Configuration.Default;
                     var context = BrowsingContext.New(config);
                     var parser = context.GetService<IHtmlParser>();
-                    var nodeDoc = parser.ParseDocument(htmlNode.OuterHtml);
-                    var placeholders = nodeDoc.QuerySelectorAll("p.placeholder").Select(x => x.OuterHtml);
+                    var placeholders = htmlNode.QuerySelectorAll(".placeholder").Select(x => x.OuterHtml);
                     
                     var input = string.Join("", placeholders);
                     var antlrService = new AntlrService();
@@ -62,7 +62,7 @@ namespace Documo.Strategies
                     
                     foreach (var p in parsedPlaceholders)
                     {  
-                        var placeholderNodes = nodeDoc.QuerySelectorAll("p.placeholder").Where(x => x.TextContent == p.GetPlaceholder());
+                        var placeholderNodes = htmlNode.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == p.GetPlaceholder());
                         
                         if (!placeholderNodes.Any()) continue;
                         
@@ -70,7 +70,7 @@ namespace Documo.Strategies
                         {
                             if (AppliesTo(p))
                             {
-                                ProcessPlaceholders(nodeDoc, p, jsonData);
+                                ProcessPlaceholders(htmlNode, p, jsonData);
                             }
                             else
                             {
@@ -80,7 +80,8 @@ namespace Documo.Strategies
                             }
                         }
                     }
-                    endNode.InsertAfter(nodeDoc.Body.Children.ToArray());
+
+                    endNode.InsertAfter(htmlNode.Clone());
                 }
 
             }

@@ -36,8 +36,8 @@ public partial class DocumoParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		WORD=1, TEXT=2, WHITESPACE=3, STARTPLACEHOLDER=4, ENDPLACEHOLDER=5, STARTREPEATINGSECTION=6, 
-		ENDREPEATINGSECTION=7, ACCESSOPERATOR=8;
+		WORD=1, WHITESPACE=2, STARTPLACEHOLDER=3, ENDPLACEHOLDER=4, STARTREPEATINGSECTION=5, 
+		ENDREPEATINGSECTION=6, ACCESSOPERATOR=7, RBRAKET=8, LBRAKET=9, QUOTATION=10;
 	public const int
 		RULE_stmt = 0, RULE_placeholder = 1, RULE_repeatingSection = 2, RULE_startRepeatingSection = 3, 
 		RULE_endRepeatingSection = 4, RULE_object = 5, RULE_objectFieldAccess = 6, 
@@ -50,8 +50,8 @@ public partial class DocumoParser : Parser {
 	private static readonly string[] _LiteralNames = {
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, "WORD", "TEXT", "WHITESPACE", "STARTPLACEHOLDER", "ENDPLACEHOLDER", 
-		"STARTREPEATINGSECTION", "ENDREPEATINGSECTION", "ACCESSOPERATOR"
+		null, "WORD", "WHITESPACE", "STARTPLACEHOLDER", "ENDPLACEHOLDER", "STARTREPEATINGSECTION", 
+		"ENDREPEATINGSECTION", "ACCESSOPERATOR", "RBRAKET", "LBRAKET", "QUOTATION"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -150,9 +150,14 @@ public partial class DocumoParser : Parser {
 
 	public partial class PlaceholderContext : ParserRuleContext {
 		public ITerminalNode STARTPLACEHOLDER() { return GetToken(DocumoParser.STARTPLACEHOLDER, 0); }
+		public ITerminalNode[] QUOTATION() { return GetTokens(DocumoParser.QUOTATION); }
+		public ITerminalNode QUOTATION(int i) {
+			return GetToken(DocumoParser.QUOTATION, i);
+		}
 		public ObjectContext @object() {
 			return GetRuleContext<ObjectContext>(0);
 		}
+		public ITerminalNode LBRAKET() { return GetToken(DocumoParser.LBRAKET, 0); }
 		public ITerminalNode ENDPLACEHOLDER() { return GetToken(DocumoParser.ENDPLACEHOLDER, 0); }
 		public RepeatingSectionContext repeatingSection() {
 			return GetRuleContext<RepeatingSectionContext>(0);
@@ -182,21 +187,24 @@ public partial class DocumoParser : Parser {
 		PlaceholderContext _localctx = new PlaceholderContext(Context, State);
 		EnterRule(_localctx, 2, RULE_placeholder);
 		try {
-			State = 30;
+			State = 33;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 25; Match(STARTPLACEHOLDER);
-				State = 26; @object();
-				State = 27; Match(ENDPLACEHOLDER);
+				State = 26; Match(QUOTATION);
+				State = 27; @object();
+				State = 28; Match(QUOTATION);
+				State = 29; Match(LBRAKET);
+				State = 30; Match(ENDPLACEHOLDER);
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 29; repeatingSection();
+				State = 32; repeatingSection();
 				}
 				break;
 			}
@@ -253,8 +261,8 @@ public partial class DocumoParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 32; startRepeatingSection();
-			State = 34;
+			State = 35; startRepeatingSection();
+			State = 37;
 			ErrorHandler.Sync(this);
 			_alt = 1;
 			do {
@@ -262,18 +270,18 @@ public partial class DocumoParser : Parser {
 				case 1:
 					{
 					{
-					State = 33; placeholder();
+					State = 36; placeholder();
 					}
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				State = 36;
+				State = 39;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
-			State = 38; endRepeatingSection();
+			State = 41; endRepeatingSection();
 			}
 		}
 		catch (RecognitionException re) {
@@ -289,10 +297,15 @@ public partial class DocumoParser : Parser {
 
 	public partial class StartRepeatingSectionContext : ParserRuleContext {
 		public ITerminalNode STARTPLACEHOLDER() { return GetToken(DocumoParser.STARTPLACEHOLDER, 0); }
+		public ITerminalNode[] QUOTATION() { return GetTokens(DocumoParser.QUOTATION); }
+		public ITerminalNode QUOTATION(int i) {
+			return GetToken(DocumoParser.QUOTATION, i);
+		}
 		public ITerminalNode STARTREPEATINGSECTION() { return GetToken(DocumoParser.STARTREPEATINGSECTION, 0); }
 		public ObjectContext @object() {
 			return GetRuleContext<ObjectContext>(0);
 		}
+		public ITerminalNode LBRAKET() { return GetToken(DocumoParser.LBRAKET, 0); }
 		public ITerminalNode ENDPLACEHOLDER() { return GetToken(DocumoParser.ENDPLACEHOLDER, 0); }
 		public StartRepeatingSectionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -321,10 +334,13 @@ public partial class DocumoParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 40; Match(STARTPLACEHOLDER);
-			State = 41; Match(STARTREPEATINGSECTION);
-			State = 42; @object();
-			State = 43; Match(ENDPLACEHOLDER);
+			State = 43; Match(STARTPLACEHOLDER);
+			State = 44; Match(QUOTATION);
+			State = 45; Match(STARTREPEATINGSECTION);
+			State = 46; @object();
+			State = 47; Match(QUOTATION);
+			State = 48; Match(LBRAKET);
+			State = 49; Match(ENDPLACEHOLDER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -340,10 +356,15 @@ public partial class DocumoParser : Parser {
 
 	public partial class EndRepeatingSectionContext : ParserRuleContext {
 		public ITerminalNode STARTPLACEHOLDER() { return GetToken(DocumoParser.STARTPLACEHOLDER, 0); }
+		public ITerminalNode[] QUOTATION() { return GetTokens(DocumoParser.QUOTATION); }
+		public ITerminalNode QUOTATION(int i) {
+			return GetToken(DocumoParser.QUOTATION, i);
+		}
 		public ITerminalNode ENDREPEATINGSECTION() { return GetToken(DocumoParser.ENDREPEATINGSECTION, 0); }
 		public ObjectContext @object() {
 			return GetRuleContext<ObjectContext>(0);
 		}
+		public ITerminalNode LBRAKET() { return GetToken(DocumoParser.LBRAKET, 0); }
 		public ITerminalNode ENDPLACEHOLDER() { return GetToken(DocumoParser.ENDPLACEHOLDER, 0); }
 		public EndRepeatingSectionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -372,10 +393,13 @@ public partial class DocumoParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 45; Match(STARTPLACEHOLDER);
-			State = 46; Match(ENDREPEATINGSECTION);
-			State = 47; @object();
-			State = 48; Match(ENDPLACEHOLDER);
+			State = 51; Match(STARTPLACEHOLDER);
+			State = 52; Match(QUOTATION);
+			State = 53; Match(ENDREPEATINGSECTION);
+			State = 54; @object();
+			State = 55; Match(QUOTATION);
+			State = 56; Match(LBRAKET);
+			State = 57; Match(ENDPLACEHOLDER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -421,19 +445,19 @@ public partial class DocumoParser : Parser {
 		ObjectContext _localctx = new ObjectContext(Context, State);
 		EnterRule(_localctx, 10, RULE_object);
 		try {
-			State = 52;
+			State = 61;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,3,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 50; objectFieldAccess();
+				State = 59; objectFieldAccess();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 51; objectName();
+				State = 60; objectName();
 				}
 				break;
 			}
@@ -484,9 +508,9 @@ public partial class DocumoParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 54; objectName();
-			State = 55; Match(ACCESSOPERATOR);
-			State = 56; objectField();
+			State = 63; objectName();
+			State = 64; Match(ACCESSOPERATOR);
+			State = 65; objectField();
 			}
 		}
 		catch (RecognitionException re) {
@@ -529,7 +553,7 @@ public partial class DocumoParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 58; Match(WORD);
+			State = 67; Match(WORD);
 			}
 		}
 		catch (RecognitionException re) {
@@ -572,7 +596,7 @@ public partial class DocumoParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 60; Match(WORD);
+			State = 69; Match(WORD);
 			}
 		}
 		catch (RecognitionException re) {
@@ -588,53 +612,60 @@ public partial class DocumoParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\n', '\x41', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
-		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
-		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
-		'\x4', '\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x3', '\x2', '\x6', 
-		'\x2', '\x16', '\n', '\x2', '\r', '\x2', '\xE', '\x2', '\x17', '\x3', 
-		'\x2', '\x3', '\x2', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', 
-		'\x3', '\x3', '\x3', '\x5', '\x3', '!', '\n', '\x3', '\x3', '\x4', '\x3', 
-		'\x4', '\x6', '\x4', '%', '\n', '\x4', '\r', '\x4', '\xE', '\x4', '&', 
-		'\x3', '\x4', '\x3', '\x4', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', 
-		'\x3', '\x5', '\x3', '\x5', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', 
-		'\x3', '\x6', '\x3', '\x6', '\x3', '\a', '\x3', '\a', '\x5', '\a', '\x37', 
-		'\n', '\a', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', 
-		'\t', '\x3', '\t', '\x3', '\n', '\x3', '\n', '\x3', '\n', '\x2', '\x2', 
-		'\v', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x2', 
-		'\x2', '\x2', ';', '\x2', '\x15', '\x3', '\x2', '\x2', '\x2', '\x4', ' ', 
-		'\x3', '\x2', '\x2', '\x2', '\x6', '\"', '\x3', '\x2', '\x2', '\x2', '\b', 
-		'*', '\x3', '\x2', '\x2', '\x2', '\n', '/', '\x3', '\x2', '\x2', '\x2', 
-		'\f', '\x36', '\x3', '\x2', '\x2', '\x2', '\xE', '\x38', '\x3', '\x2', 
-		'\x2', '\x2', '\x10', '<', '\x3', '\x2', '\x2', '\x2', '\x12', '>', '\x3', 
-		'\x2', '\x2', '\x2', '\x14', '\x16', '\x5', '\x4', '\x3', '\x2', '\x15', 
-		'\x14', '\x3', '\x2', '\x2', '\x2', '\x16', '\x17', '\x3', '\x2', '\x2', 
-		'\x2', '\x17', '\x15', '\x3', '\x2', '\x2', '\x2', '\x17', '\x18', '\x3', 
-		'\x2', '\x2', '\x2', '\x18', '\x19', '\x3', '\x2', '\x2', '\x2', '\x19', 
-		'\x1A', '\a', '\x2', '\x2', '\x3', '\x1A', '\x3', '\x3', '\x2', '\x2', 
-		'\x2', '\x1B', '\x1C', '\a', '\x6', '\x2', '\x2', '\x1C', '\x1D', '\x5', 
-		'\f', '\a', '\x2', '\x1D', '\x1E', '\a', '\a', '\x2', '\x2', '\x1E', '!', 
-		'\x3', '\x2', '\x2', '\x2', '\x1F', '!', '\x5', '\x6', '\x4', '\x2', ' ', 
-		'\x1B', '\x3', '\x2', '\x2', '\x2', ' ', '\x1F', '\x3', '\x2', '\x2', 
-		'\x2', '!', '\x5', '\x3', '\x2', '\x2', '\x2', '\"', '$', '\x5', '\b', 
-		'\x5', '\x2', '#', '%', '\x5', '\x4', '\x3', '\x2', '$', '#', '\x3', '\x2', 
-		'\x2', '\x2', '%', '&', '\x3', '\x2', '\x2', '\x2', '&', '$', '\x3', '\x2', 
-		'\x2', '\x2', '&', '\'', '\x3', '\x2', '\x2', '\x2', '\'', '(', '\x3', 
-		'\x2', '\x2', '\x2', '(', ')', '\x5', '\n', '\x6', '\x2', ')', '\a', '\x3', 
-		'\x2', '\x2', '\x2', '*', '+', '\a', '\x6', '\x2', '\x2', '+', ',', '\a', 
-		'\b', '\x2', '\x2', ',', '-', '\x5', '\f', '\a', '\x2', '-', '.', '\a', 
-		'\a', '\x2', '\x2', '.', '\t', '\x3', '\x2', '\x2', '\x2', '/', '\x30', 
-		'\a', '\x6', '\x2', '\x2', '\x30', '\x31', '\a', '\t', '\x2', '\x2', '\x31', 
-		'\x32', '\x5', '\f', '\a', '\x2', '\x32', '\x33', '\a', '\a', '\x2', '\x2', 
-		'\x33', '\v', '\x3', '\x2', '\x2', '\x2', '\x34', '\x37', '\x5', '\xE', 
-		'\b', '\x2', '\x35', '\x37', '\x5', '\x10', '\t', '\x2', '\x36', '\x34', 
-		'\x3', '\x2', '\x2', '\x2', '\x36', '\x35', '\x3', '\x2', '\x2', '\x2', 
-		'\x37', '\r', '\x3', '\x2', '\x2', '\x2', '\x38', '\x39', '\x5', '\x10', 
-		'\t', '\x2', '\x39', ':', '\a', '\n', '\x2', '\x2', ':', ';', '\x5', '\x12', 
-		'\n', '\x2', ';', '\xF', '\x3', '\x2', '\x2', '\x2', '<', '=', '\a', '\x3', 
-		'\x2', '\x2', '=', '\x11', '\x3', '\x2', '\x2', '\x2', '>', '?', '\a', 
-		'\x3', '\x2', '\x2', '?', '\x13', '\x3', '\x2', '\x2', '\x2', '\x6', '\x17', 
-		' ', '&', '\x36',
+		'\x5964', '\x3', '\f', 'J', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', '\t', 
+		'\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', '\x6', 
+		'\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', '\x4', 
+		'\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x3', '\x2', '\x6', '\x2', 
+		'\x16', '\n', '\x2', '\r', '\x2', '\xE', '\x2', '\x17', '\x3', '\x2', 
+		'\x3', '\x2', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', 
+		'\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x5', '\x3', 
+		'$', '\n', '\x3', '\x3', '\x4', '\x3', '\x4', '\x6', '\x4', '(', '\n', 
+		'\x4', '\r', '\x4', '\xE', '\x4', ')', '\x3', '\x4', '\x3', '\x4', '\x3', 
+		'\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', 
+		'\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x6', '\x3', '\x6', '\x3', 
+		'\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', 
+		'\x6', '\x3', '\a', '\x3', '\a', '\x5', '\a', '@', '\n', '\a', '\x3', 
+		'\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\t', '\x3', '\t', 
+		'\x3', '\n', '\x3', '\n', '\x3', '\n', '\x2', '\x2', '\v', '\x2', '\x4', 
+		'\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x2', '\x2', '\x2', '\x44', 
+		'\x2', '\x15', '\x3', '\x2', '\x2', '\x2', '\x4', '#', '\x3', '\x2', '\x2', 
+		'\x2', '\x6', '%', '\x3', '\x2', '\x2', '\x2', '\b', '-', '\x3', '\x2', 
+		'\x2', '\x2', '\n', '\x35', '\x3', '\x2', '\x2', '\x2', '\f', '?', '\x3', 
+		'\x2', '\x2', '\x2', '\xE', '\x41', '\x3', '\x2', '\x2', '\x2', '\x10', 
+		'\x45', '\x3', '\x2', '\x2', '\x2', '\x12', 'G', '\x3', '\x2', '\x2', 
+		'\x2', '\x14', '\x16', '\x5', '\x4', '\x3', '\x2', '\x15', '\x14', '\x3', 
+		'\x2', '\x2', '\x2', '\x16', '\x17', '\x3', '\x2', '\x2', '\x2', '\x17', 
+		'\x15', '\x3', '\x2', '\x2', '\x2', '\x17', '\x18', '\x3', '\x2', '\x2', 
+		'\x2', '\x18', '\x19', '\x3', '\x2', '\x2', '\x2', '\x19', '\x1A', '\a', 
+		'\x2', '\x2', '\x3', '\x1A', '\x3', '\x3', '\x2', '\x2', '\x2', '\x1B', 
+		'\x1C', '\a', '\x5', '\x2', '\x2', '\x1C', '\x1D', '\a', '\f', '\x2', 
+		'\x2', '\x1D', '\x1E', '\x5', '\f', '\a', '\x2', '\x1E', '\x1F', '\a', 
+		'\f', '\x2', '\x2', '\x1F', ' ', '\a', '\v', '\x2', '\x2', ' ', '!', '\a', 
+		'\x6', '\x2', '\x2', '!', '$', '\x3', '\x2', '\x2', '\x2', '\"', '$', 
+		'\x5', '\x6', '\x4', '\x2', '#', '\x1B', '\x3', '\x2', '\x2', '\x2', '#', 
+		'\"', '\x3', '\x2', '\x2', '\x2', '$', '\x5', '\x3', '\x2', '\x2', '\x2', 
+		'%', '\'', '\x5', '\b', '\x5', '\x2', '&', '(', '\x5', '\x4', '\x3', '\x2', 
+		'\'', '&', '\x3', '\x2', '\x2', '\x2', '(', ')', '\x3', '\x2', '\x2', 
+		'\x2', ')', '\'', '\x3', '\x2', '\x2', '\x2', ')', '*', '\x3', '\x2', 
+		'\x2', '\x2', '*', '+', '\x3', '\x2', '\x2', '\x2', '+', ',', '\x5', '\n', 
+		'\x6', '\x2', ',', '\a', '\x3', '\x2', '\x2', '\x2', '-', '.', '\a', '\x5', 
+		'\x2', '\x2', '.', '/', '\a', '\f', '\x2', '\x2', '/', '\x30', '\a', '\a', 
+		'\x2', '\x2', '\x30', '\x31', '\x5', '\f', '\a', '\x2', '\x31', '\x32', 
+		'\a', '\f', '\x2', '\x2', '\x32', '\x33', '\a', '\v', '\x2', '\x2', '\x33', 
+		'\x34', '\a', '\x6', '\x2', '\x2', '\x34', '\t', '\x3', '\x2', '\x2', 
+		'\x2', '\x35', '\x36', '\a', '\x5', '\x2', '\x2', '\x36', '\x37', '\a', 
+		'\f', '\x2', '\x2', '\x37', '\x38', '\a', '\b', '\x2', '\x2', '\x38', 
+		'\x39', '\x5', '\f', '\a', '\x2', '\x39', ':', '\a', '\f', '\x2', '\x2', 
+		':', ';', '\a', '\v', '\x2', '\x2', ';', '<', '\a', '\x6', '\x2', '\x2', 
+		'<', '\v', '\x3', '\x2', '\x2', '\x2', '=', '@', '\x5', '\xE', '\b', '\x2', 
+		'>', '@', '\x5', '\x10', '\t', '\x2', '?', '=', '\x3', '\x2', '\x2', '\x2', 
+		'?', '>', '\x3', '\x2', '\x2', '\x2', '@', '\r', '\x3', '\x2', '\x2', 
+		'\x2', '\x41', '\x42', '\x5', '\x10', '\t', '\x2', '\x42', '\x43', '\a', 
+		'\t', '\x2', '\x2', '\x43', '\x44', '\x5', '\x12', '\n', '\x2', '\x44', 
+		'\xF', '\x3', '\x2', '\x2', '\x2', '\x45', '\x46', '\a', '\x3', '\x2', 
+		'\x2', '\x46', '\x11', '\x3', '\x2', '\x2', '\x2', 'G', 'H', '\a', '\x3', 
+		'\x2', '\x2', 'H', '\x13', '\x3', '\x2', '\x2', '\x2', '\x6', '\x17', 
+		'#', ')', '?',
 	};
 
 	public static readonly ATN _ATN =

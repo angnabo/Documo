@@ -9,6 +9,6 @@ namespace Documo.Strategies
     public interface IProcessPlaceholder
     {
         bool AppliesTo(DocumentPlaceholder placeholder);
-        void ProcessPlaceholders(IDocument doc, DocumentPlaceholder placeholder, object jsonData);
+        void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData);
     }
 }

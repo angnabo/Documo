@@ -14,11 +14,11 @@ namespace Documo.Strategies
             return placeholder.GetType() == typeof(DocumentObject);
         }
 
-        public void ProcessPlaceholders(IDocument doc, DocumentPlaceholder placeholder, object jsonData)
+        public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
                 var value = GetValue((DocumentObject)placeholder, jsonData);
                 
-                var placeholderNodes = doc.QuerySelectorAll("p.placeholder").Where(x => x.TextContent == placeholder.GetPlaceholder());
+                var placeholderNodes = doc.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == placeholder.GetPlaceholder());
                     
                 if (!placeholderNodes.Any()) return;
                 

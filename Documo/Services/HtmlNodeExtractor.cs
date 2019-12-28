@@ -15,8 +15,10 @@ namespace Documo.Services
         }
         public static string SelectPlaceholders(IDocument doc)
         {
-            var p = doc.QuerySelectorAll("p.placeholder");
-            var placeholders = p.Select(x => x.OuterHtml);
+            var elements = doc.Body.QuerySelectorAll(".placeholder");
+            var placeholders = elements.Select(el => el.OuterHtml.Replace(el.InnerHtml, "")).ToList();
+
+            //var placeholders = p.Select(x => x.OuterHtml);
             return string.Join("", placeholders);
         }
         public static IEnumerable<HtmlNode> SelectPlaceholderElements(HtmlDocument doc, string placeholderName)

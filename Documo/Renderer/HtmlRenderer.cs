@@ -39,20 +39,19 @@ namespace Documo.Renderer
             {
                 
                 var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/NewFile1.html");
+
+                var placeholders = HtmlNodeExtractor.SelectPlaceholders(doc);
                 
-                var placeholders = doc.QuerySelectorAll(".placeholder").Select(x => x.OuterHtml);
-                
-                var input = string.Join("", placeholders);
                 var antlrService = new AntlrService();
-                var parsedPlaceholders = antlrService.Parse(input);
+                var parsedPlaceholders = antlrService.Parse(placeholders);
                 
                 foreach (var placeholder in parsedPlaceholders)
                 {  
-                    var placeholderNodes = doc.QuerySelectorAll("p.placeholder").Where(x => x.TextContent == placeholder.GetPlaceholder());
+                    var placeholderNodes = doc.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == placeholder.GetPlaceholder());
                     if (!placeholderNodes.Any()) continue;
                     
                     var strategy = _placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));
-                    strategy?.ProcessPlaceholders(doc, placeholder, jsonData);
+                    strategy?.ProcessPlaceholders(doc.Body, placeholder, jsonData);
                     
                 }
                 
