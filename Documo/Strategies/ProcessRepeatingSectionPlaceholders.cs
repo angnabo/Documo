@@ -80,21 +80,17 @@ namespace Documo.Strategies
                             }
                         }
                     }
-
-                    //var n = HtmlNode.CreateNode(nodeDoc.ToHtml());
-                    //Console.WriteLine("Processing: " + n.OuterHtml + ", " + n.InnerHtml + ", " + n.InnerText);
-
-                    endNode.AppendNodes(nodeDoc.DocumentElement);
+                    endNode.InsertAfter(nodeDoc.Body.Children.ToArray());
                 }
 
             }
 
-//            startNode.Remove();
-//            endNode.Remove();
-//            foreach (var h in nodes)
-//            {
-//                h.Remove();
-//            }
+            startNode.Remove();
+            endNode.Remove();
+            foreach (var h in nodes)
+            {
+                h.Remove();
+            }
         }
 
 

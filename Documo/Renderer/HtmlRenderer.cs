@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Html;
 using Antlr4.Runtime;
 using Documo.Services;
 using Documo.Strategies;
@@ -39,7 +40,7 @@ namespace Documo.Renderer
                 
                 var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/NewFile1.html");
                 
-                var placeholders = doc.QuerySelectorAll("p.placeholder").Select(x => x.OuterHtml);
+                var placeholders = doc.QuerySelectorAll(".placeholder").Select(x => x.OuterHtml);
                 
                 var input = string.Join("", placeholders);
                 var antlrService = new AntlrService();
@@ -54,8 +55,11 @@ namespace Documo.Renderer
                     strategy?.ProcessPlaceholders(doc, placeholder, jsonData);
                     
                 }
+                
+                var sw = new StringWriter();
+                doc.ToHtml(sw, new PrettyMarkupFormatter());
 
-                File.WriteAllText("/home/angelica/RiderProjects/Documo/Documo/OutputHtml.html", doc.DocumentElement.OuterHtml);
+                File.WriteAllText("/home/angelica/RiderProjects/Documo/Documo/OutputHtml.html", sw.ToString());
                 
             }
             catch (Exception ex)

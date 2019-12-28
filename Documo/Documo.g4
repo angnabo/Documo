@@ -2,8 +2,8 @@ grammar Documo;
 /*
  * Parser Rules
  */
-stmt                : placeholder+ EOF;
-placeholder         : STARTPLACEHOLDER object ENDPLACEHOLDER | repeatingSection ;
+stmt                : placeholder + EOF;
+placeholder         : STARTPLACEHOLDER QUOTATION object QUOTATION LBRAKET MAYBEWORD ENDPLACEHOLDER | repeatingSection ;
 repeatingSection    : startRepeatingSection placeholder+ endRepeatingSection;
 startRepeatingSection : STARTPLACEHOLDER STARTREPEATINGSECTION object ENDPLACEHOLDER;
 endRepeatingSection : STARTPLACEHOLDER ENDREPEATINGSECTION object ENDPLACEHOLDER;
@@ -23,10 +23,14 @@ fragment LOWERCASE  : [a-z] ;
 fragment UPPERCASE  : [A-Z] ;
 fragment DIGIT      : [0-9] ;
 WORD                : (LOWERCASE | UPPERCASE | DIGIT)+ ;
-TEXT                : '"' .*? '"' ;
+MAYBEWORD           : (LOWERCASE | UPPERCASE | DIGIT)* ;
+TEXT                : '"' WORD '"' ;
 WHITESPACE          : (' '|'\t')+ -> skip ;
-STARTPLACEHOLDER    : ('<p class="placeholder">');
-ENDPLACEHOLDER      : ('</p>'); 
+STARTPLACEHOLDER    : ('<'+WORD+' class="placeholder" data-placeholder=');
+ENDPLACEHOLDER      : ('</'+WORD+'>'); 
 STARTREPEATINGSECTION    : ('rs_');
 ENDREPEATINGSECTION      : ('es_'); 
 ACCESSOPERATOR      : ('.'); 
+RBRAKET             : ('<'); 
+LBRAKET             : ('>'); 
+QUOTATION           : ('"'); 
