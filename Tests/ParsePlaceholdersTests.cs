@@ -32,7 +32,7 @@ namespace Tests
 
             var document = parser.ParseDocument(html);
             
-            var placeholders = HtmlNodeExtractor.SelectPlaceholders(document);
+            var placeholders = HtmlNodeExtractor.GetAllPlaceholders(document);
             
             Assert.Equal(expectedPlaceholders, placeholders);
         }

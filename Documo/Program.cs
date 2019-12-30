@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Linq;
-using Antlr4.Runtime;
 using Documo.Renderer;
-using Documo.Visitor;
-using HtmlAgilityPack;
 
 namespace Documo
 {
@@ -26,19 +22,44 @@ namespace Documo
                 CreatedDate = new DateTime(2019, 01, 12),
                 DueDate = new DateTime(2020, 01, 12),
                 InvoiceNumber = 56998735,
+                Payments = new []
+                {
+                    new
+                    {
+                        Name = "Payment 1",
+                        Amount = 50.0m
+                    },
+                    new
+                    {
+                        Name = "Payment 2",
+                        Amount = 20.0m
+                    }
+                },
                 Services = new []
                 {
                     new {
                         Name = "Paint",
-                        Cost = 87.89m
+                        Cost = new
+                        {
+                            Net = 85.3m,
+                            Vat = 5.25m
+                        }
                     },
                     new {
                         Name = "Window Replacement",
-                        Cost = 34.2m
+                        Cost = new
+                        {
+                            Net = 42.3m,
+                            Vat = 3.25m
+                        }
                     },
                     new {
                         Name = "Lightbulbs",
-                        Cost = 34.2m
+                        Cost = new
+                        {
+                            Net = 63.7m,
+                            Vat = 6.34m
+                        }
                     },
                 }
             };

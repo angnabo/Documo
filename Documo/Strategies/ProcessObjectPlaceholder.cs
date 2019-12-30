@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Dom;
 using Documo.Services;
 using Documo.Visitor;
-using HtmlAgilityPack;
+using Pather.CSharp;
 
 namespace Documo.Strategies
 {
@@ -16,34 +15,16 @@ namespace Documo.Strategies
 
         public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
-                var value = GetValue((DocumentObject)placeholder, jsonData);
-                
-                var placeholderNodes = doc.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == placeholder.GetPlaceholder());
-                    
-                if (!placeholderNodes.Any()) return;
-                
-                foreach (var node in placeholderNodes)
-                {
-                    node.TextContent = value;
-                }
-        }
+            var value = JsonResolver.Resolve(jsonData, placeholder.GetPlaceholder());
 
-        private string GetValue(DocumentObject placeholder, object jsonData){
-            var jsonType = jsonData.GetType();
-            var property = jsonType.GetProperty(placeholder.ObjectName);
-            var propertyValue = property.GetValue(jsonData, null);
-
-            if (placeholder.ObjectField != null)
+            var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(doc, placeholder.GetPlaceholder()).ToArray();
+                
+            if (!placeholderNodes.Any()) return;
+            
+            foreach (var node in placeholderNodes)
             {
-                var propertyValueType = propertyValue?.GetType();
-                var memberProperty = propertyValueType?.GetProperty(placeholder.ObjectField);
-                propertyValue = memberProperty?.GetValue(propertyValue, null); 
+                node.TextContent = value.ToString();
             }
-
-            return propertyValue?.ToString();
         }
-
     }
-    
-    
 }

@@ -37,9 +37,14 @@
           <e p="HtmlNodeExtractor.cs" t="Include" />
           <e p="HtmlNodeProcessor.cs" t="Include" />
           <e p="JsonDataExtractor.cs" t="Include" />
+          <e p="JsonResolver.cs" t="Include" />
         </e>
         <e p="Strategies" t="Include">
+          <e p="IPlaceholderProcessor.cs" t="Include" />
           <e p="IProcessPlaceholder.cs" t="Include" />
+          <e p="PlaceholderProcessor.cs" t="Include" />
+          <e p="PlaceholderStrategies.cs" t="Include" />
+          <e p="ProcessArrayAccessPlaceholder.cs" t="Include" />
           <e p="ProcessObjectPlaceholder.cs" t="Include" />
           <e p="ProcessRepeatingSectionPlaceholders.cs" t="Include" />
         </e>

@@ -1,8 +1,5 @@
-
-using System.Collections.Generic;
 using AngleSharp.Dom;
 using Documo.Visitor;
-using HtmlAgilityPack;
 
 namespace Documo.Strategies
 {

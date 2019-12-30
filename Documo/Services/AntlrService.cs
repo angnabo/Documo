@@ -6,7 +6,7 @@ namespace Documo.Services
 {
     public class AntlrService
     {
-        public IEnumerable<DocumentPlaceholder> Parse(string input)
+        public static IEnumerable<DocumentPlaceholder> Parse(string input)
         {
             var inputStream = new AntlrInputStream(input);
             var documoLexer = new DocumoLexer(inputStream);

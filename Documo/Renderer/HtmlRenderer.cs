@@ -1,28 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Html;
-using Antlr4.Runtime;
 using Documo.Services;
 using Documo.Strategies;
-using Documo.Visitor;
-using HtmlAgilityPack;
 
 namespace Documo.Renderer
 {
     public class HtmlRenderer
     {
-        private List<IProcessPlaceholder> _placeholderStrategies = new List<IProcessPlaceholder>();
+        private readonly IPlaceholderProcessor _placeholderProcessor;
         public HtmlRenderer()
         {
-            _placeholderStrategies.Add(new ProcessObjectPlaceholder());
-            _placeholderStrategies.Add(new ProcessRepeatingSectionPlaceholders());
+            _placeholderProcessor = new PlaceholderProcessor();
         }
 
         public async Task<IDocument> openDocument(string path)
@@ -40,19 +33,15 @@ namespace Documo.Renderer
                 
                 var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/sample_template.html");
 
-                var placeholders = HtmlNodeExtractor.SelectPlaceholders(doc);
-                
-                var antlrService = new AntlrService();
-                var parsedPlaceholders = antlrService.Parse(placeholders);
+                var placeholders = HtmlNodeExtractor.GetAllPlaceholders(doc);
+                var parsedPlaceholders = AntlrService.Parse(placeholders);
                 
                 foreach (var placeholder in parsedPlaceholders)
                 {  
-                    var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderElements(doc.Body, placeholder.GetPlaceholder());
+                    var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(doc.Body, placeholder.GetPlaceholder());
                     if (!placeholderNodes.Any()) continue;
                     
-                    var strategy = _placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));
-                    strategy?.ProcessPlaceholders(doc.Body, placeholder, jsonData);
-                    
+                    _placeholderProcessor.Process(doc.Body, placeholder, jsonData);
                 }
                 
                 var sw = new StringWriter();

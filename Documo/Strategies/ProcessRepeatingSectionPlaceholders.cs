@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using AngleSharp;
 using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
-using AngleSharp.Html.Parser;
 using Documo.Services;
 using Documo.Visitor;
 using Pather.CSharp;
@@ -13,51 +9,42 @@ namespace Documo.Strategies
 {
     public class ProcessRepeatingSectionPlaceholders : IProcessPlaceholder
     {
-        private readonly List<IProcessPlaceholder> _placeholderStrategies = new List<IProcessPlaceholder>();
+        private readonly IPlaceholderProcessor _placeholderProcessor;
         public ProcessRepeatingSectionPlaceholders()
         {
-            _placeholderStrategies.Add(new ProcessObjectPlaceholder());
+            _placeholderProcessor = new PlaceholderProcessor();
         }
         
         public bool AppliesTo(DocumentPlaceholder placeholder)
         {
             return placeholder.GetType() == typeof(RepeatingSection);
         }
-
+        
+        //TODO break down
         public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
             var repeatingSectionPlaceholder = (RepeatingSection) placeholder;
-            var startNode = HtmlNodeExtractor.SelectSinglePlaceholderElements(doc, repeatingSectionPlaceholder.GetPlaceholder());
-            var endNode = HtmlNodeExtractor.SelectSinglePlaceholderElements(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
-            
-            var nodes = new List<IElement>();
+            var startNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetPlaceholder());
+            var endNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
 
-            var nextNode = startNode.NextElementSibling;
-            
-            //get html between start and end node
-            while (nextNode?.OuterHtml != endNode.OuterHtml)
-            {
-                nodes.Add(nextNode);
-
-                nextNode = nextNode?.NextElementSibling;
-            }
+            var nodes = GetNodesBetweenStartAndEnd(startNode, endNode).ToArray();
             
             var resolver = new Resolver();
-            var array = (object[])resolver.Resolve(jsonData, placeholder.ObjectName); //services array
+            var array = (object[])resolver.Resolve(jsonData, placeholder.ObjectName);
 
             for (var i = 0; i < array.Length; i++)
             {
                 foreach (var htmlNode in nodes)
                 {
-                    var placeholders = HtmlNodeExtractor.SelectPlaceholderElements(htmlNode).Select(x => x.OuterHtml);
+                    var placeholders = HtmlNodeExtractor.GetPlaceholderNodes(htmlNode).Select(x => x.OuterHtml);
                     
                     var input = string.Join("", placeholders);
-                    var antlrService = new AntlrService();
-                    var parsedPlaceholders = antlrService.Parse(input); // inner table placeholders
+                    
+                    var parsedPlaceholders = AntlrService.Parse(input); // inner table placeholders
                     
                     foreach (var p in parsedPlaceholders)
                     {  
-                        var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderElements(htmlNode, p.GetPlaceholder()).ToArray();
+                        var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(htmlNode, p.GetPlaceholder()).ToArray();
                         
                         if (!placeholderNodes.Any()) continue;
                         
@@ -69,9 +56,9 @@ namespace Documo.Strategies
                             }
                             else
                             {
-                                var value = resolver.Resolve(array, $"[{i}].{p.ObjectName}").ToString();
+                                var value = JsonResolver.Resolve(array, $"[{i}].{p.GetPlaceholder()}");
                                 placeholderNode.TextContent = value;
-                            }
+                            }  
                         }
                     }
 
@@ -90,6 +77,22 @@ namespace Documo.Strategies
             
         private void removePlaceholderNodes(IElement doc){
     
+        }
+
+        private IEnumerable<IElement> GetNodesBetweenStartAndEnd(IElement startNode, IElement endNode)
+        {
+            var nodes = new List<IElement>();
+
+            var nextNode = startNode.NextElementSibling;
+            
+            //get html between start and end node
+            while (nextNode?.OuterHtml != endNode.OuterHtml)
+            {
+                nodes.Add(nextNode);
+                nextNode = nextNode?.NextElementSibling;
+            }
+
+            return nodes;
         }
     }
 
