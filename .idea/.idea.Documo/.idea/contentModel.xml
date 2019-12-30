@@ -10,10 +10,32 @@
     <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.dll" t="Include" />
     <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="API" t="IncludeRecursive">
+        <e p="API.csproj" t="IncludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="RenderPdf.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="API.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
       <e p="Documo" t="IncludeRecursive">
         <e p="Documo.csproj" t="IncludeRecursive" />
         <e p="Documo.g4" t="Include" />
         <e p="OutputHtml.html" t="Include" />
+        <e p="OutputPdf.pdf" t="Include" />
         <e p="Parser" t="Include">
           <e p="Documo.interp" t="Include" />
           <e p="Documo.tokens" t="Include" />
@@ -29,13 +51,13 @@
         <e p="Program.cs" t="Include" />
         <e p="Renderer" t="Include">
           <e p="HtmlRenderer.cs" t="Include" />
+          <e p="PdfRenderer.cs" t="Include" />
         </e>
         <e p="Repeating_Row_Template.html" t="Include" />
         <e p="Repeating_Table_Template.html" t="Include" />
         <e p="Services" t="Include">
           <e p="AntlrService.cs" t="Include" />
           <e p="HtmlNodeExtractor.cs" t="Include" />
-          <e p="HtmlNodeProcessor.cs" t="Include" />
           <e p="JsonDataExtractor.cs" t="Include" />
           <e p="JsonResolver.cs" t="Include" />
         </e>

@@ -26,11 +26,11 @@ namespace Documo.Renderer
             return await context.OpenAsync(req => req.Content(file));
         }
 
-        public async void Render(object jsonData)
+        public async Task<string> Render(object jsonData)
         {
+            var s = "";
             try
             {
-                
                 var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/sample_template.html");
 
                 var placeholders = HtmlNodeExtractor.GetAllPlaceholders(doc);
@@ -48,12 +48,15 @@ namespace Documo.Renderer
                 doc.ToHtml(sw, new PrettyMarkupFormatter());
 
                 File.WriteAllText("/home/angelica/RiderProjects/Documo/Documo/OutputHtml.html", sw.ToString());
-                
+
+                s =sw.ToString();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex}");
             }
+
+            return s;
         }
     }
 }
