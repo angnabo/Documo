@@ -13,8 +13,6 @@
       <e p="Documo" t="IncludeRecursive">
         <e p="Documo.csproj" t="IncludeRecursive" />
         <e p="Documo.g4" t="Include" />
-        <e p="NewFile1 - Copy.html" t="Include" />
-        <e p="NewFile1.html" t="Include" />
         <e p="OutputHtml.html" t="Include" />
         <e p="Parser" t="Include">
           <e p="Documo.interp" t="Include" />
@@ -32,6 +30,8 @@
         <e p="Renderer" t="Include">
           <e p="HtmlRenderer.cs" t="Include" />
         </e>
+        <e p="Repeating_Row_Template.html" t="Include" />
+        <e p="Repeating_Table_Template.html" t="Include" />
         <e p="Services" t="Include">
           <e p="AntlrService.cs" t="Include" />
           <e p="HtmlNodeExtractor.cs" t="Include" />
@@ -55,6 +55,7 @@
             </e>
           </e>
         </e>
+        <e p="sample_template.html" t="Include" />
         <e p="template.html" t="Include" />
       </e>
       <e p="Documo.sln" t="IncludeFlat" />

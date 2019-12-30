@@ -1,49 +1,188 @@
+<!DOCTYPE html>
 <html>
-	<head></head>
+	<head>
+		<meta charset="utf-8">
+		<title>A simple, clean, and responsive HTML invoice template</title>
+		<style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td{
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+        
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+    
+		</style>
+	</head>
 	<body>
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<p class="placeholder" data-placeholder="Address.AddressLine1">456 Flat</p>
-						<p class="placeholder" data-placeholder="Address.AddressLine2">123 Street</p>
-						<p class="placeholder" data-placeholder="Address.AddressLine3">Leeds</p>
-					</td>
-					<td>
-						<p class="placeholder" data-placeholder="FullName">Angelica N</p>
-						<br>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<table>
-			<tbody>
-				     
-				<tr>
-					<td>
-						<p class="placeholder" data-placeholder="Name">Lightbulbs</p>
-					</td>
-					<td>
-						<p class="placeholder" data-placeholder="Cost">34.2</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p class="placeholder" data-placeholder="Name">Window Replacement</p>
-					</td>
-					<td>
-						<p class="placeholder" data-placeholder="Cost">34.2</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p class="placeholder" data-placeholder="Name">Paint</p>
-					</td>
-					<td>
-						<p class="placeholder" data-placeholder="Cost">87.89</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="invoice-box">
+			<table cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr class="top">
+						<td colspan="2">
+							<table>
+								<tbody>
+									<tr>
+										<td class="title">
+											<img src="https://www.sparksuite.com/images/logo.png" style="width:100%; max-width:300px;">
+										</td>
+										<td>
+											Invoice #:
+											<span class="placeholder" data-placeholder="InvoiceNumber">56998735</span>
+											<br>
+											Created:
+											<span class="placeholder" data-placeholder="CreatedDate">12/01/2019 00:00:00</span>
+											<br>
+											Due:
+											<span class="placeholder" data-placeholder="DueDate">12/01/2020 00:00:00</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr class="information">
+						<td colspan="2">
+							<table>
+								<tbody>
+									<tr>
+										<td>
+											<span class="placeholder" data-placeholder="Address.AddressLine1">456 Flat</span>
+											<br>
+											<span class="placeholder" data-placeholder="Address.AddressLine2">123 Street</span>
+											<br>
+											<span class="placeholder" data-placeholder="Address.AddressLine3">Leeds</span>
+										</td>
+										<td>
+											<span class="placeholder" data-placeholder="FullName">Angelica N</span>
+											<br>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr class="heading">
+						<td>
+							Item
+						</td>
+						<td>
+							Price
+						</td>
+					</tr>
+					                  
+					<tr class="item">
+						<td>
+							<span class="placeholder" data-placeholder="Name">Lightbulbs</span>
+						</td>
+						<td>
+							<span class="placeholder" data-placeholder="Cost">34.2</span>
+						</td>
+					</tr>
+					<tr class="item">
+						<td>
+							<span class="placeholder" data-placeholder="Name">Window Replacement</span>
+						</td>
+						<td>
+							<span class="placeholder" data-placeholder="Cost">34.2</span>
+						</td>
+					</tr>
+					<tr class="item">
+						<td>
+							<span class="placeholder" data-placeholder="Name">Paint</span>
+						</td>
+						<td>
+							<span class="placeholder" data-placeholder="Cost">87.89</span>
+						</td>
+					</tr>
+					<tr class="total">
+						<td></td>
+						<td>
+							Total: $385.00
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</body>
 </html>

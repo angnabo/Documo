@@ -16,16 +16,29 @@ namespace Documo.Services
         public static string SelectPlaceholders(IDocument doc)
         {
             var elements = doc.Body.QuerySelectorAll(".placeholder");
-            var placeholders = elements.Select(el => el.OuterHtml.Replace(el.InnerHtml, "")).ToList();
-
-            //var placeholders = p.Select(x => x.OuterHtml);
+            
+            var placeholders = elements.Select(x => 
+            { 
+                x.InnerHtml = "";
+                return x.OuterHtml;
+            });
+            
             return string.Join("", placeholders);
         }
-        public static IEnumerable<HtmlNode> SelectPlaceholderElements(HtmlDocument doc, string placeholderName)
+        public static IEnumerable<IElement> SelectPlaceholderElements(IElement doc, string placeholderName)
         {
-            return doc.DocumentNode.SelectNodes($"//p[@class='placeholder' and . = '{placeholderName}']");
+            return doc.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == placeholderName);
         }
         
+        public static IEnumerable<IElement> SelectPlaceholderElements(IElement doc)
+        {
+            return doc.QuerySelectorAll(".placeholder");
+        }
+        
+        public static IElement SelectSinglePlaceholderElements(IElement doc, string placeholderName)
+        {
+            return doc.QuerySelectorAll(".placeholder").SingleOrDefault(x => x.GetAttribute("data-placeholder") == placeholderName);
+        }
         public static HtmlNode SelectSinglePlaceholderNode(HtmlDocument doc, string placeholderName)
         {
             return doc.DocumentNode.SelectSingleNode($"//p[@class='placeholder' and . = '{placeholderName}']");

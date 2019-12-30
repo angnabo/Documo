@@ -26,11 +26,9 @@ namespace Documo.Strategies
 
         public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
-            //get repeating section start node
-            //get repeating section end node
             var repeatingSectionPlaceholder = (RepeatingSection) placeholder;
-            var startNode = doc.QuerySelectorAll(".placeholder").Single(x => x.GetAttribute("data-placeholder") == repeatingSectionPlaceholder.GetPlaceholder());
-            var endNode = doc.QuerySelectorAll(".placeholder").Single(x => x.GetAttribute("data-placeholder") == repeatingSectionPlaceholder.GetEndPlaceholder());
+            var startNode = HtmlNodeExtractor.SelectSinglePlaceholderElements(doc, repeatingSectionPlaceholder.GetPlaceholder());
+            var endNode = HtmlNodeExtractor.SelectSinglePlaceholderElements(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
             
             var nodes = new List<IElement>();
 
@@ -51,10 +49,7 @@ namespace Documo.Strategies
             {
                 foreach (var htmlNode in nodes)
                 {
-                    var config = Configuration.Default;
-                    var context = BrowsingContext.New(config);
-                    var parser = context.GetService<IHtmlParser>();
-                    var placeholders = htmlNode.QuerySelectorAll(".placeholder").Select(x => x.OuterHtml);
+                    var placeholders = HtmlNodeExtractor.SelectPlaceholderElements(htmlNode).Select(x => x.OuterHtml);
                     
                     var input = string.Join("", placeholders);
                     var antlrService = new AntlrService();
@@ -62,7 +57,7 @@ namespace Documo.Strategies
                     
                     foreach (var p in parsedPlaceholders)
                     {  
-                        var placeholderNodes = htmlNode.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == p.GetPlaceholder());
+                        var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderElements(htmlNode, p.GetPlaceholder()).ToArray();
                         
                         if (!placeholderNodes.Any()) continue;
                         
@@ -75,7 +70,6 @@ namespace Documo.Strategies
                             else
                             {
                                 var value = resolver.Resolve(array, $"[{i}].{p.ObjectName}").ToString();
-
                                 placeholderNode.TextContent = value;
                             }
                         }
@@ -93,7 +87,10 @@ namespace Documo.Strategies
                 h.Remove();
             }
         }
-
-
+            
+        private void removePlaceholderNodes(IElement doc){
+    
+        }
     }
+
 }

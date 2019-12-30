@@ -38,7 +38,7 @@ namespace Documo.Renderer
             try
             {
                 
-                var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/NewFile1.html");
+                var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/sample_template.html");
 
                 var placeholders = HtmlNodeExtractor.SelectPlaceholders(doc);
                 
@@ -47,7 +47,7 @@ namespace Documo.Renderer
                 
                 foreach (var placeholder in parsedPlaceholders)
                 {  
-                    var placeholderNodes = doc.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == placeholder.GetPlaceholder());
+                    var placeholderNodes = HtmlNodeExtractor.SelectPlaceholderElements(doc.Body, placeholder.GetPlaceholder());
                     if (!placeholderNodes.Any()) continue;
                     
                     var strategy = _placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));
