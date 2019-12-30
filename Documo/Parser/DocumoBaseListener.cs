@@ -59,6 +59,42 @@ public partial class DocumoBaseListener : IDocumoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPlaceholder([NotNull] DocumoParser.PlaceholderContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.repeatingSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.repeatingSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStartRepeatingSection([NotNull] DocumoParser.StartRepeatingSectionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStartRepeatingSection([NotNull] DocumoParser.StartRepeatingSectionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.endRepeatingSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEndRepeatingSection([NotNull] DocumoParser.EndRepeatingSectionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.endRepeatingSection"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEndRepeatingSection([NotNull] DocumoParser.EndRepeatingSectionContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="DocumoParser.object"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -106,42 +142,6 @@ public partial class DocumoBaseListener : IDocumoListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitObjectField([NotNull] DocumoParser.ObjectFieldContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterStartRepeatingSection([NotNull] DocumoParser.StartRepeatingSectionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitStartRepeatingSection([NotNull] DocumoParser.StartRepeatingSectionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="DocumoParser.endRepeatingSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEndRepeatingSection([NotNull] DocumoParser.EndRepeatingSectionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DocumoParser.endRepeatingSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEndRepeatingSection([NotNull] DocumoParser.EndRepeatingSectionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="DocumoParser.repeatingSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="DocumoParser.repeatingSection"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

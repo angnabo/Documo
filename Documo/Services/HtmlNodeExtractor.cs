@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AngleSharp.Dom;
 using HtmlAgilityPack;
 
 namespace Documo.Services
@@ -12,12 +13,32 @@ namespace Documo.Services
 
             return nodes != null ? nodes.Select(x => x.OuterHtml) : new string[]{};
         }
-        
-        public static IEnumerable<HtmlNode> SelectPlaceholderNodes(HtmlDocument doc, string placeholderName)
+        public static string SelectPlaceholders(IDocument doc)
         {
-            return doc.DocumentNode.SelectNodes($"//p[@class='placeholder' and . = '{placeholderName}']");
+            var elements = doc.Body.QuerySelectorAll(".placeholder");
+            
+            var placeholders = elements.Select(x => 
+            { 
+                x.InnerHtml = "";
+                return x.OuterHtml;
+            });
+            
+            return string.Join("", placeholders);
+        }
+        public static IEnumerable<IElement> SelectPlaceholderElements(IElement doc, string placeholderName)
+        {
+            return doc.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == placeholderName);
         }
         
+        public static IEnumerable<IElement> SelectPlaceholderElements(IElement doc)
+        {
+            return doc.QuerySelectorAll(".placeholder");
+        }
+        
+        public static IElement SelectSinglePlaceholderElements(IElement doc, string placeholderName)
+        {
+            return doc.QuerySelectorAll(".placeholder").SingleOrDefault(x => x.GetAttribute("data-placeholder") == placeholderName);
+        }
         public static HtmlNode SelectSinglePlaceholderNode(HtmlDocument doc, string placeholderName)
         {
             return doc.DocumentNode.SelectSingleNode($"//p[@class='placeholder' and . = '{placeholderName}']");

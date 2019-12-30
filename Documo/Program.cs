@@ -23,6 +23,9 @@ namespace Documo
                     Postcode = "LS1 2AB"
                 },
                 FullName = "Angelica N",
+                CreatedDate = new DateTime(2019, 01, 12),
+                DueDate = new DateTime(2020, 01, 12),
+                InvoiceNumber = 56998735,
                 Services = new []
                 {
                     new {
