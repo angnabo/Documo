@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Dom;
@@ -31,12 +32,11 @@ namespace Documo.Strategies
             
             var resolver = new Resolver();
             var array = (object[])resolver.Resolve(jsonData, placeholder.ObjectName);
-
             for (var i = 0; i < array.Length; i++)
             {
                 foreach (var htmlNode in nodes)
                 {
-                    var placeholders = HtmlNodeExtractor.GetPlaceholderNodes(htmlNode).Select(x => x.OuterHtml);
+                    var placeholders = HtmlNodeExtractor.GetPlaceholderNodes(htmlNode).Select(x => x.TextContent.Trim());
                     
                     var input = string.Join("", placeholders);
                     
@@ -56,8 +56,31 @@ namespace Documo.Strategies
                             }
                             else
                             {
-                                var value = JsonResolver.Resolve(array, $"[{i}].{p.GetPlaceholder()}");
-                                placeholderNode.TextContent = value;
+//                                var value = JsonResolver.Resolve(array, $"[{i}].{p.GetPlaceholder()}");
+//                                placeholderNode.TextContent = value;
+                                
+                                string value;
+            
+                                try
+                                {
+                                    value = JsonResolver.Resolve(array, $"[{i}].{p.GetPlaceholder()}");
+                                    placeholderNode.TextContent = value;
+                                }
+                                catch (Exception e)
+                                {
+                                    value = e.Message;
+                                    placeholderNode.TextContent = value;
+                                        var styleAttribute = placeholderNode.Attributes["style"]?.Value;
+                                        if (styleAttribute == null)
+                                        {
+                                            placeholderNode.SetAttribute("style", "color:red;");
+                                        }
+                                        else
+                                        {
+                                            placeholderNode.Attributes["style"].Value = styleAttribute + "color:red;";
+                                        }
+                                    
+                                }
                             }  
                         }
                     }
@@ -94,6 +117,5 @@ namespace Documo.Strategies
 
             return nodes;
         }
-    }
+    }}
 
-}

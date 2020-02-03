@@ -4,10 +4,10 @@ grammar Documo;
  * Parser Rules
  */
 stmt                : placeholder + EOF;
-placeholder         : STARTPLACEHOLDER QUOTATION object QUOTATION LBRAKET ENDPLACEHOLDER | repeatingSection;
+placeholder         : STARTPLACEHOLDER object  ENDPLACEHOLDER | repeatingSection;
 repeatingSection    : startRepeatingSection placeholder+ endRepeatingSection ;
-startRepeatingSection : STARTPLACEHOLDER QUOTATION STARTREPEATINGSECTION object QUOTATION LBRAKET ENDPLACEHOLDER;
-endRepeatingSection : STARTPLACEHOLDER QUOTATION ENDREPEATINGSECTION object QUOTATION LBRAKET ENDPLACEHOLDER;
+startRepeatingSection : STARTPLACEHOLDER STARTREPEATINGSECTION object ENDPLACEHOLDER;
+endRepeatingSection : STARTPLACEHOLDER ENDREPEATINGSECTION object ENDPLACEHOLDER;
 object              : objectFieldAccess | objectName;
 objectFieldAccess   : objectName ACCESSOPERATOR objectField;
 objectName          : WORD ;
@@ -22,11 +22,8 @@ fragment DIGIT      : [0-9] ;
 fragment ANY        : [0-9a-zA-Z] ;
 WORD                : (LOWERCASE | UPPERCASE | DIGIT)+ ;
 WHITESPACE          : (' '|'\t')+ -> skip ;
-STARTPLACEHOLDER    : ('<'+WORD+' class="placeholder" data-placeholder=');
-ENDPLACEHOLDER      : ('</'+WORD+'>'); 
+STARTPLACEHOLDER    : ('{{');
+ENDPLACEHOLDER      : ('}}'); 
 STARTREPEATINGSECTION    : ('rs_');
 ENDREPEATINGSECTION      : ('es_'); 
 ACCESSOPERATOR      : ('.'); 
-RBRAKET             : ('<'); 
-LBRAKET             : ('>'); 
-QUOTATION           : ('"');

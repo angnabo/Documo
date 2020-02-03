@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Documo.Renderer;
+using Newtonsoft.Json.Serialization;
 
 namespace Documo
 {
@@ -8,9 +9,7 @@ namespace Documo
     {
         static async Task Main(string[] args)
         {
-            
-
-            var json = new
+            var data = new
             {
                 Address = new
                 {
@@ -20,78 +19,44 @@ namespace Documo
                     Postcode = "LS1 2AB"
                 },
                 FullName = "Angelica N",
-                CreatedDate = new DateTime(2019, 01, 12),
-                DueDate = new DateTime(2020, 01, 12),
+                CreatedDate = new DateTime(2019, 08, 12).ToString("dd/MM/yyy"),
+                DueDate = new DateTime(2020, 01, 12).ToString("dd/MM/yyy"),
                 InvoiceNumber = 56998735,
                 Payments = new []
                 {
                     new
                     {
-                        Name = "Payment 1",
+                        Name = "Bank transfer 02/07",
                         Amount = 50.0m
                     },
                     new
                     {
-                        Name = "Payment 2",
+                        Name = "Bank transfer 24/06",
                         Amount = 20.0m
                     },
                     new
                     {
-                        Name = "Payment 1",
-                        Amount = 50.0m
-                    },
-                    new
-                    {
-                        Name = "Payment 2",
-                        Amount = 20.0m
-                    },
-                    new
-                    {
-                        Name = "Payment 1",
-                        Amount = 50.0m
-                    },
-                    new
-                    {
-                        Name = "Payment 2",
-                        Amount = 20.0m
-                    },
-                    new
-                    {
-                        Name = "Payment 1",
-                        Amount = 50.0m
-                    },
-                    new
-                    {
-                        Name = "Payment 2",
-                        Amount = 20.0m
-                    },
-                    new
-                    {
-                        Name = "Payment 1",
-                        Amount = 50.0m
-                    },
-                    new
-                    {
-                        Name = "Payment 2",
-                        Amount = 20.0m
+                        Name = "Bank transfer 16/04",
+                        Amount = 200.0m
                     }
                 },
+                TotalPayments = 270.0m,
                 Services = new []
                 {
                     new {
                         Name = "Paint",
                         Cost = new
                         {
-                            Net = 85.3m,
-                            Vat = 5.25m
+                            Net = 185.3m,
+                            Vat = 15.25m
                         }
                     },
                     new {
                         Name = "Window Replacement",
                         Cost = new
                         {
-                            Net = 42.3m,
-                            Vat = 3.25m
+                            Net = 564.3m,
+                            Vat = 37.25m
                         }
                     },
                     new {
@@ -101,179 +66,13 @@ namespace Documo
                             Net = 63.7m,
                             Vat = 6.34m
                         }
-                    }, 
-                    new {
-                        Name = "Paint",
-                        Cost = new
-                        {
-                            Net = 85.3m,
-                            Vat = 5.25m
-                        }
-                    },
-                    new {
-                        Name = "Window Replacement",
-                        Cost = new
-                        {
-                            Net = 42.3m,
-                            Vat = 3.25m
-                        }
-                    },
-                    new {
-                        Name = "Lightbulbs",
-                        Cost = new
-                        {
-                            Net = 63.7m,
-                            Vat = 6.34m
-                        }
-                    },
-                    new {
-                        Name = "Paint",
-                        Cost = new
-                        {
-                            Net = 85.3m,
-                            Vat = 5.25m
-                        }
-                    },
-                    new {
-                        Name = "Window Replacement",
-                        Cost = new
-                        {
-                            Net = 42.3m,
-                            Vat = 3.25m
-                        }
-                    },
-                    new {
-                        Name = "Lightbulbs",
-                        Cost = new
-                        {
-                            Net = 63.7m,
-                            Vat = 6.34m
-                        }
-                    },
-                    new {
-                        Name = "Paint",
-                        Cost = new
-                        {
-                            Net = 85.3m,
-                            Vat = 5.25m
-                        }
-                    },
-                    new {
-                        Name = "Window Replacement",
-                        Cost = new
-                        {
-                            Net = 42.3m,
-                            Vat = 3.25m
-                        }
-                    },
-                    new {
-                        Name = "Lightbulbs",
-                        Cost = new
-                        {
-                            Net = 63.7m,
-                            Vat = 6.34m
-                        }
-                    },
-                    new {
-                        Name = "Paint",
-                        Cost = new
-                        {
-                            Net = 85.3m,
-                            Vat = 5.25m
-                        }
-                    },
-                    new {
-                        Name = "Window Replacement",
-                        Cost = new
-                        {
-                            Net = 42.3m,
-                            Vat = 3.25m
-                        }
-                    },
-                    new {
-                        Name = "Lightbulbs",
-                        Cost = new
-                        {
-                            Net = 63.7m,
-                            Vat = 6.34m
-                        }
-                    },
-                    new {
-                        Name = "Paint",
-                        Cost = new
-                        {
-                            Net = 85.3m,
-                            Vat = 5.25m
-                        }
-                    },
-                    new {
-                        Name = "Window Replacement",
-                        Cost = new
-                        {
-                            Net = 42.3m,
-                            Vat = 3.25m
-                        }
-                    },
-                    new {
-                        Name = "Lightbulbs",
-                        Cost = new
-                        {
-                            Net = 63.7m,
-                            Vat = 6.34m
-                        }
-                    },
-                    new {
-                        Name = "Paint",
-                        Cost = new
-                        {
-                            Net = 85.3m,
-                            Vat = 5.25m
-                        }
-                    },
-                    new {
-                        Name = "Window Replacement",
-                        Cost = new
-                        {
-                            Net = 42.3m,
-                            Vat = 3.25m
-                        }
-                    },
-                    new {
-                        Name = "Lightbulbs",
-                        Cost = new
-                        {
-                            Net = 63.7m,
-                            Vat = 6.34m
-                        }
-                    },
-                    new {
-                        Name = "Paint",
-                        Cost = new
-                        {
-                            Net = 85.3m,
-                            Vat = 5.25m
-                        }
-                    },
-                    new {
-                        Name = "Window Replacement",
-                        Cost = new
-                        {
-                            Net = 42.3m,
-                            Vat = 3.25m
-                        }
-                    },
-                    new {
-                        Name = "Lightbulbs",
-                        Cost = new
-                        {
-                            Net = 63.7m,
-                            Vat = 6.34m
-                        }
-                    },
-                }
+                    }
+                },
+                TotalServices = 813.4m,
             };
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             var pdfRenderer = new PdfRenderer();
-            await pdfRenderer.Render(json);
+            await pdfRenderer.Render(data);
         }
     }
 }

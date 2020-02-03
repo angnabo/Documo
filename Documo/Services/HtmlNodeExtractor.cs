@@ -10,18 +10,15 @@ namespace Documo.Services
         {
             var elements = doc.Body.QuerySelectorAll(".placeholder");
             
-            var placeholders = elements.Select(x => 
-            { 
-                x.InnerHtml = "";
-                return x.OuterHtml;
-            });
+            var placeholders = elements.Select(x => x.TextContent.Trim());
             
             return string.Join("", placeholders);
         }
         
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc, string placeholderName)
         {
-            return doc.QuerySelectorAll(".placeholder").Where(x => x.GetAttribute("data-placeholder") == placeholderName);
+            var q = $"{{{{{placeholderName}}}}}";
+            return doc.QuerySelectorAll(".placeholder").Where(x => x.TextContent.Trim() == $"{{{{{placeholderName}}}}}");
         }
         
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc)
@@ -31,7 +28,7 @@ namespace Documo.Services
         
         public static IElement GetSinglePlaceholderNode(IElement doc, string placeholderName)
         {
-            return doc.QuerySelectorAll(".placeholder").SingleOrDefault(x => x.GetAttribute("data-placeholder") == placeholderName);
+            return doc.QuerySelectorAll(".placeholder").SingleOrDefault(x => x.TextContent.Trim() == $"{{{{{placeholderName}}}}}");
         }
     }
 }
