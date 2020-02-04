@@ -58,7 +58,6 @@
         <e p="Services" t="Include">
           <e p="AntlrService.cs" t="Include" />
           <e p="HtmlNodeExtractor.cs" t="Include" />
-          <e p="JsonDataExtractor.cs" t="Include" />
           <e p="JsonResolver.cs" t="Include" />
         </e>
         <e p="Strategies" t="Include">

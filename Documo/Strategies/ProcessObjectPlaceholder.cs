@@ -17,12 +17,10 @@ namespace Documo.Strategies
         {            
             var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(doc, placeholder.GetPlaceholder()).ToArray();
             if (!placeholderNodes.Any()) return;
-            
-            string value;
-            
+
             try
             {
-                value = JsonResolver.Resolve(jsonData, placeholder.GetPlaceholder());
+                var value = JsonResolver.Resolve(jsonData, placeholder.GetPlaceholder()).ToString();
                 foreach (var node in placeholderNodes)
                 {
                     node.TextContent = value;
@@ -30,7 +28,7 @@ namespace Documo.Strategies
             }
             catch (ArgumentException e) when (e.Message.Equals($"The property {placeholder.GetPlaceholder()} could not be found."))
             {
-                value = $"{{{{Not found: {placeholder.GetPlaceholder()}}}}}";
+                var value = $"{{{{Not found: {placeholder.GetPlaceholder()}}}}}";
                 foreach (var node in placeholderNodes)
                 {
                     node.TextContent = value;

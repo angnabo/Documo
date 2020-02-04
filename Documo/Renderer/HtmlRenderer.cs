@@ -18,7 +18,7 @@ namespace Documo.Renderer
             _placeholderProcessor = new PlaceholderProcessor();
         }
 
-        public async Task<IDocument> openDocument(string path)
+        private async Task<IDocument> OpenDocument(string path)
         {
             var config = Configuration.Default;
             var context = BrowsingContext.New(config);
@@ -31,7 +31,7 @@ namespace Documo.Renderer
             var s = "";
             try
             {
-                var doc = await openDocument("/home/angelica/RiderProjects/Documo/Documo/sample_template.html");
+                var doc = await OpenDocument("/home/angelica/RiderProjects/Documo/Documo/sample_template.html");
 
                 var placeholders = HtmlNodeExtractor.GetAllPlaceholders(doc);
                 var parsedPlaceholders = AntlrService.Parse(placeholders);
@@ -49,7 +49,7 @@ namespace Documo.Renderer
 
                 File.WriteAllText("/home/angelica/RiderProjects/Documo/Documo/OutputHtml.html", sw.ToString());
 
-                s =sw.ToString();
+                s = sw.ToString();
             }
             catch (Exception ex)
             {
