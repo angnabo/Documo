@@ -123,13 +123,13 @@
 										</td>
 										<td>
 											Invoice #:
-											<span style="font-weight:bold;color:red;" class="placeholder" data-placeholder="InvoiceNumber123">The property InvoiceNumber123 could not be found.</span>
+											<span style="font-weight:bold;color:red;" class="placeholder">{{Not found: InvoiceNumber123}}</span>
 											<br>
 											Invoice date:
-											<span class="placeholder" data-placeholder="CreatedDate">12/08/2019</span>
+											<span class="placeholder">12/08/2019</span>
 											<br>
 											Due:
-											<span class="placeholder" data-placeholder="DueDate">12/01/2020</span>
+											<span class="placeholder">12/01/2020</span>
 										</td>
 									</tr>
 								</tbody>
@@ -142,14 +142,14 @@
 								<tbody>
 									<tr>
 										<td>
-											<span class="placeholder" data-placeholder="FullName">Angelica N</span>
+											<span class="placeholder">Angelica N</span>
 											<br>
 											<br>
-											<span class="placeholder" data-placeholder="Address.AddressLine1">456 Flat</span>
+											<span class="placeholder">456 Flat</span>
 											<br>
-											<span class="placeholder" data-placeholder="Address.AddressLine2">123 Street</span>
+											<span class="placeholder">123 Street</span>
 											<br>
-											<span class="placeholder" data-placeholder="Address.AddressLine3">Leeds</span>
+											<span class="placeholder">Leeds</span>
 										</td>
 										<td>
 										</td>
@@ -176,24 +176,32 @@
 					
 					<tr class="item">
 						<td>
-							<span class="placeholder" data-placeholder="Name">Bank transfer 16/04</span>
+							<span class="placeholder">Bank transfer 16/04</span>
 						</td>
 						<td>
-							<span class="placeholder" data-placeholder="Amount">200.0</span>
+							<span class="placeholder">200.0</span>
 						</td>
 					</tr>
 					<tr class="item">
 						<td>
-							<span class="placeholder" data-placeholder="Name">Bank transfer 16/04</span>
+							<span class="placeholder">Bank transfer 24/06</span>
 						</td>
 						<td>
-							<span class="placeholder" data-placeholder="Amount">{{Amount}}</span>
+							<span class="placeholder">20.0</span>
+						</td>
+					</tr>
+					<tr class="item">
+						<td>
+							<span class="placeholder">Bank transfer 02/07</span>
+						</td>
+						<td>
+							<span class="placeholder">50.0</span>
 						</td>
 					</tr>
 					<tr class="total">
 						<td></td>
 						<td>
-							Total: £<span class="placeholder" data-placeholder="TotalPayments">270.0</span>
+							Total: £<span class="placeholder">270.0</span>
 						</td>
 					</tr>
 				</tbody>
@@ -209,24 +217,32 @@
 					
 					<tr class="item">
 						<td>
-							<span class="placeholder" data-placeholder="Name">Lightbulbs</span>
+							<span class="placeholder">Lightbulbs</span>
 						</td>
 						<td>
-							<span class="placeholder" data-placeholder="Cost.Netto" style="color:red;color:red;color:red;">The property Netto could not be found.</span>
+							<span class="placeholder" style="color:red;">{{Not found: Cost.Netto}}</span>
 						</td>
 					</tr>
 					<tr class="item">
 						<td>
-							<span class="placeholder" data-placeholder="Name">Lightbulbs</span>
+							<span class="placeholder">Window Replacement</span>
 						</td>
 						<td>
-							<span class="placeholder" data-placeholder="Cost.Netto">{{Cost.Netto}}</span>
+							<span class="placeholder" style="color:red;">{{Not found: Cost.Netto}}</span>
+						</td>
+					</tr>
+					<tr class="item">
+						<td>
+							<span class="placeholder">Paint</span>
+						</td>
+						<td>
+							<span class="placeholder" style="color:red;">{{Not found: Cost.Netto}}</span>
 						</td>
 					</tr>
 					<tr class="total">
 						<td></td>
 						<td>
-							Total: £<span class="placeholder" data-placeholder="TotalServices">813.4</span>
+							Total: £<span class="placeholder">813.4</span>
 						</td>
 					</tr>
 				</tbody>

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Dom;
@@ -11,8 +10,10 @@ namespace Documo.Strategies
     public class ProcessRepeatingSectionPlaceholders : IProcessPlaceholder
     {
         private readonly IPlaceholderProcessor _placeholderProcessor;
+        private readonly ProcessArrayAccessPlaceholder _processArrayAccessPlaceholder;
         public ProcessRepeatingSectionPlaceholders()
         {
+            _processArrayAccessPlaceholder = new ProcessArrayAccessPlaceholder();
             _placeholderProcessor = new PlaceholderProcessor();
         }
         
@@ -36,58 +37,33 @@ namespace Documo.Strategies
             {
                 foreach (var htmlNode in nodes)
                 {
-                    var placeholders = HtmlNodeExtractor.GetPlaceholderNodes(htmlNode).Select(x => x.TextContent.Trim());
+                    var newNode = htmlNode.Clone() as IElement;
+                    var placeholders = HtmlNodeExtractor.GetPlaceholderNodes(newNode).Select(x => x.TextContent.Trim());
                     
                     var input = string.Join("", placeholders);
                     
                     var parsedPlaceholders = AntlrService.Parse(input); // inner table placeholders
                     
-                    foreach (var p in parsedPlaceholders)
+                    foreach (var parsedPlaceholder in parsedPlaceholders)
                     {  
-                        var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(htmlNode, p.GetPlaceholder()).ToArray();
+                        var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(newNode, parsedPlaceholder.GetPlaceholder()).ToArray();
                         
                         if (!placeholderNodes.Any()) continue;
                         
                         foreach (var placeholderNode in placeholderNodes)
                         {
-                            if (AppliesTo(p))
+                            if (AppliesTo(parsedPlaceholder))
                             {
-                                ProcessPlaceholders(htmlNode, p, jsonData);
+                                ProcessPlaceholders(newNode, parsedPlaceholder, jsonData);
                             }
                             else
                             {
-//                                var value = JsonResolver.Resolve(array, $"[{i}].{p.GetPlaceholder()}");
-//                                placeholderNode.TextContent = value;
-                                
-                                string value;
-            
-                                try
-                                {
-                                    value = JsonResolver.Resolve(array, $"[{i}].{p.GetPlaceholder()}");
-                                    placeholderNode.TextContent = value;
-                                }
-                                catch (Exception e)
-                                {
-                                    value = e.Message;
-                                    placeholderNode.TextContent = value;
-                                        var styleAttribute = placeholderNode.Attributes["style"]?.Value;
-                                        if (styleAttribute == null)
-                                        {
-                                            placeholderNode.SetAttribute("style", "color:red;");
-                                        }
-                                        else
-                                        {
-                                            placeholderNode.Attributes["style"].Value = styleAttribute + "color:red;";
-                                        }
-                                    
-                                }
+                                _processArrayAccessPlaceholder.ProcessPlaceholders(placeholderNode, parsedPlaceholder, array, i);
                             }  
                         }
                     }
-
-                    endNode.InsertAfter(htmlNode.Clone());
+                    endNode.InsertAfter(newNode.Clone());
                 }
-
             }
 
             startNode.Remove();
@@ -105,7 +81,6 @@ namespace Documo.Strategies
         private IEnumerable<IElement> GetNodesBetweenStartAndEnd(IElement startNode, IElement endNode)
         {
             var nodes = new List<IElement>();
-
             var nextNode = startNode.NextElementSibling;
             
             //get html between start and end node
@@ -114,7 +89,6 @@ namespace Documo.Strategies
                 nodes.Add(nextNode);
                 nextNode = nextNode?.NextElementSibling;
             }
-
             return nodes;
         }
     }}

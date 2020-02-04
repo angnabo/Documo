@@ -3,8 +3,6 @@ using System.Linq;
 using AngleSharp.Dom;
 using Documo.Services;
 using Documo.Visitor;
-using Microsoft.AspNetCore.Routing.Matching;
-using Pather.CSharp;
 
 namespace Documo.Strategies
 {
@@ -30,21 +28,15 @@ namespace Documo.Strategies
                     node.TextContent = value;
                 }
             }
-            catch (Exception e)
+            catch (ArgumentException e) when (e.Message.Equals($"The property {placeholder.GetPlaceholder()} could not be found."))
             {
-                value = e.Message;
+                value = $"{{{{Not found: {placeholder.GetPlaceholder()}}}}}";
                 foreach (var node in placeholderNodes)
                 {
                     node.TextContent = value;
-                    var styleAttribute = node.Attributes["style"].Value;
-                    node.Attributes["style"].Value = styleAttribute + "color:red;";
-                    node.GetAttribute("style");
+                    node.Attributes["style"].Value += "color:red;";
                 }
             }
-
-
-            
-
         }
     }
 }
