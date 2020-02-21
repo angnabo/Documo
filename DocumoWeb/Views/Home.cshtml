@@ -1,17 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<head>
-  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>tinymce.init({selector:'textarea'});</script>
-</head>
-    <title>Documo</title>
-</head>
-<body>
+@page
+@model DocumoWeb.Models.InputHtml
 
-<textarea>Next, use our Get Started docs to setup Tiny!</textarea>
+@{
+    Layout = "_Layout";
+}
 
-<button>Render</button>
+<h1 class="title is-1" xmlns="http://www.w3.org/1999/html">Documo</h1>
 
-</body>
-</html>
+
+<div class="section sidebar is-pulled-left">
+    <h3 class="subtitle is-4">Templates</h3>
+    <div class="container">
+        <div>
+            <span>Template 1</span>
+        </div>
+        <div>
+            <span>Template 2</span>
+        </div>
+
+    </div>
+</div>
+<div class="columns">
+    
+
+        
+    <div class="column">
+        <h3 class="subtitle is-4">Html</h3>
+        <div class="container">
+            @using (Html.BeginForm("Render", "Home", FormMethod.Post, new {target = "pdf"}))
+            {
+                @Html.TextAreaFor(o => o.Html, new { @class="textarea height-max"})
+                <input class="button is-primary margin-10" type="submit" value="Render">
+            }
+        </div>
+    </div>
+
+    
+    <div class="column">
+        <h3 class="subtitle is-4">Rendered Pdf</h3>
+        <div class="container">
+            <iframe id="pdf" width="100%" height="800px" type="application/pdf" name="pdf"></iframe>
+        </div>
+        
+
+
+        @* <embed class="pdfobject" src="pdf/OutputPdf.pdf" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;"> *@
+    </div>
+</div>
+<script src="js/pdfObject/pdfobject.js"></script>
+<script>
+$( document ).ready(function() {
+    $('#render').click(function() {
+        debugger;
+         var url = $('#render').data('url');
+         $.get(url, function(data) {
+           let blob = new Blob([data.data], { type: "application/pdf" } );
+           let u = window.URL.createObjectURL(blob);
+           debugger;
+           $("#pdf").html(
+               $('<iframe>', {
+                   src: u,
+                   width:'600px',
+                   height: "800px",
+                   type: "application/pdf"
+               })
+           );
+         }).fail((function(data) {
+           console.log(data.error)
+         }));
+
+                  
+         //window.open('@Url.Action("Render", "Home")', '_blank');
+
+         
+                    // $("#pdf").html(
+                    //     $('<embed>', {
+                    //         src: '@Url.Action("Render", "Home", new {})',
+                    //         width:'600px',
+                    //         height: "800px",
+                    //         type: "application/pdf"
+                    //     })
+                    // );
+     
+     })
+     
+     
+     
+});
+
+
+
+//PDFObject.embed("pdf/OutputPdf.pdf", "#pdf");
+
+</script>
