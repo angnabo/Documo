@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.tiny.cloud_1_no-api-key_tinymce_5_tinymce.js" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.2/system/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_Documo.-322081402.00" t="ExcludeRecursive" />
     <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.0.1/build/netcoreapp1.0" t="Include">
@@ -87,7 +88,9 @@
       </e>
       <e p="Documo.sln" t="IncludeFlat" />
       <e p="DocumoWeb" t="IncludeRecursive">
-        <e p="Controllers" t="Include" />
+        <e p="Controllers" t="Include">
+          <e p="HomeController.cs" t="Include" />
+        </e>
         <e p="DocumoWeb.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include" />
         <e p="Program.cs" t="Include" />
@@ -96,7 +99,7 @@
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Views" t="Include">
-          <e p="Home.cshtml.html" t="Include" />
+          <e p="Home.cshtml" t="Include" />
         </e>
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
