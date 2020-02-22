@@ -2,5 +2,6 @@
   "name": "DocumoWeb",
   "version": "1.0.0",
   "dependencies": {
+    "codemirror": "^5.52.0"
   }
 }

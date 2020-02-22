@@ -1,4 +1,5 @@
 @page
+@using System.Text.Unicode
 @model DocumoWeb.Models.InputHtml
 
 @{
@@ -21,53 +22,134 @@
     </div>
 </div>
 <div class="columns">
-    
 
-        
+
     <div class="column">
         <h3 class="subtitle is-4">Html</h3>
-        <div class="container">
-            @using (Html.BeginForm("Render", "Home", FormMethod.Post, new {target = "pdf"}))
-            {
-                @Html.TextAreaFor(o => o.Html, new { @class="textarea height-max"})
-                <input class="button is-primary margin-10" type="submit" value="Render">
-            }
+        <div class="tabs">
+            <ul>
+                <li class="is-active">
+                    <a id="template-tab">Template</a>
+                </li>
+                <li>
+                    <a id="code-tab">Code</a>
+                </li>
+            </ul>
         </div>
+        
+        <div id="template-form-container" class="container">
+            <div id="invoice-template">
+                @* @Html.Partial("_Template.cshtml") *@
+            </div>
+        </div>
+        
+        <div id="code-form-container" class="container is-hidden">
+            @using (Html.BeginForm("Render", "Home", FormMethod.Post, new {@id="code-form", target = "pdf"}))
+            {
+                @Html.TextAreaFor(o => o.Html, new {@id="code-textarea", @autofocus="false"})
+            }
+            <input id="render" class="button is-primary margin-10" type="submit" value="Render">
+        </div>
+
+
     </div>
 
-    
+
+
     <div class="column">
         <h3 class="subtitle is-4">Rendered Pdf</h3>
         <div class="container">
             <iframe id="pdf" width="100%" height="800px" type="application/pdf" name="pdf"></iframe>
         </div>
-        
 
-
-        @* <embed class="pdfobject" src="pdf/OutputPdf.pdf" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;"> *@
     </div>
 </div>
 <script src="js/pdfObject/pdfobject.js"></script>
+<script src="~/js/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="~/js/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="~/js/codemirror/theme/base16-light.css">
+<script src="~/js/codemirror/mode/xml/xml.js"></script>
 <script>
+
 $( document ).ready(function() {
-    $('#render').click(function() {
-        debugger;
+
+    let codeArea = CodeMirror.fromTextArea(document.getElementById('code-textarea'), {
+       value: document.getElementById('code-textarea').value,
+       mode: "text/html",
+       theme: "base16-light",
+       extraKeys: {"Ctrl-Space": "autocomplete"},
+       lineNumbers: true,
+       autoRefresh:true,
+    });
+    codeArea.refresh();
+    codeArea.setSize(840, 700);
+           
+    $('#template-tab').click(function(){
+       var tab = $(this);
+       $('#template-form-container').removeClass('is-hidden');
+       tab.parent('li').addClass('is-active');
+       $('#code-tab').parent('li').removeClass('is-active');
+       $('#code-form-container').addClass('is-hidden');
+       
+       
+                  $("#invoice-template").html(
+                      $('<iframe>', {
+                          src: "@Url.Action("GetInvoiceTemplate", "Home")",
+                          width:'840px',
+                          height: "800px",
+                          type: "text/html"
+                      })
+                  );
+       
+        // let url = "@Url.Action("GetInvoiceTemplate", "Home")"
+        //  $.get(url, function(data) {
+        //    let d = data;
+        //    debugger;
+        //    $("#invoice-template").html(
+        //        $('<iframe>', {
+        //            src: d.html,
+        //            width:'600px',
+        //            height: "800px",
+        //            type: "text/html"
+        //        })
+        //    );
+        //  }).fail((function(data) {
+        //      debugger;
+        //    console.log(data.error)
+        //  }));
+    });
+    
+    $('#code-tab').click(function(){
+       var tab = $(this);
+       $('#code-form-container').removeClass('is-hidden');
+       tab.parent('li').addClass('is-active');
+       $('#template-tab').parent('li').removeClass('is-active');
+       $('#template-form-container').addClass('is-hidden');                  
+    });
+              
+    $('#render').click(function(e) {
+         
          var url = $('#render').data('url');
-         $.get(url, function(data) {
-           let blob = new Blob([data.data], { type: "application/pdf" } );
-           let u = window.URL.createObjectURL(blob);
-           debugger;
-           $("#pdf").html(
-               $('<iframe>', {
-                   src: u,
-                   width:'600px',
-                   height: "800px",
-                   type: "application/pdf"
-               })
-           );
-         }).fail((function(data) {
-           console.log(data.error)
-         }));
+         codeArea.save();
+         var content = codeArea.getValue();
+         debugger;
+         $('#code-form').submit();
+         // debugger;
+         // $.get(url, function(data) {
+         //   let blob = new Blob([data.data], { type: "application/pdf" } );
+         //   let u = window.URL.createObjectURL(blob);
+         //   debugger;
+         //   $("#pdf").html(
+         //       $('<iframe>', {
+         //           src: u,
+         //           width:'600px',
+         //           height: "800px",
+         //           type: "application/pdf"
+         //       })
+         //   );
+         // }).fail((function(data) {
+         //   console.log(data.error)
+         // }));
 
                   
          //window.open('@Url.Action("Render", "Home")', '_blank');
@@ -82,7 +164,25 @@ $( document ).ready(function() {
                     //     })
                     // );
      
-     })
+     });
+     
+          $('.tab').click(function(){
+             let url = "@Url.Action("GetInvoiceTemplate", "Home");"
+              $.get(url, function(data) {
+                let d = data;
+                debugger;
+                $("#invoice-template").html(
+                    $('<iframe>', {
+                        src: d,
+                        width:'600px',
+                        height: "800px",
+                        type: "text/html"
+                    })
+                );
+              }).fail((function(data) {
+                console.log(data.error)
+              }));
+          });
      
      
      

@@ -1,12 +1,14 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using AngleSharp;
 using Documo.Renderer;
 using DocumoWeb.Models;
 using jsreport.AspNetCore;
 using jsreport.MVC;
 using jsreport.Types;
 using Microsoft.AspNetCore.Mvc;
+using Template = DocumoWeb.Models.Template;
 
 namespace DocumoWeb.Controllers
 {
@@ -20,7 +22,31 @@ namespace DocumoWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Render(InputHtml model)
         {
-            var data = new
+            var pdfRenderer = new PdfRenderer();
+            var file = await pdfRenderer.Render(GetData());
+            
+            System.IO.File.WriteAllBytes("/home/angelica/RiderProjects/Documo/DocumoWeb/wwwroot/pdf/OutputPdf.pdf", file);
+            return new FileContentResult(file, "application/pdf");
+            //return PartialView("~/Views/_PdfViewer.cshtml");
+        }
+
+        [HttpGet]
+        public async Task<ViewResult> GetInvoiceTemplate()
+        {
+            var templateFile = await HtmlRenderer.OpenDocument("/home/angelica/RiderProjects/Documo/DocumoWeb/Views/Templates/sample_template.html");
+            //purge scripts
+            var template = new Template
+            {
+                Html = templateFile.DocumentElement.InnerHtml
+            };
+            ViewBag.Html = template.Html;
+            return View("~/Views/_Template.cshtml");
+        }
+
+
+        private object GetData()
+        {
+            return new
             {
                 Address = new
                 {
@@ -81,12 +107,6 @@ namespace DocumoWeb.Controllers
                 },
                 TotalServices = 813.4m,
             };
-            var pdfRenderer = new PdfRenderer();
-            var file = await pdfRenderer.Render(data);
-            
-            System.IO.File.WriteAllBytes("/home/angelica/RiderProjects/Documo/DocumoWeb/wwwroot/pdf/OutputPdf.pdf", file);
-            return new FileContentResult(file, "application/pdf");
-            //return PartialView("~/Views/_PdfViewer.cshtml");
         }
     }
 }

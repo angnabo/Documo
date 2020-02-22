@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table thead th {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            padding: 5px;
+            vertical-align: top;
+            border-collapse: collapse;
+        }
+
+        .invoice-box table thead th:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+        
+        .padding-top{
+            padding-top: 20px
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+
+        .rtl table thead th:nth-child(2) {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+<!--                            <img src="https://i.imgur.com/5FckMAD.png" style="width:100%; max-width:300px;">-->
+                            <img src="https://i.imgur.com/ByQtdeO.png" style="width:100%; max-width:300px;">
+                        </td>
+
+                        <td>
+                            Invoice #: <span style="font-weight:bold;" class="placeholder">{{InvoiceNumber123}}</span><br>
+                            Invoice date: <span class="placeholder">{{CreatedDate}}</span><br>
+                            Due: <span class="placeholder">{{DueDate}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <span class="placeholder">{{FullName}}</span><br><br>
+                            <span class="placeholder">{{Address.AddressLine1}}</span><br>
+                            <span class="placeholder">{{Address.AddressLine2}}</span><br>
+                            <span class="placeholder">{{Address.AddressLine3}}</span>
+                        </td>
+
+                        <td>                           
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="1">
+                <p>Your invoice details are below.</p>
+            </td>
+        </tr>
+        
+        
+
+        <table cellpadding="0" cellspacing="0">
+            <thead class="heading">
+            <th>Payment made by you</th>
+            <th>Amount</th>
+            </thead>
+
+            <tr class="placeholder">
+                <td><p>{{rs_Payments}}</p></td>
+            </tr>
+
+            <tr class="item">
+                <td><span class="placeholder">{{Name}}</span></td>
+                <td><span class="placeholder">{{Amount}}</span></td>
+            </tr>
+
+            <tr class="placeholder">
+                <td><p>{{es_Payments}}</p></td>
+            </tr>
+
+            <tr class="total">
+                <td></td>
+                <td>
+                    Total: £<span class="placeholder">{{TotalPayments}}</span></td>
+                </td>
+            </tr>
+        </table>
+        
+        
+        
+        <table class="padding-top" cellpadding="0" cellspacing="0">
+            <thead class="heading">
+                <th>All Services</th>
+                <th>Price</th>
+            </thead>
+
+            <tr class="placeholder" data-placeholder="rs_Services">
+                <td><p>{{rs_Services}}</p></td>
+            </tr>
+
+            <tr class="item">
+                <td><span class="placeholder">{{Name}}</span></td>
+                <td><span class="placeholder">{{Cost.Netto}}</span></td>
+            </tr>
+
+            <tr class="placeholder">
+                <td><p>{{es_Services}}</p></td>
+            </tr>
+
+            <tr class="total">
+                <td></td>
+                <td>
+                    Total: £<span class="placeholder">{{TotalServices}}</span></td>
+                </td>
+            </tr>
+        </table>
+        
+    </table>
+</div>
+</body>
+</html>
