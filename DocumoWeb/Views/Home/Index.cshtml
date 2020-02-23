@@ -72,18 +72,22 @@
 <script>
 
 $( document ).ready(function() {
+    let codeArea;
+    
+    window.onload = function(){
+        codeArea = CodeMirror.fromTextArea(document.getElementById('code-textarea'), {
+           value: document.getElementById('code-textarea').value,
+           mode: "htmlmixed",
+           theme: "base16-light",
+           extraKeys: {"Ctrl-Space": "autocomplete"},
+           lineNumbers: true,
+           autoRefresh: true,
+           autoFocus: true,
+        });
+        codeArea.refresh();
+        codeArea.setSize(840, 700);
+    };
 
-    let codeArea = CodeMirror.fromTextArea(document.getElementById('code-textarea'), {
-       value: document.getElementById('code-textarea').value,
-       mode: "htmlmixed",
-       theme: "base16-light",
-       extraKeys: {"Ctrl-Space": "autocomplete"},
-       lineNumbers: true,
-       autoRefresh: true,
-       autoFocus: true,
-    });
-    codeArea.refresh();
-    codeArea.setSize(840, 700);
            
     $('#template-tab').click(function(){
        var tab = $(this);
@@ -109,37 +113,8 @@ $( document ).ready(function() {
          codeArea.save();
          var content = codeArea.getValue();
          debugger;
+         $('#code-textarea').val(content);
          $('#code-form').submit();
-         // debugger;
-         // $.get(url, function(data) {
-         //   let blob = new Blob([data.data], { type: "application/pdf" } );
-         //   let u = window.URL.createObjectURL(blob);
-         //   debugger;
-         //   $("#pdf").html(
-         //       $('<iframe>', {
-         //           src: u,
-         //           width:'600px',
-         //           height: "800px",
-         //           type: "application/pdf"
-         //       })
-         //   );
-         // }).fail((function(data) {
-         //   console.log(data.error)
-         // }));
-
-                  
-         //window.open('@Url.Action("Render", "Home")', '_blank');
-
-         
-                    // $("#pdf").html(
-                    //     $('<embed>', {
-                    //         src: '@Url.Action("Render", "Home", new {})',
-                    //         width:'600px',
-                    //         height: "800px",
-                    //         type: "application/pdf"
-                    //     })
-                    // );
-     
      });
      
           $('.template-type').click(function(){      
