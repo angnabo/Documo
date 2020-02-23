@@ -1,12 +1,11 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using AngleSharp;
+using AngleSharp.Common;
 using Documo.Renderer;
+using DocumoWeb.Constants;
 using DocumoWeb.Models;
-using jsreport.AspNetCore;
-using jsreport.MVC;
-using jsreport.Types;
 using Microsoft.AspNetCore.Mvc;
 using Template = DocumoWeb.Models.Template;
 
@@ -14,32 +13,52 @@ namespace DocumoWeb.Controllers
 {
     public class HomeController : Controller
     {
+        
+        public HomeController()
+        {
+            
+        }
         public IActionResult Index()
         {
-            return View("~/Views/Home.cshtml");
+            var templateTypes = TemplateTypes.GetTemplateTypes()
+                .ToDictionary(
+                x => x.Id,
+                x => x.Name);
+            
+            var model = new HomeModel
+            {
+                Html = "",
+                TemplateTypes = templateTypes
+            };
+            
+            return View(model);
         }
         
         [HttpPost]
-        public async Task<IActionResult> Render(InputHtml model)
+        public async Task<IActionResult> Render(HomeModel model)
         {
-            var pdfRenderer = new PdfRenderer();
-            var file = await pdfRenderer.Render(GetData());
-            
-            System.IO.File.WriteAllBytes("/home/angelica/RiderProjects/Documo/DocumoWeb/wwwroot/pdf/OutputPdf.pdf", file);
+            var file = await PdfRenderer.Render(GetData());
             return new FileContentResult(file, "application/pdf");
-            //return PartialView("~/Views/_PdfViewer.cshtml");
         }
-
+        
         [HttpGet]
-        public async Task<ViewResult> GetInvoiceTemplate()
+        public async Task<string> GetInvoiceTemplateHtmlCode(int id)
         {
-            var templateFile = await HtmlRenderer.OpenDocument("/home/angelica/RiderProjects/Documo/DocumoWeb/Views/Templates/sample_template.html");
+            var templateType = TemplateTypes.Get(id);
+            var templateFilePath = templateType.Path;
+            var templateFile = await HtmlRenderer.OpenDocument(templateFilePath);
             //purge scripts
-            var template = new Template
-            {
-                Html = templateFile.DocumentElement.InnerHtml
-            };
-            ViewBag.Html = template.Html;
+            return templateFile.DocumentElement.InnerHtml;
+        }
+        
+        [HttpGet]
+        public async Task<ViewResult> GetInvoiceTemplate(int id)
+        {
+            var templateType = TemplateTypes.Get(id);
+            var templateFilePath = templateType.Path;
+            var templateFile = await HtmlRenderer.OpenDocument(templateFilePath);
+            //purge scripts
+            ViewBag.Html = templateFile.DocumentElement.InnerHtml;
             return View("~/Views/_Template.cshtml");
         }
 
