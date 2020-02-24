@@ -35,4 +35,14 @@ namespace Documo.Visitor
             return $"es_{ObjectName}";
         }
     }
+    
+    public class ImagePlaceholder : DocumentPlaceholder
+    {
+        public override string ObjectName { set; get; }
+
+        public override string GetPlaceholder()
+        {
+            return $"img_{ObjectName}";
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Dom;
@@ -10,15 +11,18 @@ namespace Documo.Services
         {
             var elements = doc.Body.QuerySelectorAll(".placeholder");
             
-            var placeholders = elements.Select(x => x.TextContent.Trim());
+            var placeholders = elements.Select(x => (x.TextContent.Trim() == string.Empty ? x.GetAttribute("data-placeholder").Trim() : x.TextContent.Trim()));
             
             return string.Join("", placeholders);
         }
         
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc, string placeholderName)
         {
-            var q = $"{{{{{placeholderName}}}}}";
-            return doc.QuerySelectorAll(".placeholder").Where(x => x.TextContent.Trim() == $"{{{{{placeholderName}}}}}");
+            var placeholder = $"{{{{{placeholderName}}}}}";
+            return doc.QuerySelectorAll(".placeholder").Where(
+                x => x.TextContent.Trim() == string.Empty
+                    ? x.GetAttribute("data-placeholder").Trim() == placeholder
+                    : x.TextContent.Trim() == placeholder);
         }
         
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc)

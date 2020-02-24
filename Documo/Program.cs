@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Documo.Renderer;
 using Documo.TestData;
-using Newtonsoft.Json.Serialization;
 
 namespace Documo
 {
@@ -12,9 +10,10 @@ namespace Documo
         static async Task Main(string[] args)
         {
             var testData = TestJsonObject.GetData();
-            var pdfRenderer = new PdfRenderer();
-            var template = File.ReadAllText("/home/angelica/RiderProjects/Documo/Documo/sample_template.html");
-            await PdfRenderer.Render(template, testData);
+            var template = File.ReadAllText("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/InvoiceTemplate.html");
+            var pdf = await PdfRenderer.Render(template, testData);
+            
+            File.WriteAllBytes("/home/angelica/RiderProjects/Documo/Documo/OutputPdf.pdf", pdf);
         }
     }
 }

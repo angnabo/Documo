@@ -10,7 +10,8 @@ namespace Documo.Services
             return new List<IProcessPlaceholder>
             {
                 new ProcessObjectPlaceholder(), 
-                new ProcessRepeatingSectionPlaceholders()
+                new ProcessRepeatingSectionPlaceholders(),
+                new ImagePlaceholderProcessor()
             };
         }
     }

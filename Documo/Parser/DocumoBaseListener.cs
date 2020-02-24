@@ -71,6 +71,18 @@ public partial class DocumoBaseListener : IDocumoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.imagePlaceholder"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterImagePlaceholder([NotNull] DocumoParser.ImagePlaceholderContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.imagePlaceholder"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitImagePlaceholder([NotNull] DocumoParser.ImagePlaceholderContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

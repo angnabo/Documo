@@ -33,6 +33,10 @@ namespace Documo.Visitor
             {
                 placeholder = (RepeatingSection)VisitRepeatingSection(context.repeatingSection());
             }
+            else if(context.imagePlaceholder() != null)
+            {
+                placeholder = (ImagePlaceholder)VisitImagePlaceholder(context.imagePlaceholder());
+            }
             else
             {
                 placeholder = (DocumentObject)VisitObject(context.@object());
@@ -64,6 +68,15 @@ namespace Documo.Visitor
             return obj;
         }
 
+        public object VisitImagePlaceholder(DocumoParser.ImagePlaceholderContext context)
+        {
+            var obj = new ImagePlaceholder
+            {
+                ObjectName = context.@object().objectName().GetText()
+            };
+            return obj;
+        }
+        
         public object VisitRepeatingSection(DocumoParser.RepeatingSectionContext context)
         {
             var repeatingSection = new RepeatingSection

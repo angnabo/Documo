@@ -61,6 +61,16 @@ public interface IDocumoListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="DocumoParser.imagePlaceholder"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterImagePlaceholder([NotNull] DocumoParser.ImagePlaceholderContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="DocumoParser.imagePlaceholder"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitImagePlaceholder([NotNull] DocumoParser.ImagePlaceholderContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

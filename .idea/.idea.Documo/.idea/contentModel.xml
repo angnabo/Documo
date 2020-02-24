@@ -67,15 +67,19 @@
           <e p="JsonResolver.cs" t="Include" />
         </e>
         <e p="Strategies" t="Include">
+          <e p="ArrayAccessPlaceholderProcessor.cs" t="Include" />
           <e p="IPlaceholderProcessor.cs" t="Include" />
           <e p="IProcessPlaceholder.cs" t="Include" />
+          <e p="ImagePlaceholderProcessor.cs" t="Include" />
+          <e p="ObjectPlaceholderProcessor.cs" t="Include" />
           <e p="PlaceholderProcessor.cs" t="Include" />
           <e p="PlaceholderStrategies.cs" t="Include" />
-          <e p="ProcessArrayAccessPlaceholder.cs" t="Include" />
-          <e p="ProcessObjectPlaceholder.cs" t="Include" />
-          <e p="ProcessRepeatingSectionPlaceholders.cs" t="Include" />
+          <e p="RepeatingSectionPlaceholdersProcessor.cs" t="Include" />
         </e>
         <e p="TestData" t="Include">
+          <e p="Templates" t="Include">
+            <e p="InvoiceTemplate.html" t="Include" />
+          </e>
           <e p="TestJsonObject.cs" t="Include" />
         </e>
         <e p="Visitor" t="Include">
@@ -108,7 +112,6 @@
         </e>
         <e p="Models" t="Include">
           <e p="HomeModel.cs" t="Include" />
-          <e p="Template.cs" t="Include" />
         </e>
         <e p="OutputPdf.pdf" t="Include" />
         <e p="Program.cs" t="Include" />
@@ -122,9 +125,6 @@
           </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
-          </e>
-          <e p="Templates" t="Include">
-            <e p="InvoiceTemplate.html" t="Include" />
           </e>
           <e p="_Template.cshtml" t="Include" />
         </e>

@@ -50,6 +50,12 @@ public interface IDocumoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitRepeatingSection([NotNull] DocumoParser.RepeatingSectionContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="DocumoParser.imagePlaceholder"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitImagePlaceholder([NotNull] DocumoParser.ImagePlaceholderContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="DocumoParser.startRepeatingSection"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

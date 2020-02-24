@@ -4,8 +4,9 @@ grammar Documo;
  * Parser Rules
  */
 stmt                : placeholder + EOF;
-placeholder         : STARTPLACEHOLDER object  ENDPLACEHOLDER | repeatingSection;
-repeatingSection    : startRepeatingSection placeholder+ endRepeatingSection ;
+placeholder         : STARTPLACEHOLDER object  ENDPLACEHOLDER | repeatingSection | imagePlaceholder;
+repeatingSection    : startRepeatingSection placeholder+ endRepeatingSection;
+imagePlaceholder    : STARTPLACEHOLDER IMAGEPLACEHOLDER object ENDPLACEHOLDER;
 startRepeatingSection : STARTPLACEHOLDER STARTREPEATINGSECTION object ENDPLACEHOLDER;
 endRepeatingSection : STARTPLACEHOLDER ENDREPEATINGSECTION object ENDPLACEHOLDER;
 object              : objectFieldAccess | objectName;
@@ -23,7 +24,8 @@ fragment ANY        : [0-9a-zA-Z] ;
 WORD                : (LOWERCASE | UPPERCASE | DIGIT)+ ;
 WHITESPACE          : (' '|'\t')+ -> skip ;
 STARTPLACEHOLDER    : ('{{');
-ENDPLACEHOLDER      : ('}}'); 
+ENDPLACEHOLDER      : ('}}');
+IMAGEPLACEHOLDER    : ('img_');
 STARTREPEATINGSECTION    : ('rs_');
 ENDREPEATINGSECTION      : ('es_'); 
 ACCESSOPERATOR      : ('.'); 
