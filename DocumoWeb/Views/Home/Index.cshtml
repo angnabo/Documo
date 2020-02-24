@@ -30,7 +30,7 @@
         <div class="tabs">
             <ul>
                 <li class="is-active">
-                    <a id="template-tab">Template</a>
+                    <a id="template-tab" data-url="@Url.Action("RenderHtml", "Home")">Template</a>
                 </li>
                 <li>
                     <a id="code-tab">Code</a>
@@ -39,8 +39,8 @@
         </div>
 
         <div id="template-form-container" class="container">
-            <div id="invoice-template">
-                @* @Html.Partial("_Template.cshtml") *@
+            <div id="invoice-template" class="template-container">
+
             </div>
         </div>
 
@@ -57,7 +57,7 @@
     <div class="column">
         <h3 class="subtitle is-4">Rendered Pdf</h3>
         <div class="container">
-            <iframe id="pdf" width="100%" height="800px" type="application/pdf" name="pdf"></iframe>
+            <iframe id="pdf" width="840px" height="800px" type="application/pdf" name="pdf"></iframe>
         </div>
 
     </div>
@@ -70,7 +70,7 @@
 <script src="~/js/codemirror/mode/css/css.js"></script>
 <script src="~/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script>
-
+   
 $( document ).ready(function() {
     let codeArea;
     
@@ -88,64 +88,64 @@ $( document ).ready(function() {
         codeArea.setSize(840, 700);
     };
 
-           
-    $('#template-tab').click(function(){
-       var tab = $(this);
-       $('#template-form-container').removeClass('is-hidden');
-       tab.parent('li').addClass('is-active');
-       $('#code-tab').parent('li').removeClass('is-active');
-       $('#code-form-container').addClass('is-hidden');
 
+    $('#template-tab').click(function(){
+        let tab = $(this);
+        $('#template-form-container').removeClass('is-hidden');
+        tab.parent('li').addClass('is-active');
+        $('#code-tab').parent('li').removeClass('is-active');
+        $('#code-form-container').addClass('is-hidden');
+        codeArea.save();
+        let content = codeArea.getValue();
+        let url = $(this).data('url');
+       
+        $.post( url, { html: content }, function(data) {
+             let frame = $('<iframe>', {
+                 type: "text/html",
+                 class: "frame"
+             });
+             $("#invoice-template").html(frame);
+             frame.contents().find('html').html(data);
+        } ).fail(function(data) {
+            console.log(data.error);
+        });
     });
     
     $('#code-tab').click(function(){
-       var tab = $(this);
-       $('#code-form-container').removeClass('is-hidden');
-       tab.parent('li').addClass('is-active');
-       $('#template-tab').parent('li').removeClass('is-active');
-       $('#template-form-container').addClass('is-hidden');
-       codeArea.refresh();
-    });
-              
+        let tab = $(this);
+        $('#code-form-container').removeClass('is-hidden');
+        tab.parent('li').addClass('is-active');
+        $('#template-tab').parent('li').removeClass('is-active');
+        $('#template-form-container').addClass('is-hidden');
+        codeArea.refresh();
+    }); 
+    
     $('#render').click(function(e) {
-         
-         var url = $('#render').data('url');
          codeArea.save();
-         var content = codeArea.getValue();
-         debugger;
+         let content = codeArea.getValue();
          $('#code-textarea').val(content);
          $('#code-form').submit();
      });
      
-          $('.template-type').click(function(){      
-              var templateUrl = $(this).data('template-url');
-              debugger;
-              $("#invoice-template").html(
-                  $('<iframe>', {
-                      src: templateUrl,
-                      width:'840px',
-                      height: "800px",
-                      type: "text/html",
-                      class: "frame"
-                  })
-              );
-       
-              var htmlCodeUrl = $(this).data('html-code-url');
-               $.get(htmlCodeUrl, function(data) {
-                 codeArea.getDoc().setValue(data);       
-               }).fail((function(data) {
-                  console.log(data.error);
-               })).then(function() {
-                 codeArea.refresh();
-               });
-          });
-     
-     
-     
+    $('.template-type').click(function(){      
+        let templateUrl = $(this).data('template-url');
+        $("#invoice-template").html(
+            $('<iframe>', {
+                src: templateUrl,
+                type: "text/html",
+                class: "frame"
+            })
+        );       
+   
+        let htmlCodeUrl = $(this).data('html-code-url');
+        $.get(htmlCodeUrl, function(data) {
+          codeArea.getDoc().setValue(data);       
+        }).fail((function(data) {
+           console.log(data.error);
+        })).then(function() {
+          codeArea.refresh();
+        });
+    });
 });
-
-
-
-//PDFObject.embed("pdf/OutputPdf.pdf", "#pdf");
 
 </script>

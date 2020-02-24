@@ -18,21 +18,19 @@ namespace Documo.Renderer
             _placeholderProcessor = new PlaceholderProcessor();
         }
 
-        private async Task<IDocument> OpenDocument(string path)
+        public static async Task<IDocument> OpenDocument(string html)
         {
             var config = Configuration.Default;
             var context = BrowsingContext.New(config);
-            var file = File.ReadAllText(path);
-            return await context.OpenAsync(req => req.Content(file));
+            var doc = await context.OpenAsync(req => req.Content(html));
+            return StripScripts(doc);
         }
 
-        public async Task<string> Render(object jsonData)
+        public async Task<string> Render(string template, object jsonData)
         {
-            var s = "";
             try
             {
-                var doc = await OpenDocument("/home/angelica/RiderProjects/Documo/Documo/sample_template.html");
-
+                var doc = await OpenDocument(template);
                 var placeholders = HtmlNodeExtractor.GetAllPlaceholders(doc);
                 var parsedPlaceholders = AntlrService.Parse(placeholders);
                 
@@ -46,17 +44,23 @@ namespace Documo.Renderer
                 
                 var sw = new StringWriter();
                 doc.ToHtml(sw, new PrettyMarkupFormatter());
-
-                File.WriteAllText("/home/angelica/RiderProjects/Documo/Documo/OutputHtml.html", sw.ToString());
-
-                s = sw.ToString();
+                return sw.ToString();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex}");
+                throw;
             }
+        }
 
-            return s;
+        public static IDocument StripScripts(IDocument document)
+        {
+            var elements = document.QuerySelectorAll("script");
+            foreach (var element in elements)
+            {
+                element.Remove();
+            }
+            return document;
         }
     }
 }

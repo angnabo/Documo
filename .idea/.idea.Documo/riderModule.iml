@@ -8,5 +8,9 @@
     <content url="file://$MODULE_DIR$/../.." />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="tinymce" level="application" />
+    <orderEntry type="library" name="quill" level="application" />
+    <orderEntry type="library" name="jquery-3.4.1" level="application" />
+    <orderEntry type="library" name="vue" level="application" />
+    <orderEntry type="library" name="jquery-1.11.0" level="application" />
   </component>
 </module>

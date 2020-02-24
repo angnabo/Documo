@@ -1,4 +1,12 @@
-$HEADER$namespace $NAMESPACE$
+using System.IO;
+
+namespace Documo.Services
 {
-  public class $CLASS$ {$END$}
+    public class FileService
+    {
+        public static string ReadAllLines(string path)
+        {
+            return File.ReadAllText(path);
+        }
+    }
 }

@@ -8,10 +8,10 @@ namespace Documo.Renderer
 {
     public class PdfRenderer
     {
-        public async Task Render(object data)
+        public static async Task<byte[]> Render(string template, object data)
         {
             var renderer = new HtmlRenderer();
-            var content = await renderer.Render(data);
+            var content = await renderer.Render(template, data);
             var rs = new LocalReporting().UseBinary(JsReportBinary.GetBinary()).AsUtility().Create();
             var pdf = await rs.RenderAsync(new RenderRequest
             {
@@ -20,13 +20,17 @@ namespace Documo.Renderer
                     Content = content,
                     Engine = Engine.None,
                     Recipe = Recipe.ChromePdf
-                },
-                
+                }
             });
+            
+            return ReadFully(pdf.Content);
+        }
 
-            var fileStream = new FileStream("/home/angelica/RiderProjects/Documo/Documo/OutputPdf.pdf", FileMode.Create, FileAccess.Write);
-            pdf.Content.CopyTo(fileStream);
-            fileStream.Dispose();
+        private static byte[] ReadFully(Stream input)
+        {
+            using var ms = new MemoryStream();
+            input.CopyTo(ms);
+            return ms.ToArray();
         }
     }
 }

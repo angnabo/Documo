@@ -53,5 +53,14 @@ namespace DocumoWeb.Controllers
             ViewBag.Html = await TemplateHelper.GetTemplateContents(id);
             return View("~/Views/_Template.cshtml");
         }
+        
+        [HttpPost]
+        public async Task<ViewResult> RenderHtml(string html)
+        {
+            var sanitizedHtml = await HtmlRenderer.OpenDocument(html);
+            var htmlTemplate = sanitizedHtml.DocumentElement.InnerHtml;
+            ViewBag.Html = sanitizedHtml.DocumentElement.InnerHtml;
+            return View("~/Views/_Template.cshtml");
+        }
     }
 }

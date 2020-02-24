@@ -12,6 +12,11 @@
 }
 
 .frame{
+    height: inherit; !important;
+    width: inherit; !important;
+}
+
+.template-container{
     -ms-zoom: 0.75;
     -moz-transform: scale(0.75);
     -moz-transform-origin: 0 0;
@@ -19,4 +24,6 @@
     -o-transform-origin: 0 0;
     -webkit-transform: scale(0.75);
     -webkit-transform-origin: 0 0;
+    height: 800px;
+    width: 840px;
 }

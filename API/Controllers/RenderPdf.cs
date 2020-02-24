@@ -12,10 +12,10 @@ namespace API.Controllers
     public class RenderPdf : Controller
     {
   
-        public async Task<IActionResult> Render(object data)
+        public async Task<IActionResult> Render(string template, object data)
         {
             var renderer = new HtmlRenderer();
-            var content = await renderer.Render(data);
+            var content = await renderer.Render(template, data);
             var rs = new LocalReporting().UseBinary(JsReportBinary.GetBinary()).AsUtility().Create();
             var pdf = await rs.RenderAsync(new RenderRequest
             {
