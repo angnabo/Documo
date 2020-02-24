@@ -57,7 +57,7 @@
     <div class="column">
         <h3 class="subtitle is-4">Rendered Pdf</h3>
         <div class="container">
-            <iframe id="pdf" width="840px" height="800px" type="application/pdf" name="pdf"></iframe>
+            <iframe class="frame" id="pdf" width="840px" height="800px" type="application/pdf" name="pdf"></iframe>
         </div>
 
     </div>
@@ -85,7 +85,7 @@ $( document ).ready(function() {
            autoFocus: true,
         });
         codeArea.refresh();
-        codeArea.setSize(840, 700);
+        codeArea.setSize(840, 700);        
     };
 
 
@@ -102,6 +102,8 @@ $( document ).ready(function() {
         $.post( url, { html: content }, function(data) {
              let frame = $('<iframe>', {
                  type: "text/html",
+                 width: "840px",
+                 height: "800px",
                  class: "frame"
              });
              $("#invoice-template").html(frame);
@@ -133,6 +135,8 @@ $( document ).ready(function() {
             $('<iframe>', {
                 src: templateUrl,
                 type: "text/html",
+                width: "840px",
+                height: "800px",
                 class: "frame"
             })
         );       

@@ -21,7 +21,7 @@ namespace DocumoWeb.Constants
     public class TemplateTypes
     {
         private static readonly List<TemplateType> TemplateTypesList = new List<TemplateType>();
-        private static readonly TemplateType InvoiceTemplate = new TemplateType(1, "Invoice", "Views/Templates/InvoiceTemplate.html");
+        private static readonly TemplateType InvoiceTemplate = new TemplateType(1, "Invoice", "../Documo/TestData/Templates/InvoiceTemplate.html");
 
         static TemplateTypes()
         {

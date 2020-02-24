@@ -99,13 +99,16 @@
             <td colspan="2">
                 <table>
                     <tr>
-                        <td class="title">
+                        <td>
 <!--                            <img src="https://i.imgur.com/5FckMAD.png" style="width:100%; max-width:300px;">-->
-                            <img src="https://i.imgur.com/ByQtdeO.png" style="width:100%; max-width:300px;">
+                            <div class="placeholder">
+                                 <img class="placeholder" data-placeholder="{{img_Logo}}" src="https://i.imgur.com/ByQtdeO.png" style="max-width:300px;">
+                            </div>
+
                         </td>
 
                         <td>
-                            Invoice #: <span style="font-weight:bold;" class="placeholder">{{InvoiceNumber123}}</span><br>
+                            Invoice #: <span style="font-weight:bold;" class="placeholder">{{InvoiceNumber}}</span><br>
                             Invoice date: <span class="placeholder">{{CreatedDate}}</span><br>
                             Due: <span class="placeholder">{{DueDate}}</span>
                         </td>
@@ -120,9 +123,9 @@
                     <tr>
                         <td>
                             <span class="placeholder">{{FullName}}</span><br><br>
-                            <span class="placeholder">{{Address.AddressLine1}}</span><br>
-                            <span class="placeholder">{{Address.AddressLine2}}</span><br>
-                            <span class="placeholder">{{Address.AddressLine3}}</span>
+                            <span class="placeholder">{{Address.Address1}}</span><br>
+                            <span class="placeholder">{{Address.Address2}}</span><br>
+                            <span class="placeholder">{{Address.Address3}}</span>
                         </td>
 
                         <td>                           
@@ -181,7 +184,7 @@
 
             <tr class="item">
                 <td><span class="placeholder">{{Name}}</span></td>
-                <td><span class="placeholder">{{Cost.Netto}}</span></td>
+                <td><span class="placeholder">{{Cost.Net}}</span></td>
             </tr>
 
             <tr class="placeholder">

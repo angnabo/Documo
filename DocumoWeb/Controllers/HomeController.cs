@@ -11,25 +11,14 @@ namespace DocumoWeb.Controllers
 {
     public class HomeController : Controller
     {
-        
-        public HomeController()
-        {
-            
-        }
-        
         public IActionResult Index()
         {
-            var templateTypes = TemplateTypes.GetTemplateTypes()
-                .ToDictionary(
-                x => x.Id,
-                x => x.Name);
-            
             var model = new HomeModel
             {
                 Html = "",
-                TemplateTypes = templateTypes
+                TemplateTypes = TemplateTypes.GetTemplateTypes()
+                    .ToDictionary(x => x.Id,x => x.Name)
             };
-            
             return View(model);
         }
         
@@ -58,7 +47,6 @@ namespace DocumoWeb.Controllers
         public async Task<ViewResult> RenderHtml(string html)
         {
             var sanitizedHtml = await HtmlRenderer.OpenDocument(html);
-            var htmlTemplate = sanitizedHtml.DocumentElement.InnerHtml;
             ViewBag.Html = sanitizedHtml.DocumentElement.InnerHtml;
             return View("~/Views/_Template.cshtml");
         }
