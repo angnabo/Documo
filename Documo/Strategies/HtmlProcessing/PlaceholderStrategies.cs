@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Documo.Strategies;
+using Documo.Strategies.HtmlProcessing;
 
 namespace Documo.Services
 {
@@ -11,7 +12,8 @@ namespace Documo.Services
             {
                 new ProcessObjectPlaceholder(), 
                 new ProcessRepeatingSectionPlaceholders(),
-                new ImagePlaceholderProcessor()
+                new ImagePlaceholderProcessor(),
+                new ConditionalSectionProcessor()
             };
         }
     }

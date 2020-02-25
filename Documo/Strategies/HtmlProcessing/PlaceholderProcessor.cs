@@ -13,5 +13,6 @@ namespace Documo.Strategies
             var strategy = placeholderStrategies.SingleOrDefault(x => x.AppliesTo(placeholder));
             strategy?.ProcessPlaceholders(document, placeholder, jsonData);
         }
+        
     }
 }

@@ -9,12 +9,10 @@ namespace Documo.Strategies
 {
     public class ProcessRepeatingSectionPlaceholders : IProcessPlaceholder
     {
-        private readonly IPlaceholderProcessor _placeholderProcessor;
         private readonly ProcessArrayAccessPlaceholder _processArrayAccessPlaceholder;
         public ProcessRepeatingSectionPlaceholders()
         {
             _processArrayAccessPlaceholder = new ProcessArrayAccessPlaceholder();
-            _placeholderProcessor = new PlaceholderProcessor();
         }
         
         public bool AppliesTo(DocumentPlaceholder placeholder)
@@ -29,7 +27,7 @@ namespace Documo.Strategies
             var startNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetPlaceholder());
             var endNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
 
-            var nodes = GetNodesBetweenStartAndEnd(startNode, endNode).ToArray();
+            var nodes = HtmlNodeExtractor.GetNodesBetweenStartAndEnd(startNode, endNode).ToArray();
             var array = (object[])JsonResolver.Resolve(jsonData, placeholder.ObjectName);
             
             for (var i = 0; i < array.Length; i++)
@@ -77,19 +75,7 @@ namespace Documo.Strategies
             }
         }
 
-        private IEnumerable<IElement> GetNodesBetweenStartAndEnd(IElement startNode, IElement endNode)
-        {
-            var nodes = new List<IElement>();
-            var nextNode = startNode.NextElementSibling;
-            
-            //get html between start and end node
-            while (nextNode?.OuterHtml != endNode.OuterHtml)
-            {
-                nodes.Add(nextNode);
-                nextNode = nextNode?.NextElementSibling;
-            }
-            return nodes;
-        }
+
     }
 }
 

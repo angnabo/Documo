@@ -34,5 +34,19 @@ namespace Documo.Services
         {
             return doc.QuerySelectorAll(".placeholder").SingleOrDefault(x => x.TextContent.Trim() == $"{{{{{placeholderName}}}}}");
         }
+        
+        public static IEnumerable<IElement> GetNodesBetweenStartAndEnd(IElement startNode, IElement endNode)
+        {
+            var nodes = new List<IElement>();
+            var nextNode = startNode.NextElementSibling;
+            
+            //get html between start and end node
+            while (nextNode?.OuterHtml != endNode.OuterHtml)
+            {
+                nodes.Add(nextNode);
+                nextNode = nextNode?.NextElementSibling;
+            }
+            return nodes;
+        }
     }
 }
