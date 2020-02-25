@@ -200,5 +200,18 @@
         
     </table>
 </div>
+<!--This is to test scripts are being removed when parsing-->
+<script src="~/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script>
+    $( document ).ready(function() {
+        $('#template-tab').click(function(){
+            var tab = $(this);
+            $('#template-form-container').removeClass('is-hidden');
+            tab.parent('li').addClass('is-active');
+            $('#code-tab').parent('li').removeClass('is-active');
+            $('#code-form-container').addClass('is-hidden');
+        });
+    });
+</script>
 </body>
 </html>

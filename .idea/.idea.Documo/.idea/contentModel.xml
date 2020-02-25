@@ -38,28 +38,32 @@
       </e>
       <e p="Documo" t="IncludeRecursive">
         <e p="Documo.csproj" t="IncludeRecursive" />
-        <e p="Documo.g4" t="Include" />
-        <e p="OutputHtml.html" t="Include" />
-        <e p="OutputPdf.pdf" t="Include" />
-        <e p="Parser" t="Include">
-          <e p="Documo.interp" t="Include" />
-          <e p="Documo.tokens" t="Include" />
-          <e p="DocumoBaseListener.cs" t="Include" />
-          <e p="DocumoBaseVisitor.cs" t="Include" />
-          <e p="DocumoLexer.cs" t="Include" />
-          <e p="DocumoLexer.interp" t="Include" />
-          <e p="DocumoLexer.tokens" t="Include" />
-          <e p="DocumoListener.cs" t="Include" />
-          <e p="DocumoParser.cs" t="Include" />
-          <e p="DocumoVisitor.cs" t="Include" />
+        <e p="DocumoParser" t="Include">
+          <e p="Grammar" t="Include">
+            <e p="Documo.g4" t="Include" />
+          </e>
+          <e p="Parser" t="Include">
+            <e p="Documo.interp" t="Include" />
+            <e p="Documo.tokens" t="Include" />
+            <e p="DocumoBaseListener.cs" t="Include" />
+            <e p="DocumoBaseVisitor.cs" t="Include" />
+            <e p="DocumoLexer.cs" t="Include" />
+            <e p="DocumoLexer.interp" t="Include" />
+            <e p="DocumoLexer.tokens" t="Include" />
+            <e p="DocumoListener.cs" t="Include" />
+            <e p="DocumoParser.cs" t="Include" />
+            <e p="DocumoVisitor.cs" t="Include" />
+          </e>
+          <e p="Visitor" t="Include">
+            <e p="DocumentPlaceholder.cs" t="Include" />
+            <e p="DocumoVisitor.cs" t="Include" />
+          </e>
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Renderer" t="Include">
           <e p="HtmlRenderer.cs" t="Include" />
           <e p="PdfRenderer.cs" t="Include" />
         </e>
-        <e p="Repeating_Row_Template.html" t="Include" />
-        <e p="Repeating_Table_Template.html" t="Include" />
         <e p="Services" t="Include">
           <e p="AntlrService.cs" t="Include" />
           <e p="FileService.cs" t="Include" />
@@ -67,27 +71,31 @@
           <e p="JsonResolver.cs" t="Include" />
         </e>
         <e p="Strategies" t="Include">
-          <e p="ArrayAccessPlaceholderProcessor.cs" t="Include" />
-          <e p="IPlaceholderProcessor.cs" t="Include" />
-          <e p="IProcessPlaceholder.cs" t="Include" />
-          <e p="ImagePlaceholderProcessor.cs" t="Include" />
-          <e p="ObjectPlaceholderProcessor.cs" t="Include" />
-          <e p="PlaceholderProcessor.cs" t="Include" />
-          <e p="PlaceholderStrategies.cs" t="Include" />
-          <e p="RepeatingSectionPlaceholdersProcessor.cs" t="Include" />
+          <e p="HtmlProcessing" t="Include">
+            <e p="ArrayAccessProcessor.cs" t="Include" />
+            <e p="ConditionalSectionProcessor.cs" t="Include" />
+            <e p="IPlaceholderProcessor.cs" t="Include" />
+            <e p="IProcessPlaceholder.cs" t="Include" />
+            <e p="ImageProcessor.cs" t="Include" />
+            <e p="ObjectProcessor.cs" t="Include" />
+            <e p="PlaceholderProcessor.cs" t="Include" />
+            <e p="PlaceholderStrategies.cs" t="Include" />
+            <e p="RepeatingSectionProcessor.cs" t="Include" />
+          </e>
         </e>
         <e p="TestData" t="Include">
           <e p="Templates" t="Include">
             <e p="InvoiceTemplate.html" t="Include" />
+            <e p="InvoiceTemplateWithConditional.html" t="Include" />
+            <e p="OutputHtml.html" t="Include" />
+            <e p="OutputPdf.pdf" t="Include" />
+            <e p="Repeating_Row_Template.html" t="Include" />
+            <e p="Repeating_Table_Template.html" t="Include" />
+            <e p="json.html" t="Include" />
           </e>
           <e p="TestJsonObject.cs" t="Include" />
         </e>
-        <e p="Visitor" t="Include">
-          <e p="DocumentPlaceholder.cs" t="Include" />
-          <e p="DocumoVisitor.cs" t="Include" />
-        </e>
         <e p="bin" t="ExcludeRecursive" />
-        <e p="json.html" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -95,8 +103,6 @@
             </e>
           </e>
         </e>
-        <e p="sample_template.html" t="Include" />
-        <e p="template.html" t="Include" />
       </e>
       <e p="Documo.sln" t="IncludeFlat" />
       <e p="DocumoWeb" t="IncludeRecursive">

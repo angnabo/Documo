@@ -45,4 +45,21 @@ namespace Documo.Visitor
             return $"img_{ObjectName}";
         }
     }
+
+    public class ConditionalPlaceholder : DocumentPlaceholder
+    {
+        public override string ObjectName { set; get; }
+
+        public List<DocumentPlaceholder> DocumentPlaceholders = new List<DocumentPlaceholder>();
+
+        public override string GetPlaceholder()
+        {
+            return $"if_{ObjectName}";
+        }
+
+        public string GetEndPlaceholder()
+        {
+            return $"endif_{ObjectName}";
+        }
+    }
 }

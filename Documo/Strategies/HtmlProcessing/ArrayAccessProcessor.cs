@@ -22,21 +22,12 @@ namespace Documo.Strategies
                 value = JsonResolver.Resolve(array, $"[{index}].{placeholder.GetPlaceholder()}").ToString();
                 node.TextContent = value;
             }
-            catch (ArgumentException e) when (e.Message.Equals(
-                $"The property {fieldName} could not be found."))
+            catch (ArgumentException e) when (e.Message.Equals($"The property {fieldName} could not be found."))
             {
                                    
                 value = $"{{{{Not found: {placeholder.GetPlaceholder()}}}}}";
                 node.TextContent = value;
-                var styleAttribute = node.Attributes["style"]?.Value;
-                if (styleAttribute == null)
-                {
-                    node.SetAttribute("style", "color:red;");
-                }
-                else
-                {
-                    node.Attributes["style"].Value = styleAttribute + "color:red;";
-                }
+                node.Attributes["style"].Value += "color:red;";
             }
             catch (Exception e)
             {

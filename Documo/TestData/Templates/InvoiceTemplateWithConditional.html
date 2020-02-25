@@ -72,22 +72,6 @@
         .padding-top{
             padding-top: 20px
         }
-
-        @media only screen and (max-width: 600px) {
-            .invoice-box table tr.top table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-
-            .invoice-box table tr.information table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-        }
-
-        /** RTL **/
         
         .rtl {
             direction: rtl;
@@ -115,13 +99,15 @@
             <td colspan="2">
                 <table>
                     <tr>
-                        <td class="title">
-<!--                            <img src="https://i.imgur.com/5FckMAD.png" style="width:100%; max-width:300px;">-->
-                            <img src="https://i.imgur.com/ByQtdeO.png" style="width:100%; max-width:300px;">
+                        <td>
+                            <div>
+                                 <img class="placeholder" data-placeholder="{{img_Logo}}" src="https://i.imgur.com/ByQtdeO.png" style="max-width:300px;">
+                            </div>
+
                         </td>
 
                         <td>
-                            Invoice #: <span style="font-weight:bold;" class="placeholder">{{InvoiceNumber123}}</span><br>
+                            Invoice #: <span style="font-weight:bold;" class="placeholder">{{InvoiceNumber}}</span><br>
                             Invoice date: <span class="placeholder">{{CreatedDate}}</span><br>
                             Due: <span class="placeholder">{{DueDate}}</span>
                         </td>
@@ -136,9 +122,9 @@
                     <tr>
                         <td>
                             <span class="placeholder">{{FullName}}</span><br><br>
-                            <span class="placeholder">{{Address.AddressLine1}}</span><br>
-                            <span class="placeholder">{{Address.AddressLine2}}</span><br>
-                            <span class="placeholder">{{Address.AddressLine3}}</span>
+                            <span class="placeholder">{{Address.Address1}}</span><br>
+                            <span class="placeholder">{{Address.Address2}}</span><br>
+                            <span class="placeholder">{{Address.Address3}}</span>
                         </td>
 
                         <td>                           
@@ -152,10 +138,8 @@
             <td colspan="1">
                 <p>Your invoice details are below.</p>
             </td>
-        </tr>
+        </tr>      
         
-        
-
         <table cellpadding="0" cellspacing="0">
             <thead class="heading">
             <th>Payment made by you</th>
@@ -182,40 +166,39 @@
                 </td>
             </tr>
         </table>
-        
-        
-        
-        <table class="padding-top" cellpadding="0" cellspacing="0">
-            <thead class="heading">
-                <th>All Services</th>
-                <th>Price</th>
-            </thead>
-
-            <tr class="placeholder" data-placeholder="rs_Services">
-                <td><p>{{rs_Services}}</p></td>
-            </tr>
-
-            <tr class="item">
-                <td><span class="placeholder">{{Name}}</span></td>
-                <td><span class="placeholder">{{Cost.Netto}}</span></td>
-            </tr>
-
-            <tr class="placeholder">
-                <td><p>{{es_Services}}</p></td>
-            </tr>
-
-            <tr class="total">
-                <td></td>
-                <td>
-                    Total: £<span class="placeholder">{{TotalServices}}</span></td>
-                </td>
-            </tr>
-        </table>
+                
+        <span class="placeholder">{{if_Services}}</span>
+            <table class="padding-top" cellpadding="0" cellspacing="0">
+                <thead class="heading">
+                    <th>All Services</th>
+                    <th>Price</th>
+                </thead>
+    
+                <tr class="placeholder" data-placeholder="rs_Services">
+                    <td><p>{{rs_Services}}</p></td>
+                </tr>
+    
+                <tr class="item">
+                    <td><span class="placeholder">{{Name}}</span></td>
+                    <td><span class="placeholder">{{Cost.Net}}</span></td>
+                </tr>
+    
+                <tr class="placeholder">
+                    <td><p>{{es_Services}}</p></td>
+                </tr>
+    
+                <tr class="total">
+                    <td></td>
+                    <td>
+                        Total: £<span class="placeholder">{{TotalServices}}</span></td>
+                    </td>
+                </tr>
+            </table>
+        <span class="placeholder">{{endif_Services}}</span>
         
     </table>
 </div>
-<script src="~/js/codemirror/mode/xml/xml.js"></script>
-<script src="~/js/codemirror/mode/css/css.js"></script>
+<!--This is to test scripts are being removed when parsing-->
 <script src="~/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script>
     $( document ).ready(function() {
@@ -225,7 +208,6 @@
             tab.parent('li').addClass('is-active');
             $('#code-tab').parent('li').removeClass('is-active');
             $('#code-form-container').addClass('is-hidden');
-    
         });
     });
 </script>

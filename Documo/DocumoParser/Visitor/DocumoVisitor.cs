@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Antlr4.Runtime;
 
 namespace Documo.Visitor
 {
@@ -7,27 +6,16 @@ namespace Documo.Visitor
     {
         public readonly List<DocumentPlaceholder> Placeholders = new List<DocumentPlaceholder>();
 
-//        public override object VisitPlaceholder(DocumoParser.PlaceholderContext context)
-//        {
-//            var expression = context.@object();
-//            DocumentObject obj = new DocumentObject
-//            {
-//                ObjectField = expression.objectField().GetText(),
-//                ObjectName = expression.objectName().GetText()
-//            };
-//            DocumentPlaceholder placeholder = new DocumentPlaceholder
-//            {
-//                DocumentObject = obj
-//            };
-//            
-//            Placeholders.Add(placeholder);
-//            
-//            return placeholder;
-//        }
-
         public override object VisitPlaceholder(DocumoParser.PlaceholderContext context)
         {
-            
+
+            DocumentPlaceholder placeholder = VisitPlaceholderContext(context);
+            Placeholders.Add(placeholder);
+            return placeholder;
+        }
+
+        public DocumentPlaceholder VisitPlaceholderContext(DocumoParser.PlaceholderContext context)
+        {
             DocumentPlaceholder placeholder;
             if (context.repeatingSection() != null)
             {
@@ -37,12 +25,13 @@ namespace Documo.Visitor
             {
                 placeholder = (ImagePlaceholder)VisitImagePlaceholder(context.imagePlaceholder());
             }
-            else
+            else if(context.conditionalSection() != null)
+            {
+                placeholder = (ConditionalPlaceholder)VisitConditionalPlaceholder(context.conditionalSection());
+            } else
             {
                 placeholder = (DocumentObject)VisitObject(context.@object());
             }
-            
-            Placeholders.Add(placeholder);
             return placeholder;
         }
 
@@ -66,6 +55,26 @@ namespace Documo.Visitor
             }
 
             return obj;
+        }
+
+        public object VisitConditionalPlaceholder(DocumoParser.ConditionalSectionContext context)
+        {
+            var conditionalPlaceholder = new ConditionalPlaceholder
+            {
+                ObjectName = VisitStartConditionalSection(context.startConditionalSection()).ToString()
+            };
+
+            foreach (var placeholder in context.placeholder())
+            {
+                conditionalPlaceholder.DocumentPlaceholders.Add(VisitPlaceholderContext(placeholder));
+            }
+            
+            return conditionalPlaceholder;
+        }
+
+        public override object VisitStartConditionalSection(DocumoParser.StartConditionalSectionContext context)
+        {
+            return context.@object().objectName().GetText();
         }
 
         public object VisitImagePlaceholder(DocumoParser.ImagePlaceholderContext context)
