@@ -44,6 +44,9 @@ namespace Documo.Renderer
                 
                 var sw = new StringWriter();
                 doc.ToHtml(sw, new PrettyMarkupFormatter());
+                
+                System.IO.File.WriteAllText ("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/OutputHtml.html", sw.ToString());
+                
                 return sw.ToString();
             }
             catch (Exception ex)

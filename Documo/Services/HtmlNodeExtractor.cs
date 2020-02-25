@@ -27,7 +27,7 @@ namespace Documo.Services
         
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc)
         {
-            return doc.QuerySelectorAll(".placeholder");
+            return doc.QuerySelectorAll(".placeholder").ToList();
         }
         
         public static IElement GetSinglePlaceholderNode(IElement doc, string placeholderName)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Dom;
 using Documo.Services;
@@ -19,7 +20,8 @@ namespace Documo.Strategies.HtmlProcessing
             var data = JsonResolver.Resolve(jsonData, placeholder.ObjectName);
             //if data is object - check if null - if not null do object access
             //if data is array - check if null - if not null do repeating section
-            if (data.GetType() == typeof(object[]))
+            var dataType = data.GetType();
+            try
             {
                 var dataArray = (object[]) data;
                 if (dataArray.Any())
@@ -32,18 +34,14 @@ namespace Documo.Strategies.HtmlProcessing
                     //foreach node
                     foreach (var node in nodes)
                     {
-                        ProcessNodes(node, jsonData);
+                        ProcessNodes(doc, node, jsonData);
                     }
                     
                     startNode.Remove();
                     endNode.Remove();
-                    foreach (var h in nodes)
-                    {
-                        h.Remove();
-                    }
                 }
             }
-            else
+            catch (InvalidCastException e)
             {
                 if (data != null)
                 {
@@ -55,20 +53,28 @@ namespace Documo.Strategies.HtmlProcessing
                     //foreach node
                     foreach (var node in nodes)
                     {
-                        ProcessNodes(node, jsonData);
+                        if (node.ClassList.Contains("placeholder") || node.Children.Any(x => x.ClassList.Contains("placeholder")))
+                        {
+                            ProcessNodes(doc, node, jsonData);
+                        }
                     }
                     
                     startNode.Remove();
                     endNode.Remove();
-                    foreach (var h in nodes)
-                    {
-                        h.Remove();
-                    }
                 }
             }
         }
-        private void ProcessNodes(IElement node, object jsonData){
-            var placeholders = HtmlNodeExtractor.GetPlaceholderNodes(node).Select(x => x.TextContent.Trim());
+        private void ProcessNodes(IElement doc, IElement node, object jsonData)
+        {
+            var placeholdersFromNode = HtmlNodeExtractor.GetPlaceholderNodes(node).Select(x => x.TextContent.Trim()).ToList();
+            var placeholders = new List<string>();
+            
+            if (node.ClassList.Contains("placeholder"))
+            {
+                placeholders.Add(node.TextContent.Trim());
+            }
+            
+            placeholders.AddRange(placeholdersFromNode);
                     
             var input = string.Join("", placeholders);
                     
@@ -76,16 +82,10 @@ namespace Documo.Strategies.HtmlProcessing
                     
             foreach (var parsedPlaceholder in parsedPlaceholders)
             {  
-                var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(node, parsedPlaceholder.GetPlaceholder()).ToArray();
-                        
-                if (!placeholderNodes.Any()) continue;
-                        
-                foreach (var placeholderNode in placeholderNodes)
-                {
                     var placeholderStrategies = PlaceholderStrategies.Get();
                     var strategy = placeholderStrategies.SingleOrDefault(x => x.AppliesTo(parsedPlaceholder));
-                    strategy?.ProcessPlaceholders(placeholderNode, parsedPlaceholder, jsonData); 
-                }
+                    strategy?.ProcessPlaceholders(doc, parsedPlaceholder, jsonData); 
+                
             }
         }
         
