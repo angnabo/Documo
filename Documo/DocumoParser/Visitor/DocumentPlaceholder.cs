@@ -23,7 +23,7 @@ namespace Documo.Visitor
     {
         public override string ObjectName { set; get; }
         
-        public List<DocumentObject> DocumentObject = new List<DocumentObject>();
+        public List<DocumentPlaceholder> DocumentPlaceholders = new List<DocumentPlaceholder>();
         
         public override string GetPlaceholder()
         {

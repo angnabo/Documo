@@ -68,6 +68,7 @@
           <e p="AntlrService.cs" t="Include" />
           <e p="FileService.cs" t="Include" />
           <e p="HtmlNodeExtractor.cs" t="Include" />
+          <e p="HtmlNodeModifier.cs" t="Include" />
           <e p="JsonResolver.cs" t="Include" />
         </e>
         <e p="Strategies" t="Include">
@@ -803,6 +804,19 @@
         </e>
       </e>
       <e p="Tests" t="IncludeRecursive">
+        <e p="ExpectedHtml" t="Include">
+          <e p="ExpectedConditionalSection.html" t="Include" />
+          <e p="ExpectedEmptyConditionalSection.html" t="Include" />
+          <e p="ExpectedErrorConditionalSection.html" t="Include" />
+          <e p="ExpectedRowRepeatingSection.html" t="Include" />
+          <e p="ExpectedTableRepeatingSection.html" t="Include" />
+        </e>
+        <e p="HtmlTestData" t="Include">
+          <e p="ConditionalSection.html" t="Include" />
+          <e p="NestedRepeatingSection.html" t="Include" />
+          <e p="RowRepeatingSection.html" t="Include" />
+          <e p="TableRepeatingSection.html" t="Include" />
+        </e>
         <e p="ParsePlaceholdersTests.cs" t="Include" />
         <e p="Tests.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />

@@ -95,7 +95,7 @@ namespace Documo.Visitor
 
             foreach (var placeholder in context.placeholder())
             {
-                repeatingSection.DocumentObject.Add((DocumentObject)VisitObject(placeholder.@object()));
+                repeatingSection.DocumentPlaceholders.Add(VisitPlaceholderContext(placeholder));
             }
             
             return repeatingSection;

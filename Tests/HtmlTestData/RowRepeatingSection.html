@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <thead class="heading">
+            <th>Payment made by you</th>
+            <th>Amount</th>
+            </thead>
+            <tr class="placeholder">
+                <td><p>{{rs_Payments}}</p></td>
+            </tr>
+            <tr class="item">
+                <td><span class="placeholder">{{Name}}</span></td>
+                <td><span class="placeholder">{{Amount}}</span></td>
+            </tr>
+            <tr class="placeholder">
+                <td><p>{{es_Payments}}</p></td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td>
+                    Total: £<span class="placeholder">{{TotalPayments}}</span></td>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -27,7 +27,7 @@ namespace Documo.Strategies
                                    
                 value = $"{{{{Not found: {placeholder.GetPlaceholder()}}}}}";
                 node.TextContent = value;
-                node.Attributes["style"].Value += "color:red;";
+                HtmlNodeModifier.SetErrorColour(node);
             }
             catch (Exception e)
             {

@@ -42,9 +42,9 @@ namespace Documo.Strategies
 
             startNode.Remove();
             endNode.Remove();
-            foreach (var h in nodes)
+            foreach (var n in nodes)
             {
-                h.Remove();
+                n.Remove();
             }
         }
             

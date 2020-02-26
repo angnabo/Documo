@@ -8,5 +8,10 @@ namespace Documo.Services
         {
             return File.ReadAllText(path);
         }
+        
+        public static string WriteToFile(string path)
+        {
+            return File.ReadAllText(path);
+        }
     }
 }

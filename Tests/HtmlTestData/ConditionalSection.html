@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style></style>
+</head>
+
+<body>
+<div class="invoice-box">
+    <span class="placeholder">{{if_Services}}</span>
+    <table class="padding-top" cellpadding="0" cellspacing="0">
+        <thead class="heading">
+        <th>All Services</th>
+        <th>Price</th>
+        </thead>
+
+        <tr class="placeholder" data-placeholder="rs_Services">
+            <td><p>{{rs_Services}}</p></td>
+        </tr>
+
+        <tr class="item">
+            <td><span class="placeholder">{{Name}}</span></td>
+            <td><span class="placeholder">{{Cost.Net}}</span></td>
+        </tr>
+
+        <tr class="placeholder">
+            <td><p>{{es_Services}}</p></td>
+        </tr>
+
+        <tr class="total">
+            <td></td>
+            <td>
+                Total: £<span class="placeholder">{{TotalServices}}</span></td>
+            </td>
+        </tr>
+    </table>
+    <span class="placeholder">{{endif_Services}}</span>
+</div>
+</body>
+</html>

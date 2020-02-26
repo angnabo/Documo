@@ -32,7 +32,7 @@ namespace Documo.Strategies
                 foreach (var node in placeholderNodes)
                 {
                     node.TextContent = value;
-                    node.Attributes["style"].Value += "color:red;";
+                    HtmlNodeModifier.SetErrorColour(node);
                 }
             }
         }
