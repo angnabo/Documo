@@ -31,7 +31,7 @@ namespace Documo.Strategies
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"Exception processing {placeholder.ObjectName}: {e.Message}. Stack trace: {e.StackTrace}");
             }
         }
     }

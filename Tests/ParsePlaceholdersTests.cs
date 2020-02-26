@@ -247,7 +247,7 @@ namespace Tests
                 }
             };
             var template = File.ReadAllText("../../../HtmlTestData/NestedRepeatingSection.html");
-            var expectedHtml = File.ReadAllText("../../../ExpectedHtml/ExpectedErrorConditionalSection.html");
+            var expectedHtml = File.ReadAllText("../../../ExpectedHtml/ExpectedNestedRepeatingSection.html");
             
             var renderer = new HtmlRenderer();
             var actualHtml = await renderer.Render(template, testData);

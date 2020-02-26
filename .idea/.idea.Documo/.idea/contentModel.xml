@@ -808,6 +808,7 @@
           <e p="ExpectedConditionalSection.html" t="Include" />
           <e p="ExpectedEmptyConditionalSection.html" t="Include" />
           <e p="ExpectedErrorConditionalSection.html" t="Include" />
+          <e p="ExpectedNestedRepeatingSection.html" t="Include" />
           <e p="ExpectedRowRepeatingSection.html" t="Include" />
           <e p="ExpectedTableRepeatingSection.html" t="Include" />
         </e>

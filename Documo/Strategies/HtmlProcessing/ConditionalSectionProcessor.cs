@@ -96,9 +96,9 @@ namespace Documo.Strategies.HtmlProcessing
                     
             foreach (var parsedPlaceholder in parsedPlaceholders)
             {  
-                    var placeholderStrategies = PlaceholderStrategies.Get();
-                    var strategy = placeholderStrategies.SingleOrDefault(x => x.AppliesTo(parsedPlaceholder));
-                    strategy?.ProcessPlaceholders(doc, parsedPlaceholder, jsonData);
+                var placeholderStrategies = PlaceholderStrategies.Get();
+                var strategy = placeholderStrategies.SingleOrDefault(x => x.AppliesTo(parsedPlaceholder));
+                strategy?.ProcessPlaceholders(doc, parsedPlaceholder, jsonData);
             }
         }
         
