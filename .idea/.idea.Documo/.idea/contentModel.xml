@@ -819,6 +819,7 @@
           <e p="TableRepeatingSection.html" t="Include" />
         </e>
         <e p="ParsePlaceholdersTests.cs" t="Include" />
+        <e p="PerformanceTest.cs" t="Include" />
         <e p="Tests.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
