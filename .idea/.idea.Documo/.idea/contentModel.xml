@@ -3,6 +3,7 @@
   <component name="ContentModelStore">
     <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.jsdelivr.net_npm_vue@2.6.10_dist_vue.js" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.quilljs.com_1.3.6_quill.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.tiny.cloud_1_698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd_tinymce_5_tinymce.js" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.tiny.cloud_1_no-api-key_tinymce_5_tinymce.js" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_jquery-1.11.0.js" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_jquery-3.4.1.js" t="IncludeRecursive" />
@@ -87,6 +88,7 @@
         <e p="TestData" t="Include">
           <e p="Templates" t="Include">
             <e p="InvoiceTemplate.html" t="Include" />
+            <e p="InvoiceTemplateTinymce.html" t="Include" />
             <e p="InvoiceTemplateWithConditional.html" t="Include" />
             <e p="OutputHtml.html" t="Include" />
             <e p="OutputPdf.pdf" t="Include" />

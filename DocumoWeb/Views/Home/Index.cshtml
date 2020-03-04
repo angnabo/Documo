@@ -35,6 +35,9 @@
                 <li>
                     <a id="code-tab">Code</a>
                 </li>
+                <li>
+                    <a id="editor-tab">Editor</a>
+                </li>
             </ul>
         </div>
 
@@ -49,7 +52,15 @@
             {
                 @Html.TextAreaFor(o => o.Html, new {@id = "code-textarea"})
             }
-            <input id="render" class="button is-primary margin-10" type="submit" value="Render">
+            <input id="render-code-form" class="button is-primary margin-10" type="submit" value="Render">
+        </div>
+        
+        <div id="editor-form-container" class="container editor-container is-hidden">
+            @using (Html.BeginForm("Render", "Home", FormMethod.Post, new {@id = "editor-form", @class="editor-container", target = "pdf"}))
+            {
+                @Html.TextAreaFor(o => o.Html, new {@id = "editor-textarea"})
+            }
+            <input id="render-editor-form" class="button is-primary margin-10" type="submit" value="Render">
         </div>
 
     </div>
@@ -69,6 +80,7 @@
 <script src="~/js/codemirror/mode/xml/xml.js"></script>
 <script src="~/js/codemirror/mode/css/css.js"></script>
 <script src="~/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
    
 $( document ).ready(function() {
@@ -87,6 +99,18 @@ $( document ).ready(function() {
         codeArea.refresh();
         codeArea.setSize(840, 700);        
     };
+    
+   tinymce.init({
+      selector: '#editor-textarea',
+        plugins: "table",
+        height: 800,
+        setup: function (editor) {
+          editor.on('SaveContent', function (e) 
+          {
+              e.content = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
+          });
+        }
+      });
 
 
     $('#template-tab').click(function(){
@@ -120,13 +144,41 @@ $( document ).ready(function() {
         $('#template-tab').parent('li').removeClass('is-active');
         $('#template-form-container').addClass('is-hidden');
         codeArea.refresh();
-    }); 
+    });
     
-    $('#render').click(function(e) {
+    $('#editor-tab').click(function(){
+        let tab = $(this);
+        $('#editor-form-container').removeClass('is-hidden');
+        tab.parent('li').addClass('is-active');
+        $('#template-tab').parent('li').removeClass('is-active');
+        $('#code-tab').parent('li').removeClass('is-active');
+        $('#template-form-container').addClass('is-hidden');
+        $('#code-form-container').addClass('is-hidden');
          codeArea.save();
          let content = codeArea.getValue();
-         $('#code-textarea').val(content);
+        tinymce.activeEditor.setContent(content);
+    }); 
+    
+    $('#render-code-form').click(function(e) {
+         codeArea.save();
+         let content = codeArea.getValue();
          $('#code-form').submit();
+     });
+    
+    $('#render-editor-form').click(function(e) {
+         codeArea.save();
+         let content = tinymce.activeEditor.returnValue;
+         let v = tinymce.activeEditor.getContent();
+         let vhd = tinymce.activeEditor.save();
+         let h = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
+         let hl = tinyMCE.activeEditor.getContent({format : 'raw'});
+         let hfl = tinyMCE.activeEditor.getContent({format : 'html'});
+         let hg = tinyMCE.get('editor-textarea').getContent();
+         let hjkh = $('#editor-textarea_ifr');
+         debugger;
+         $('#editor-textarea').val(hl);
+         $('#editor-form').submit();
+         
      });
      
     $('.template-type').click(function(){      

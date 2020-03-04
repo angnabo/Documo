@@ -20,6 +20,7 @@ namespace Tests
         [Fact]
         public async Task TestPerformance()
         {
+            var htmlRenderer = new HtmlRenderer();
             var testData = TestJsonObject.GetData();
             var template = File.ReadAllText("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/InvoiceTemplateWithConditional.html");
             var watch = new System.Diagnostics.Stopwatch();
@@ -28,7 +29,7 @@ namespace Tests
             
             for (var i = 0; i < 10; i++)
             {
-                var pdf = await PdfRenderer.Render(template, testData);
+                var pdf = await htmlRenderer.Render(template, testData);
             }
             
             watch.Stop();

@@ -30,6 +30,14 @@ namespace DocumoWeb.Controllers
             return new FileContentResult(file, "application/pdf");
         }
         
+        [HttpPost]
+        public async Task<IActionResult> RenderEditor(string html)
+        {
+            var testData = TestJsonObject.GetData();
+            var file = await PdfRenderer.Render(html, testData);
+            return new FileContentResult(file, "application/pdf");
+        }
+        
         [HttpGet]
         public async Task<string> GetInvoiceTemplateHtmlCode(int id)
         {

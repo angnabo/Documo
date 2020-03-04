@@ -4,7 +4,7 @@
 
 .height-max{
     height: 795px !important;
-    max-height: 795px !important;;
+    max-height: 795px !important;
 }
 
 .CodeMirror {
@@ -16,6 +16,7 @@
     width: 800px;
 }
 
-.template-container{
-
+.editor-container{
+    height: 800px;
+    width: 800px;
 }
