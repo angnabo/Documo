@@ -1,86 +1,67 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" id="u0" crossorigin="anonymous" referrerpolicy="origin" href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.1.6-68/skins/ui/oxide/content.min.css"><link rel="stylesheet" type="text/css" id="u1" crossorigin="anonymous" referrerpolicy="origin" href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.1.6-68/skins/content/default/content.min.css"></head><body id="tinymce" class="mce-content-body " data-id="editor-textarea" contenteditable="true" spellcheck="false"><p><meta charset="utf-8"><title></title><style>
-    .invoice-box {
-        max-width: 800px;
-        margin: auto;
-        padding: 30px;
-        font-size: 16px;
-        line-height: 24px;
-        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color: #555;
-    }
-
-    .invoice-box table {
-        width: 100%;
-        line-height: inherit;
-        text-align: left;
-    }
-
-    .invoice-box table td {
-        padding: 5px;
-        vertical-align: top;
-    }
-
-    .invoice-box table tr td:nth-child(2) {
-        text-align: right;
-    }
-
-    .invoice-box table tr.top table td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.top table td.title {
-        font-size: 45px;
-        line-height: 45px;
-        color: #333;
-    }
-
-    .invoice-box table tr.information table td {
-        padding-bottom: 40px;
-    }
-
-    .invoice-box table thead th {
-        background: #eee;
-        border-bottom: 1px solid #ddd;
-        font-weight: bold;
-        padding: 5px;
-        vertical-align: top;
-        border-collapse: collapse;
-    }
-
-    .invoice-box table thead th:nth-child(2) {
-        text-align: right;
-    }
-
-    .invoice-box table tr.details td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.item td {
-        border-bottom: 1px solid #eee;
-    }
-
-    .invoice-box table tr.item.last td {
-        border-bottom: none;
-    }
-
-    .padding-top{
-        padding-top: 20px
-    }
-
-    .rtl {
-        direction: rtl;
-        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    }
-
-    .rtl table {
-        text-align: right;
-    }
-
-    .rtl table tr td:nth-child(2) {
-        text-align: left;
-    }
-
-    .rtl table thead th:nth-child(2) {
-        text-align: left;
-    }
-</style></p><div class="invoice-box"><table class="mce-item-table" style="border-collapse: collapse; border-style: none; height: 363px;" cellspacing="0" cellpadding="0" data-mce-style="border-collapse: collapse; border-style: none; height: 363px;"><tbody><tr class="top" style="height: 140px;" data-mce-style="height: 140px;"><td style="border-style: none; height: 140px; width: 681px;" colspan="2" data-mce-style="border-style: none; height: 140px; width: 681px;"><table class="mce-item-table" style="border-collapse: collapse; border-style: none; width: 679px;" data-mce-style="border-collapse: collapse; border-style: none; width: 679px;"><tbody><tr style="border-style: none;" data-mce-style="border-style: none;"><td style="border-style: none; width: 386px;" data-mce-style="border-style: none; width: 386px;"><div><img class="placeholder" style="max-width: 300px;" src="https://i.imgur.com/ByQtdeO.png" data-placeholder="{{img_Logo}}" data-mce-src="https://i.imgur.com/ByQtdeO.png" data-mce-style="max-width: 300px;"></div></td><td style="border-style: none; width: 273px;" data-mce-style="border-style: none; width: 273px;">Invoice #: <span class="placeholder" style="font-weight: bold;" data-mce-style="font-weight: bold;">{{InvoiceNumber}}</span><br>Invoice date: <span class="placeholder">{{CreatedDate}}</span><br>Due: <span class="placeholder">{{DueDate}}</span></td></tr></tbody></table></td></tr><tr class="information" style="height: 167px;" data-mce-style="height: 167px;"><td style="height: 167px; width: 680px; border-style: none;" colspan="2" data-mce-style="height: 167px; width: 680px; border-style: none;"><table class="mce-item-table" style="border-collapse: collapse; width: 635px; border-style: none;" data-mce-style="border-collapse: collapse; width: 635px; border-style: none;"><tbody><tr style="border-style: none;" data-mce-style="border-style: none;"><td style="border-style: none; width: 574px;" data-mce-style="border-style: none; width: 574px;"><span class="placeholder">{{FullName}}</span><br><br><span class="placeholder">{{Address.Address1}}</span><br><span class="placeholder">{{Address.Address2}}</span><br><span class="placeholder">{{Address.Address3}}</span></td><td style="width: 41px; border-style: none;" data-mce-style="width: 41px; border-style: none;"><br></td></tr></tbody></table></td></tr><tr class="information" style="height: 56px;" data-mce-style="height: 56px;"><td style="height: 56px; width: 681px; border-style: none;" colspan="1" data-mce-style="height: 56px; width: 681px; border-style: none;"><p>Your invoice details are below.</p></td></tr></tbody></table><table class="mce-item-table" style="border-collapse: collapse; border-style: none; height: 184px;" cellspacing="0" cellpadding="0" data-mce-style="border-collapse: collapse; border-style: none; height: 184px;"><thead class="heading"><tr style="height: 24px;" data-mce-style="height: 24px;"><th style="border-style: none; height: 24px; width: 326px;" data-mce-style="border-style: none; height: 24px; width: 326px;">Payment made by you</th><th style="border-style: none; height: 24px; width: 345px;" data-mce-style="border-style: none; height: 24px; width: 345px;">Amount</th></tr></thead><tbody><tr class="placeholder" style="height: 56px;" data-mce-style="height: 56px;"><td style="border-style: none; height: 56px; width: 326px;" data-mce-style="border-style: none; height: 56px; width: 326px;"><p>{{rs_Payments}}</p></td></tr><tr class="item" style="height: 24px; border-style: none;" data-mce-style="height: 24px; border-style: none;"><td style="height: 24px; width: 326px; border-style: none;" data-mce-style="height: 24px; width: 326px; border-style: none;"><span class="placeholder">{{Name}}</span></td><td style="height: 24px; width: 345px; border-style: none;" data-mce-style="height: 24px; width: 345px; border-style: none;"><span class="placeholder">{{Amount}}</span></td></tr><tr class="placeholder" style="height: 56px;" data-mce-style="height: 56px;"><td style="height: 56px; width: 326px; border-style: none;" data-mce-style="height: 56px; width: 326px; border-style: none;"><p>{{es_Payments}}</p></td></tr><tr class="total" style="height: 24px;" data-mce-style="height: 24px;"><td style="height: 24px; width: 326px; border-style: none;" data-mce-style="height: 24px; width: 326px; border-style: none;"><br></td><td style="height: 24px; width: 345px; border-style: none;" data-mce-style="height: 24px; width: 345px; border-style: none;">Total: £<span class="placeholder">{{TotalPayments}}</span></td></tr></tbody></table><table class="padding-top mce-item-table" cellspacing="0" cellpadding="0" style="border-collapse: collapse; height: 184px; border-style: hidden;"><thead class="heading"><tr style="height: 24px;"><th style="height: 24px; width: 266px; border-style: none;" data-mce-style="height: 24px; width: 266px; border-style: none;">All Services</th><th style="height: 24px; width: 405px; border-style: none;" data-mce-style="height: 24px; width: 405px; border-style: none;">Price</th></tr></thead><tbody><tr class="placeholder" data-placeholder="rs_Services" style="height: 56px;"><td style="height: 56px; width: 266px; border-style: none;" data-mce-style="height: 56px; width: 266px; border-style: none;"><p>{{rs_Services}}</p></td></tr><tr class="item" style="height: 24px;"><td style="height: 24px; width: 266px; border-style: none;" data-mce-style="height: 24px; width: 266px; border-style: none;"><span class="placeholder">{{Name}}</span></td><td style="height: 24px; width: 405px; border-style: none;" data-mce-style="height: 24px; width: 405px; border-style: none;"><span class="placeholder">{{Cost.Net}}</span></td></tr><tr class="placeholder" style="height: 56px;"><td style="height: 56px; width: 266px; border-style: none;" data-mce-style="height: 56px; width: 266px; border-style: none;"><p>{{es_Services}}</p></td></tr><tr class="total" style="height: 24px;"><td style="height: 24px; width: 266px; border-style: none;" data-mce-style="height: 24px; width: 266px; border-style: none;"><br></td><td style="height: 24px; width: 404px; border-style: none;" data-mce-style="height: 24px; width: 404px; border-style: none;">Total: £<span class="placeholder">{{TotalServices}}</span></td></tr></tbody></table><p><br></p></div><!--This is to test scripts are being removed when parsing--></body></html>
+<table style="border-collapse: collapse; width: 100%; height: 117px; border-style: none;" border="1">
+    <tbody>
+    <tr style="height: 117px;">
+        <td style="width: 50%; height: 117px; border-style: none;"><img  style="max-width: 300px;" src="https://i.imgur.com/ByQtdeO.png" data-placeholder="{{img_Logo}}" /></td>
+        <td style="width: 50%; height: 117px; border-style: none; text-align: right;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;">Invoice #:&nbsp;</span><span  style="font-weight: bold;">{{InvoiceNumber}}</span><br style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;" /><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;">Invoice date:&nbsp;</span><span  style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;">{{CreatedDate}}</span><br style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;" /><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;">Due:&nbsp;</span><span  style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;">{{DueDate}}</span></td>
+    </tr>
+    </tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; border-style: none;" border="1">
+    <tbody>
+    <tr style="border-style: none;">
+        <td style="width: 50%; border-style: none;"><span  style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{FullName}}</span><br style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;" /><br style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;" /><span  style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{Address.Address1}}</span><br style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;" /><span  style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{Address.Address2}}</span><br style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;" /><span  style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{Address.Address3}}</span></td>
+        <td style="width: 50%; border-style: none;">&nbsp;</td>
+    </tr>
+    </tbody>
+</table>
+<p><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">Your invoice details are below.</span></p>
+<table style="border-collapse: collapse; width: 100%; height: 85px;" border="1">
+    <tbody>
+    <tr style="background-color: #ced4d9;">
+        <td style="width: 50%; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">Payments made by you</span></td>
+        <td style="width: 50%; text-align: right; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">Amount</span></td>
+    </tr>
+    <tr style="height: 21px;">
+        <td style="width: 50%; height: 21px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{rs_Payments}}</span></td>
+        <td style="width: 50%; height: 21px;">&nbsp;</td>
+    </tr>
+    <tr style="height: 21px;">
+        <td style="width: 50%; height: 21px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{Name}}</span></td>
+        <td style="width: 50%; height: 21px; text-align: right;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{Amount}}</span></td>
+    </tr>
+    <tr style="height: 21px;">
+        <td style="width: 50%; height: 21px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{es_Payments}}</span></td>
+        <td style="width: 50%; height: 21px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="width: 50%;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">&nbsp;</span></td>
+        <td style="width: 50%; text-align: right;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">Total: &pound;{{TotalPayments}}</span></td>
+    </tr>
+    </tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; height: 116px;" border="1">
+    <tbody>
+    <tr style="background-color: #ced4d9;">
+        <td style="width: 50%; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">All Services</span></td>
+        <td style="width: 50%; text-align: right; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">Price</span></td>
+    </tr>
+    <tr style="height: 22px;">
+        <td style="width: 50%; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{rs_Services}}</span></td>
+        <td style="width: 50%; height: 22px;">&nbsp;</td>
+    </tr>
+    <tr style="height: 22px;">
+        <td style="width: 50%; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{Name}}</span></td>
+        <td style="width: 50%; text-align: right; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{Cost.Net}}</span></td>
+    </tr>
+    <tr style="height: 22px;">
+        <td style="width: 50%; height: 22px;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">{{es_Services}}</span></td>
+        <td style="width: 50%; height: 22px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="width: 50%;"><span style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;">&nbsp;</span></td>
+        <td style="width: 50%; text-align: right;"><span style="font-size: 16px; text-align: right; color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;">Total &pound;:</span><span style="font-size: 16px; text-align: right; color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;">{{TotalServices}}</span></td>
+    </tr>
+    </tbody>
+</table>

@@ -104,12 +104,12 @@ $( document ).ready(function() {
       selector: '#editor-textarea',
         plugins: "table",
         height: 800,
-        setup: function (editor) {
-          editor.on('SaveContent', function (e) 
-          {
-              e.content = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
-          });
-        }
+        // setup: function (editor) {
+        //   editor.on('SaveContent', function (e) 
+        //   {
+        //       e.content = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
+        //   });
+        // }
       });
 
 
@@ -166,17 +166,17 @@ $( document ).ready(function() {
      });
     
     $('#render-editor-form').click(function(e) {
-         codeArea.save();
-         let content = tinymce.activeEditor.returnValue;
-         let v = tinymce.activeEditor.getContent();
-         let vhd = tinymce.activeEditor.save();
-         let h = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
-         let hl = tinyMCE.activeEditor.getContent({format : 'raw'});
-         let hfl = tinyMCE.activeEditor.getContent({format : 'html'});
-         let hg = tinyMCE.get('editor-textarea').getContent();
-         let hjkh = $('#editor-textarea_ifr');
-         debugger;
-         $('#editor-textarea').val(hl);
+         //codeArea.save();
+         // let content = tinymce.activeEditor.returnValue;
+         // let v = tinymce.activeEditor.getContent();
+         // let vhd = tinymce.activeEditor.save();
+         // let h = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
+         // let hl = tinyMCE.activeEditor.getContent({format : 'raw'});
+         // let hfl = tinyMCE.activeEditor.getContent({format : 'html'});
+         // let hg = tinyMCE.get('editor-textarea').getContent();
+         // let hjkh = $('#editor-textarea_ifr');
+         // debugger;
+         // $('#editor-textarea').val(hl);
          $('#editor-form').submit();
          
      });

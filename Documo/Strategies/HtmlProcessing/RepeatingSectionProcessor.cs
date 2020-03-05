@@ -23,8 +23,8 @@ namespace Documo.Strategies
         public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
             var repeatingSectionPlaceholder = (RepeatingSection) placeholder;
-            var startNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetPlaceholder());
-            var endNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
+            var startNode = HtmlNodeExtractor.GetRepeatingSectionPlaceholder(doc, repeatingSectionPlaceholder.GetPlaceholder());
+            var endNode = HtmlNodeExtractor.GetRepeatingSectionPlaceholder(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
 
             var nodes = HtmlNodeExtractor.GetNodesBetweenStartAndEnd(startNode, endNode).ToArray();
             object[] array;
