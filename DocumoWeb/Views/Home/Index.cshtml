@@ -104,12 +104,12 @@ $( document ).ready(function() {
       selector: '#editor-textarea',
         plugins: "table",
         height: 800,
-        // setup: function (editor) {
-        //   editor.on('SaveContent', function (e) 
-        //   {
-        //       e.content = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
-        //   });
-        // }
+        setup: function (editor) {
+          editor.on('SaveContent', function (e) 
+          {
+              e.content = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
+          });
+        }
       });
 
 
@@ -177,6 +177,12 @@ $( document ).ready(function() {
          // let hjkh = $('#editor-textarea_ifr');
          // debugger;
          // $('#editor-textarea').val(hl);
+         var css = tinyMCE.activeEditor.getContent({format : 'html'});
+         let h = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
+         $('#editor-textarea').val(h);
+         var t = $('#editor-textarea').val();
+         debugger;
+         
          $('#editor-form').submit();
          
      });

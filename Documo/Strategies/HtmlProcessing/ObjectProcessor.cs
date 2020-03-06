@@ -23,7 +23,7 @@ namespace Documo.Strategies
                 var value = JsonResolver.Resolve(jsonData, placeholder.GetPlaceholder()).ToString();
                 foreach (var node in placeholderNodes)
                 {
-                    node.TextContent = value;
+                    node.TextContent = node.TextContent.Replace($"{{{{{placeholder.GetPlaceholder()}}}}}", value);
                 }
             }
             catch (ArgumentException e) when (e.Message.Equals($"The property {placeholder.GetPlaceholder()} could not be found."))
@@ -31,7 +31,7 @@ namespace Documo.Strategies
                 var value = $"{{{{Not found: {placeholder.GetPlaceholder()}}}}}";
                 foreach (var node in placeholderNodes)
                 {
-                    node.TextContent = value;
+                    node.TextContent = node.TextContent.Replace($"{{{{{placeholder.GetPlaceholder()}}}}}", value);
                     HtmlNodeModifier.SetErrorColour(node);
                 }
             }

@@ -12,7 +12,6 @@ namespace Documo.Services
         {
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
             var elements = doc.All.Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
-            var f = doc.ChildNodes.Where(x => regex.IsMatch(x.TextContent));
             
             var placeholders = elements.Select(x => x.TextContent.Trim());
             var matched = placeholders.Select(x => regex.Match(x));
@@ -23,18 +22,12 @@ namespace Documo.Services
         {
             var regex = new Regex($"({{{{)({placeholderName})(}}}})");
             var elements = doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
-//            var placeholders =  doc.QuerySelectorAll(".placeholder").Where(
-//                x => x.TextContent.Trim() == string.Empty
-//                    ? x.GetAttribute("data-placeholder").Trim() == placeholder
-//                    : x.TextContent.Trim() == placeholder);
 
-            return (IEnumerable<IElement>)elements;
+            return elements;
         }
         
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc)
         {
-//            return doc.QuerySelectorAll(".placeholder").ToList();
-            
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
             return doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
         }
@@ -51,18 +44,24 @@ namespace Documo.Services
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
             var placeholderRegex = new Regex($"({{{{)({placeholderName})(}}}})");
             var placeholder =  doc.QuerySelectorAll("*").SingleOrDefault(x => !x.Children.Any() && placeholderRegex.IsMatch(x.TextContent));
-            var parentEl = placeholder.ParentElement;
 
-            var otherPlaceholders = parentEl.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent) && !placeholderRegex.IsMatch(x.TextContent));
+            // get element 
+            var otherPlaceholders = placeholder.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent)).ToList();
+
             while (!otherPlaceholders.Any())
             {
-                var h = parentEl.QuerySelectorAll("*");
-                var hhg = parentEl.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent));
-                otherPlaceholders = parentEl.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent) && !placeholderRegex.IsMatch(x.TextContent));
-                parentEl = parentEl.ParentElement;
+                
+                otherPlaceholders = placeholder.ParentElement.QuerySelectorAll("*")
+                    .Where(x => regex.IsMatch(x.TextContent) && !placeholderRegex.IsMatch(x.TextContent)).ToList();
+                
+                if (otherPlaceholders.Any())
+                {
+                    break;
+                } 
+                placeholder = placeholder.ParentElement;
             }
-            
-            return doc.QuerySelectorAll(".placeholder").SingleOrDefault(x => x.TextContent.Trim() == $"{{{{{placeholderName}}}}}");
+
+            return placeholder;
         }
         
         public static IEnumerable<IElement> GetNodesBetweenStartAndEnd(IElement startNode, IElement endNode)

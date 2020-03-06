@@ -20,13 +20,13 @@ namespace Documo.Strategies
             try
             {
                 value = JsonResolver.Resolve(array, $"[{index}].{placeholder.GetPlaceholder()}").ToString();
-                node.TextContent = value;
+                node.TextContent = node.TextContent.Replace($"{{{{{placeholder.GetPlaceholder()}}}}}", value);
             }
             catch (ArgumentException e) when (e.Message.Equals($"The property {fieldName} could not be found."))
             {
                                    
                 value = $"{{{{Not found: {placeholder.GetPlaceholder()}}}}}";
-                node.TextContent = value;
+                node.TextContent = node.TextContent.Replace($"{{{{{placeholder.GetPlaceholder()}}}}}", value);
                 HtmlNodeModifier.SetErrorColour(node);
             }
             catch (Exception e)
