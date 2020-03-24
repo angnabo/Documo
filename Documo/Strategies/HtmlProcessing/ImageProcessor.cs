@@ -15,7 +15,7 @@ namespace Documo.Strategies
 
         public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
-            var placeholderNodes = HtmlNodeExtractor.GetPlaceholderNodes(doc, placeholder.GetPlaceholder()).ToArray();
+            var placeholderNodes = HtmlNodeExtractor.GetImagePlaceholderNode(doc, placeholder.GetPlaceholder()).ToArray();
             if (!placeholderNodes.Any()) return;
             
             try

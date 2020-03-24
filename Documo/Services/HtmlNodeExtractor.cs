@@ -18,6 +18,24 @@ namespace Documo.Services
             return string.Join("", matched);
         }
         
+        public static string GetAllImagePlaceholders(IDocument doc)
+        {
+            var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
+            var elements = doc.QuerySelectorAll("img").Where(x => regex.IsMatch(x.Attributes["alt"].Value));
+            
+            var placeholders = elements.Select(x => x.Attributes["alt"].Value);
+            var matched = placeholders.Select(x => regex.Match(x));
+            return string.Join("", matched);
+        }
+        
+        public static IEnumerable<IElement> GetImagePlaceholderNode(IElement doc, string placeholderName)
+        {
+            var regex = new Regex($"({{{{)({placeholderName})(}}}})");
+            var elements = doc.QuerySelectorAll("img").Where(x => regex.IsMatch(x.Attributes["alt"].Value));
+            
+            return elements;
+        }
+        
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc, string placeholderName)
         {
             var regex = new Regex($"({{{{)({placeholderName})(}}}})");
