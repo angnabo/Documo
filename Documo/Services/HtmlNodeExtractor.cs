@@ -54,7 +54,6 @@ namespace Documo.Services
         {
             var regex = new Regex($"({{{{)({placeholderName})(}}}})");
             return doc.QuerySelectorAll("*").SingleOrDefault(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
-            return doc.QuerySelectorAll(".placeholder").SingleOrDefault(x => x.TextContent.Trim() == $"{{{{{placeholderName}}}}}");
         }
         
         public static IElement GetRepeatingSectionPlaceholder(IElement doc, string placeholderName)

@@ -81,6 +81,7 @@
 <script src="~/js/codemirror/mode/css/css.js"></script>
 <script src="~/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script src="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.3/beautify-html.js"></script>
 <script>
    
 $( document ).ready(function() {
@@ -119,6 +120,8 @@ $( document ).ready(function() {
         tab.parent('li').addClass('is-active');
         $('#code-tab').parent('li').removeClass('is-active');
         $('#code-form-container').addClass('is-hidden');
+        $('#editor-tab').parent('li').removeClass('is-active');
+        $('#editor-form-container').addClass('is-hidden');
         codeArea.save();
         let content = codeArea.getValue();
         let url = $(this).data('url');
@@ -143,6 +146,12 @@ $( document ).ready(function() {
         tab.parent('li').addClass('is-active');
         $('#template-tab').parent('li').removeClass('is-active');
         $('#template-form-container').addClass('is-hidden');
+        $('#editor-tab').parent('li').removeClass('is-active');
+        $('#editor-form-container').addClass('is-hidden');
+        
+        let editorContent = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
+        let formattedContent = html_beautify(editorContent);
+        codeArea.getDoc().setValue(formattedContent);
         codeArea.refresh();
     });
     
@@ -154,37 +163,19 @@ $( document ).ready(function() {
         $('#code-tab').parent('li').removeClass('is-active');
         $('#template-form-container').addClass('is-hidden');
         $('#code-form-container').addClass('is-hidden');
-         codeArea.save();
-         let content = codeArea.getValue();
+        
+        codeArea.save();
+        let content = codeArea.getValue();
         tinymce.activeEditor.setContent(content);
     }); 
     
     $('#render-code-form').click(function(e) {
          codeArea.save();
-         let content = codeArea.getValue();
          $('#code-form').submit();
      });
     
-    $('#render-editor-form').click(function(e) {
-         //codeArea.save();
-         // let content = tinymce.activeEditor.returnValue;
-         // let v = tinymce.activeEditor.getContent();
-         // let vhd = tinymce.activeEditor.save();
-         // let h = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
-         // let hl = tinyMCE.activeEditor.getContent({format : 'raw'});
-         // let hfl = tinyMCE.activeEditor.getContent({format : 'html'});
-         // let hg = tinyMCE.get('editor-textarea').getContent();
-         // let hjkh = $('#editor-textarea_ifr');
-         // debugger;
-         // $('#editor-textarea').val(hl);
-         var css = tinyMCE.activeEditor.getContent({format : 'html'});
-         let h = tinymce.activeEditor.contentDocument.documentElement.outerHTML;
-         $('#editor-textarea').val(h);
-         var t = $('#editor-textarea').val();
-         debugger;
-         
-         $('#editor-form').submit();
-         
+    $('#render-editor-form').click(function() {
+         $('#editor-form').submit();        
      });
      
     $('.template-type').click(function(){      

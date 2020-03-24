@@ -1,5 +1,8 @@
 using System;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using AngleSharp;
 using AngleSharp.Dom;
 using Documo.Services;
 using Documo.Visitor;
@@ -8,12 +11,14 @@ namespace Documo.Strategies
 {
     public class ImagePlaceholderProcessor : IProcessPlaceholder
     {
+
+        private const string ImageNotFoundError = "https://i.imgur.com/bZ3WcsA.png";
         public bool AppliesTo(DocumentPlaceholder placeholder)
         {
             return placeholder.GetType() == typeof(ImagePlaceholder);
         }
 
-        public void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
+        public async void ProcessPlaceholders(IElement doc, DocumentPlaceholder placeholder, object jsonData)
         {
             var placeholderNodes = HtmlNodeExtractor.GetImagePlaceholderNode(doc, placeholder.GetPlaceholder()).ToArray();
             if (!placeholderNodes.Any()) return;
@@ -21,21 +26,40 @@ namespace Documo.Strategies
             try
             {
                 var value = JsonResolver.Resolve(jsonData, placeholder.ObjectName).ToString();
-                foreach (var node in placeholderNodes)
+
+                if (IsImageUrl(value))
                 {
-                    node.SetAttribute("src", value);
-                    node.TextContent = string.Empty;
+                    foreach (var node in placeholderNodes)
+                    {
+                        node.SetAttribute("src", value);
+                    }
+                }
+                else
+                {
+                    throw new Exception("The url returned invalid content type.");
                 }
             }
-            catch (ArgumentException e) when (e.Message.Equals($"The property {placeholder.ObjectName} could not be found."))
+            catch (Exception e)
             {
-                var value = $"{{{{Not found: {placeholder.ObjectName}}}}}";
                 foreach (var node in placeholderNodes)
                 {
-                    node.TextContent = value;
-                    node.Attributes["style"].Value += "color:red;";
+                    node.SetAttribute("src", ImageNotFoundError);
+                    var context = BrowsingContext.New(Configuration.Default);
+                    var document = await context.OpenAsync(r => r.Content($"<span>Image error: {e.Message}</span>"));
+                    var errorNode = document.QuerySelector("span");
+                    HtmlNodeModifier.SetErrorColour(errorNode);
+                    node.After(errorNode);
                 }
             }
+        }
+        
+        private static bool IsImageUrl(string URL)
+        {
+            var req = (HttpWebRequest)HttpWebRequest.Create(URL);
+            req.Method = "HEAD";
+            using var resp = req.GetResponse();
+            return resp.ContentType.ToLower(CultureInfo.InvariantCulture)
+                .StartsWith("image/");
         }
     }
 }
