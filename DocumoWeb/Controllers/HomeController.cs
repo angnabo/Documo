@@ -25,7 +25,7 @@ namespace DocumoWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Render(HomeModel model)
         {
-            var testData = TestJsonObject.GetData();
+            var testData = ReceiptTestData.GetData();
             var file = await PdfRenderer.Render(model.Html, testData);
             return new FileContentResult(file, "application/pdf");
         }
@@ -33,7 +33,7 @@ namespace DocumoWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> RenderEditor(string html)
         {
-            var testData = TestJsonObject.GetData();
+            var testData = ReceiptTestData.GetData();
             var file = await PdfRenderer.Render(html, testData);
             return new FileContentResult(file, "application/pdf");
         }

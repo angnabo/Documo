@@ -22,10 +22,12 @@ namespace DocumoWeb.Constants
     {
         private static readonly List<TemplateType> TemplateTypesList = new List<TemplateType>();
         private static readonly TemplateType InvoiceTemplate = new TemplateType(1, "Invoice", "../Documo/TestData/Templates/InvoiceTemplateTinymce.html");
+        private static readonly TemplateType ReceiptTemplate = new TemplateType(2, "Order receipt", "../Documo/TestData/Templates/ReceiptTemplate.html");
 
         static TemplateTypes()
         {
             TemplateTypesList.Add(InvoiceTemplate);
+            TemplateTypesList.Add(ReceiptTemplate);
         }
         public static TemplateType Get(int id)
         {

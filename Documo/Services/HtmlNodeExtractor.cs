@@ -11,10 +11,10 @@ namespace Documo.Services
         public static string GetAllPlaceholders(IDocument doc)
         {
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
-            var elements = doc.All.Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
+            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent));
             
-            var placeholders = elements.Select(x => x.TextContent.Trim());
-            var matched = placeholders.Select(x => regex.Match(x));
+            var placeholders = elements.Select(x => x.TextContent.Trim()).Distinct(StringComparer.OrdinalIgnoreCase);
+            var matched = placeholders.Select(x => regex.Match(x).ToString()).Distinct(StringComparer.OrdinalIgnoreCase);
             return string.Join("", matched);
         }
         
@@ -39,7 +39,8 @@ namespace Documo.Services
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc, string placeholderName)
         {
             var regex = new Regex($"({{{{)({placeholderName})(}}}})");
-            var elements = doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
+            //var elements = doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
+            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent));
 
             return elements;
         }
@@ -60,7 +61,9 @@ namespace Documo.Services
         {
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
             var placeholderRegex = new Regex($"({{{{)({placeholderName})(}}}})");
-            var placeholder =  doc.QuerySelectorAll("*").SingleOrDefault(x => !x.Children.Any() && placeholderRegex.IsMatch(x.TextContent));
+            var placeholder =  doc.QuerySelectorAll("*").FirstOrDefault(x => !x.Children.Any()
+                                                                             || x.Children.All(x => x.OuterHtml == "<br>")
+                                                                             && placeholderRegex.IsMatch(x.TextContent));
 
             // get element 
             var otherPlaceholders = placeholder.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent)).ToList();
