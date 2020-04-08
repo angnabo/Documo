@@ -32,6 +32,7 @@ namespace Documo.Strategies
                     foreach (var node in placeholderNodes)
                     {
                         node.SetAttribute("src", value);
+                        HtmlNodeModifier.SetImageDimentions(node);
                     }
                 }
                 else

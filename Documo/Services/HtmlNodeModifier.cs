@@ -13,5 +13,10 @@ namespace Documo.Services
             }
             node.Attributes["style"].Value += "color:red;";
         }
+        
+        public static void SetImageDimentions(IElement node)
+        {
+            node.Attributes["height"].Value = "auto";
+        }
     }
 }
