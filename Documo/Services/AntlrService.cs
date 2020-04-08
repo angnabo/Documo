@@ -8,6 +8,10 @@ namespace Documo.Services
     {
         public static IEnumerable<DocumentPlaceholder> Parse(string input)
         {
+            if (input == string.Empty)
+            {
+                return new List<DocumentPlaceholder>();
+            }
             var inputStream = new AntlrInputStream(input);
             var documoLexer = new DocumoLexer(inputStream);
             var commonTokenStream = new CommonTokenStream(documoLexer);

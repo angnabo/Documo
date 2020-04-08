@@ -8,13 +8,33 @@ namespace Documo.Services
 {
     public static class HtmlNodeExtractor
     {
-        public static string GetAllPlaceholders(IDocument doc)
+        public static string GetAllPlaceholders(IElement doc)
         {
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
-            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent));
-            
-            var placeholders = elements.Select(x => x.TextContent.Trim()).Distinct(StringComparer.OrdinalIgnoreCase);
-            var matched = placeholders.Select(x => regex.Match(x).ToString()).Distinct(StringComparer.OrdinalIgnoreCase);
+            //TODO: select leaf elements
+            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent) 
+                                                                || (x.LocalName == "img" && regex.IsMatch(x.Attributes["alt"].Value)));
+
+
+            var b = regex.Match(doc.InnerHtml);
+            var bn = Regex.Split(doc.InnerHtml, @"(?={{)");
+            var matched = bn.Where(x => x != string.Empty).Select(x => regex.Match(x).ToString());
+            // // var placeholders = elements.Select(x => x.LocalName == "img" ? new string[]{x.Attributes["alt"].Value}
+            // //     : Regex.Split(x.TextContent.Trim(), @"(?={{)")).SelectMany(x => x);
+            // var list = new List<string>();
+            // foreach (var el in elements)
+            // {
+            //     if (el.LocalName == "img")
+            //     {
+            //         var s = Regex.Split(el.Attributes["alt"].Value, @"(?={{)").Select(x => x);
+            //         list.AddRange(s);
+            //     }
+            //     else
+            //     {
+            //         list.AddRange(Regex.Split(el.TextContent.Trim(), @"(?={{)"));
+            //     }
+            // }
+            //var matched = list.Select(x => regex.Match(x).ToString()).Distinct(StringComparer.OrdinalIgnoreCase);
             return string.Join("", matched);
         }
         
@@ -40,15 +60,15 @@ namespace Documo.Services
         {
             var regex = new Regex($"({{{{)({placeholderName})(}}}})");
             //var elements = doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
-            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent));
-
+            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent) || 
+                                                                (x.LocalName == "img" && regex.IsMatch(x.Attributes["alt"].Value)));
             return elements;
         }
         
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc)
         {
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
-            return doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
+            return doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent));
         }
         
         public static IElement GetSinglePlaceholderNode(IElement doc, string placeholderName)
@@ -61,13 +81,13 @@ namespace Documo.Services
         {
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
             var placeholderRegex = new Regex($"({{{{)({placeholderName})(}}}})");
-            var placeholder =  doc.QuerySelectorAll("*").FirstOrDefault(x => !x.Children.Any()
-                                                                             || x.Children.All(x => x.OuterHtml == "<br>")
+            var placeholder =  doc.QuerySelectorAll("*").SingleOrDefault(x => (!x.Children.Any()
+                                                                             || x.Children.All(x => x.OuterHtml == "<br>"))
                                                                              && placeholderRegex.IsMatch(x.TextContent));
 
             // get element 
             var otherPlaceholders = placeholder.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent)).ToList();
-
+            
             while (!otherPlaceholders.Any())
             {
                 

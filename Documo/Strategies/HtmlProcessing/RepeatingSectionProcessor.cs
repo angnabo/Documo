@@ -62,11 +62,8 @@ namespace Documo.Strategies
         }
             
         private void ProcessNodes(IElement node, object[] array, int index){
-            var placeholders = HtmlNodeExtractor.GetPlaceholderNodes(node).Select(x => x.TextContent.Trim());
-                    
-            var input = string.Join("", placeholders);
-                    
-            var parsedPlaceholders = AntlrService.Parse(input); // inner table placeholders
+            var placeholders = HtmlNodeExtractor.GetAllPlaceholders(node);
+            var parsedPlaceholders = AntlrService.Parse(placeholders); // inner table placeholders
                     
             foreach (var parsedPlaceholder in parsedPlaceholders)
             {  

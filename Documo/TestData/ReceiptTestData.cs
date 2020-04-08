@@ -11,13 +11,13 @@ namespace Documo.TestData
                 Account = new
                 {
                     FullName = "Samantha Smith",
-                    Address = new
-                    {
-                        Address1 = "456 Flat",
-                        Address2 = "123 Street",
-                        Address3 = "Leeds",
-                        Postcode = "LS1 2AB"
-                    }
+                },
+                Address = new
+                {
+                    Address1 = "456 Flat",
+                    Address2 = "123 Street",
+                    Address3 = "Leeds",
+                    Postcode = "LS1 2AB"
                 },
                 Logo = "https://www.imgur.com/5FckMAD.png",
                 CreatedDate = new DateTime(2019, 08, 12).ToString("dd/MM/yyy"),
