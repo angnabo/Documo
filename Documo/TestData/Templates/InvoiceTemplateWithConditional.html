@@ -1,217 +1,195 @@
-<!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title></title>
-
-    <style>
-        .invoice-box {
-            max-width: 800px;
-            margin: auto;
-            padding: 30px;
-            font-size: 16px;
-            line-height: 24px;
-            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-            color: #555;
-        }
-
-        .invoice-box table {
-            width: 100%;
-            line-height: inherit;
-            text-align: left;
-        }
-
-        .invoice-box table td {
-            padding: 5px;
-            vertical-align: top;
-        }
-
-        .invoice-box table tr td:nth-child(2) {
-            text-align: right;
-        }
-
-        .invoice-box table tr.top table td {
-            padding-bottom: 20px;
-        }
-
-        .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
-            color: #333;
-        }
-
-        .invoice-box table tr.information table td {
-            padding-bottom: 40px;
-        }
-
-        .invoice-box table thead th {
-            background: #eee;
-            border-bottom: 1px solid #ddd;
-            font-weight: bold;
-            padding: 5px;
-            vertical-align: top;
-            border-collapse: collapse;
-        }
-
-        .invoice-box table thead th:nth-child(2) {
-            text-align: right;
-        }
-
-        .invoice-box table tr.details td {
-            padding-bottom: 20px;
-        }
-
-        .invoice-box table tr.item td {
-            border-bottom: 1px solid #eee;
-        }
-
-        .invoice-box table tr.item.last td {
-            border-bottom: none;
-        }
-        
-        .padding-top{
-            padding-top: 20px
-        }
-        
-        .rtl {
-            direction: rtl;
-            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        }
-
-        .rtl table {
-            text-align: right;
-        }
-
-        .rtl table tr td:nth-child(2) {
-            text-align: left;
-        }
-
-        .rtl table thead th:nth-child(2) {
-            text-align: left;
-        }
-    </style>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link crossorigin="anonymous" href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.2.1-76/skins/ui/oxide/content.min.css" id="u0" referrerpolicy="origin" rel="stylesheet"
+          type="text/css">
+    <link crossorigin="anonymous" href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.2.1-76/skins/content/default/content.min.css" id="u1" referrerpolicy="origin" rel="stylesheet"
+          type="text/css">
 </head>
-
-<body>
-<div class="invoice-box">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td>
-                            <div>
-                                 <img class="placeholder" data-placeholder="{{img_Logo}}" src="https://i.imgur.com/ByQtdeO.png" style="max-width:300px;">
-                            </div>
-
-                        </td>
-
-                        <td>
-                            Invoice #: <span style="font-weight:bold;" class="placeholder">{{InvoiceNumber}}</span><br>
-                            Invoice date: <span class="placeholder">{{CreatedDate}}</span><br>
-                            Due: <span class="placeholder">{{DueDate}}</span>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-
-        <tr class="information">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td>
-                            <span class="placeholder">{{FullName}}</span><br><br>
-                            <span class="placeholder">{{if_Address}}</span><br>
-                                <span class="placeholder">{{Address.Address1}}</span><br>
-                                <span class="placeholder">{{Address.Address2}}</span><br>
-                                <span class="placeholder">{{Address.Address3}}</span>
-                            <span class="placeholder">{{endif_Address}}</span><br>
-                        </td>
-
-                        <td>                           
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-
-        <tr class="information">
-            <td colspan="1">
-                <p>Your invoice details are below.</p>
-            </td>
-        </tr>      
-        
-        <table cellpadding="0" cellspacing="0">
-            <thead class="heading">
-            <th>Payment made by you</th>
-            <th>Amount</th>
-            </thead>
-
-            <tr class="placeholder">
-                <td><p>{{rs_Payments}}</p></td>
-            </tr>
-
-            <tr class="item">
-                <td><span class="placeholder">{{Name}}</span></td>
-                <td><span class="placeholder">{{Amount}}</span></td>
-            </tr>
-
-            <tr class="placeholder">
-                <td><p>{{es_Payments}}</p></td>
-            </tr>
-
-            <tr class="total">
-                <td></td>
-                <td>
-                    Total: £<span class="placeholder">{{TotalPayments}}</span></td>
-                </td>
-            </tr>
-        </table>
-                
-        <span class="placeholder">{{if_Services}}</span>
-            <table class="padding-top" cellpadding="0" cellspacing="0">
-                <thead class="heading">
-                    <th>All Services</th>
-                    <th>Price</th>
-                </thead>
-    
-                <tr class="placeholder" data-placeholder="rs_Services">
-                    <td><p>{{rs_Services}}</p></td>
-                </tr>
-    
-                <tr class="item">
-                    <td><span class="placeholder">{{Name}}</span></td>
-                    <td><span class="placeholder">{{Cost.Net}}</span></td>
-                </tr>
-    
-                <tr class="placeholder">
-                    <td><p>{{es_Services}}</p></td>
-                </tr>
-    
-                <tr class="total">
-                    <td></td>
-                    <td>
-                        Total: £<span class="placeholder">{{TotalServices}}</span></td>
-                    </td>
-                </tr>
-            </table>
-        <span class="placeholder">{{endif_Services}}</span>
-        
-    </table>
-</div>
-<!--This is to test scripts are being removed when parsing-->
-<script src="~/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-<script>
-    $( document ).ready(function() {
-        $('#template-tab').click(function(){
-            var tab = $(this);
-            $('#template-form-container').removeClass('is-hidden');
-            tab.parent('li').addClass('is-active');
-            $('#code-tab').parent('li').removeClass('is-active');
-            $('#code-form-container').addClass('is-hidden');
-        });
-    });
-</script>
+<body class="mce-content-body " contenteditable="true" data-id="editor-textarea" id="tinymce" spellcheck="false">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<p>
+    <link crossorigin="anonymous"
+          data-mce-href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.2.1-76/skins/ui/oxide/content.min.css"
+          href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.2.1-76/skins/ui/oxide/content.min.css" id="u0" rel="stylesheet"
+          type="text/css">
+    <link crossorigin="anonymous"
+          data-mce-href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.2.1-76/skins/content/default/content.min.css"
+          href="https://cdn.tiny.cloud/1/698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd/tinymce/5.2.1-76/skins/content/default/content.min.css" id="u1" rel="stylesheet"
+          type="text/css">
+</p>
+<p><br data-mce-bogus="1"></p>
+<table border="1" data-mce-style="border-collapse: collapse; width: 100%; height: 117px; border-style: none;"
+       style="border-collapse: collapse; width: 100%; height: 117px; border-style: none;">
+    <tbody>
+    <tr data-mce-style="height: 117px;" style="height: 117px;">
+        <td data-mce-style="width: 50%; height: 117px; border-style: none;"
+            style="width: 50%; height: 117px; border-style: none;"><img alt="{{img_Logo}}"
+                                                                        data-mce-src="https://i.imgur.com/kWDLUwN.png"
+                                                                        height="113"
+                                                                        src="https://i.imgur.com/kWDLUwN.png"
+                                                                        width="320"></td>
+        <td data-mce-style="width: 50%; height: 117px; border-style: none; text-align: right;"
+            style="width: 50%; height: 117px; border-style: none; text-align: right;"><span
+                data-mce-style="font-family: helvetica, arial, sans-serif;"
+                style="font-family: helvetica, arial, sans-serif;"><span
+                data-mce-style="color: #555555; font-size: 16px; text-align: right;"
+                style="color: #555555; font-size: 16px; text-align: right;">Invoice #:&nbsp;</span><span
+                data-mce-style="font-weight: bold; color: #555555;" style="font-weight: bold; color: #555555;">{{InvoiceNumber}}</span></span><br
+                data-mce-style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;"
+                style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;"><span
+                data-mce-style="font-family: helvetica, arial, sans-serif;"
+                style="font-family: helvetica, arial, sans-serif;"><span
+                data-mce-style="color: #555555; font-size: 16px; text-align: right;"
+                style="color: #555555; font-size: 16px; text-align: right;">Invoice date:&nbsp;</span><span
+                data-mce-style="color: #555555; font-size: 16px; text-align: right;"
+                style="color: #555555; font-size: 16px; text-align: right;">{{CreatedDate}}</span></span><br
+                data-mce-style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;"
+                style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; text-align: right;"><span
+                data-mce-style="font-family: helvetica, arial, sans-serif;"
+                style="font-family: helvetica, arial, sans-serif;"><span
+                data-mce-style="color: #555555; font-size: 16px; text-align: right;"
+                style="color: #555555; font-size: 16px; text-align: right;">Due:&nbsp;</span><span
+                data-mce-style="color: #555555; font-size: 16px; text-align: right;"
+                style="color: #555555; font-size: 16px; text-align: right;">{{DueDate}}</span></span></td>
+    </tr>
+    </tbody>
+</table>
+<p><br></p>
+<table border="1" data-mce-style="border-collapse: collapse; width: 100%; border-style: none;"
+       style="border-collapse: collapse; width: 100%; border-style: none;">
+    <tbody>
+    <tr data-mce-style="border-style: none;" style="border-style: none;">
+        <td data-mce-style="width: 50%; border-style: none;" style="width: 50%; border-style: none;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{FullName}}</span><br
+                data-mce-style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"><br
+                data-mce-style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{Address.Address1}}</span><br
+                data-mce-style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{Address.Address2}}</span><br
+                data-mce-style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 16px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{Address.Address3}}</span>
+        </td>
+        <td data-mce-style="width: 50%; border-style: none;" style="width: 50%; border-style: none;"><br></td>
+    </tr>
+    </tbody>
+</table>
+<p><span data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+         style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">Your invoice details are below.</span>
+</p>
+<p><span data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+         style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{if_Payments}}</span></p>
+<table border="1" data-mce-style="border-collapse: collapse; width: 100%; height: 85px;"
+       style="border-collapse: collapse; width: 100%; height: 85px;">
+    <tbody>
+    <tr data-mce-style="background-color: #ced4d9;" style="background-color: #ced4d9;">
+        <td data-mce-style="width: 50%; height: 22px;" style="width: 50%; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">Payments made by you</span>
+        </td>
+        <td data-mce-style="width: 50%; text-align: right; height: 22px;"
+            style="width: 50%; text-align: right; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">Amount</span>
+        </td>
+    </tr>
+    <tr data-mce-style="height: 21px;" style="height: 21px;">
+        <td data-mce-style="width: 50%; height: 21px;" style="width: 50%; height: 21px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{rs_Payments}}</span>
+        </td>
+        <td data-mce-style="width: 50%; height: 21px;" style="width: 50%; height: 21px;"><br></td>
+    </tr>
+    <tr data-mce-style="height: 21px;" style="height: 21px;">
+        <td data-mce-style="width: 50%; height: 21px;" style="width: 50%; height: 21px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{Name}}</span></td>
+        <td data-mce-style="width: 50%; height: 21px; text-align: right;"
+            style="width: 50%; height: 21px; text-align: right;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{Amount}}</span>
+        </td>
+    </tr>
+    <tr data-mce-style="height: 21px;" style="height: 21px;">
+        <td data-mce-style="width: 50%; height: 21px;" style="width: 50%; height: 21px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{es_Payments}}</span>
+        </td>
+        <td data-mce-style="width: 50%; height: 21px;" style="width: 50%; height: 21px;"><br></td>
+    </tr>
+    <tr>
+        <td data-mce-style="width: 50%;" style="width: 50%;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">&nbsp;</span></td>
+        <td data-mce-style="width: 50%; text-align: right;" style="width: 50%; text-align: right;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">Total: £{{TotalPayments}}</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p><span data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+         style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"><br
+        data-mce-bogus="1"></span></p>
+<p><span data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+         style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{endif_Payments}}</span><br>
+</p>
+<table border="1" data-mce-style="border-collapse: collapse; width: 100%; height: 116px;"
+       style="border-collapse: collapse; width: 100%; height: 116px;">
+    <tbody>
+    <tr data-mce-style="background-color: #ced4d9;" style="background-color: #ced4d9;">
+        <td data-mce-style="width: 50%; height: 22px;" style="width: 50%; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">All Services</span>
+        </td>
+        <td data-mce-style="width: 50%; text-align: right; height: 22px;"
+            style="width: 50%; text-align: right; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px; font-weight: bold; text-align: right;">Price</span>
+        </td>
+    </tr>
+    <tr data-mce-style="height: 22px;" style="height: 22px;">
+        <td data-mce-style="width: 50%; height: 22px;" style="width: 50%; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{rs_Services}}</span>
+        </td>
+        <td data-mce-style="width: 50%; height: 22px;" style="width: 50%; height: 22px;"><br></td>
+    </tr>
+    <tr data-mce-style="height: 22px;" style="height: 22px;">
+        <td data-mce-style="width: 50%; height: 22px;" style="width: 50%; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{Name}}</span></td>
+        <td data-mce-style="width: 50%; text-align: right; height: 22px;"
+            style="width: 50%; text-align: right; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{Cost.Net}}</span>
+        </td>
+    </tr>
+    <tr data-mce-style="height: 22px;" style="height: 22px;">
+        <td data-mce-style="width: 50%; height: 22px;" style="width: 50%; height: 22px;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">{{es_Services}}</span>
+        </td>
+        <td data-mce-style="width: 50%; height: 22px;" style="width: 50%; height: 22px;"><br></td>
+    </tr>
+    <tr>
+        <td data-mce-style="width: 50%;" style="width: 50%;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">&nbsp;</span></td>
+        <td data-mce-style="width: 50%; text-align: right;" style="width: 50%; text-align: right;"><span
+                data-mce-style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;"
+                style="color: #555555; font-family: helvetica, arial, sans-serif; font-size: 16px;">Total: £{{TotalServices}}</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

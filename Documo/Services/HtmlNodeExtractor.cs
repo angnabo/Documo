@@ -19,22 +19,6 @@ namespace Documo.Services
             var b = regex.Match(doc.InnerHtml);
             var bn = Regex.Split(doc.InnerHtml, @"(?={{)");
             var matched = bn.Where(x => x != string.Empty).Select(x => regex.Match(x).ToString());
-            // // var placeholders = elements.Select(x => x.LocalName == "img" ? new string[]{x.Attributes["alt"].Value}
-            // //     : Regex.Split(x.TextContent.Trim(), @"(?={{)")).SelectMany(x => x);
-            // var list = new List<string>();
-            // foreach (var el in elements)
-            // {
-            //     if (el.LocalName == "img")
-            //     {
-            //         var s = Regex.Split(el.Attributes["alt"].Value, @"(?={{)").Select(x => x);
-            //         list.AddRange(s);
-            //     }
-            //     else
-            //     {
-            //         list.AddRange(Regex.Split(el.TextContent.Trim(), @"(?={{)"));
-            //     }
-            // }
-            //var matched = list.Select(x => regex.Match(x).ToString()).Distinct(StringComparer.OrdinalIgnoreCase);
             return string.Join("", matched);
         }
         

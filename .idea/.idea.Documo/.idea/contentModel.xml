@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\angel\.nuget\packages\microsoft.net.test.sdk\16.0.1\build\netcoreapp1.0" t="Include">
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.jsdelivr.net_npm_vue@2.6.10_dist_vue.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.quilljs.com_1.3.6_quill.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.tiny.cloud_1_698sacjegdbnfywvvw94gljncdsjgh1oqgfg19xq1yk93trd_tinymce_5_tinymce.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.tiny.cloud_1_no-api-key_tinymce_5_tinymce.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_js-beautify_1.10.3_beautify-html.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_jquery-1.11.0.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_jquery-3.4.1.js" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.2/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_Documo.-322081402.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.0.1/build/netcoreapp1.0" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
-    <e p="C:\Users\angel\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
-    <e p="C:\Users\angel\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
-    <e p="C:\Users\angel\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
-    <e p="C:\Users\angel\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\angel\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Documo.-465251624.00" t="ExcludeRecursive" />
-    <e p="D:\src\Documo" t="IncludeFlat">
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="API" t="IncludeRecursive">
         <e p="API.csproj" t="IncludeRecursive" />
-        <e p="appsettings.Development.json" t="Include" />
-        <e p="appsettings.json" t="Include" />
-        <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="RenderPdf.cs" t="Include" />
         </e>
-        <e p="obj" t="ExcludeRecursive" />
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="API.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
       </e>
       <e p="Documo" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
         <e p="Documo.csproj" t="IncludeRecursive" />
         <e p="DocumoParser" t="Include">
           <e p="Grammar" t="Include">
@@ -49,13 +61,6 @@
             <e p="DocumoVisitor.cs" t="Include" />
           </e>
         </e>
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
-              <e p="Documo.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="Program.cs" t="Include" />
         <e p="Renderer" t="Include">
           <e p="HtmlRenderer.cs" t="Include" />
@@ -72,9 +77,9 @@
           <e p="HtmlProcessing" t="Include">
             <e p="ArrayAccessProcessor.cs" t="Include" />
             <e p="ConditionalSectionProcessor.cs" t="Include" />
-            <e p="ImageProcessor.cs" t="Include" />
             <e p="IPlaceholderProcessor.cs" t="Include" />
             <e p="IProcessPlaceholder.cs" t="Include" />
+            <e p="ImageProcessor.cs" t="Include" />
             <e p="ObjectProcessor.cs" t="Include" />
             <e p="PlaceholderProcessor.cs" t="Include" />
             <e p="PlaceholderStrategies.cs" t="Include" />
@@ -87,21 +92,26 @@
             <e p="InvoiceTemplate.html" t="Include" />
             <e p="InvoiceTemplateTinymce.html" t="Include" />
             <e p="InvoiceTemplateWithConditional.html" t="Include" />
-            <e p="json.html" t="Include" />
             <e p="OutputHtml.html" t="Include" />
             <e p="OutputPdf.pdf" t="Include" />
             <e p="ReceiptTemplate.html" t="Include" />
             <e p="Repeating_Row_Template.html" t="Include" />
             <e p="Repeating_Table_Template.html" t="Include" />
+            <e p="json.html" t="Include" />
           </e>
           <e p="TestJsonObject.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Documo.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
         </e>
       </e>
       <e p="Documo.sln" t="IncludeFlat" />
       <e p="DocumoWeb" t="IncludeRecursive">
-        <e p="appsettings.Development.json" t="Include" />
-        <e p="appsettings.json" t="Include" />
-        <e p="bin" t="ExcludeRecursive" />
         <e p="Constants" t="Include">
           <e p="TemplateTypes.cs" t="Include" />
         </e>
@@ -115,31 +125,33 @@
         <e p="Models" t="Include">
           <e p="HomeModel.cs" t="Include" />
         </e>
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
-              <e p="DocumoWeb.AssemblyInfo.cs" t="Include" />
-              <e p="DocumoWeb.RazorAssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="OutputPdf.pdf" t="Include" />
-        <e p="package-lock.json" t="Include" />
-        <e p="package.json" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Views" t="Include">
-          <e p="_Template.cshtml" t="Include" />
           <e p="Home" t="Include">
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
           </e>
+          <e p="_Template.cshtml" t="Include" />
         </e>
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="DocumoWeb.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="package-lock.json" t="Include" />
+        <e p="package.json" t="Include" />
         <e p="wwwroot" t="Include">
           <e p="css" t="Include">
             <e p="bulma.css" t="Include" />
@@ -149,6 +161,11 @@
           </e>
           <e p="js" t="Include">
             <e p="codemirror" t="Include">
+              <e p="AUTHORS" t="Include" />
+              <e p="CHANGELOG.md" t="Include" />
+              <e p="CONTRIBUTING.md" t="Include" />
+              <e p="LICENSE" t="Include" />
+              <e p="README.md" t="Include" />
               <e p="addon" t="Include">
                 <e p="comment" t="Include">
                   <e p="comment.js" t="Include" />
@@ -249,9 +266,9 @@
                   <e p="hardwrap.js" t="Include" />
                 </e>
               </e>
-              <e p="AUTHORS" t="Include" />
-              <e p="CHANGELOG.md" t="Include" />
-              <e p="CONTRIBUTING.md" t="Include" />
+              <e p="bin" t="Include">
+                <e p="source-highlight" t="Include" />
+              </e>
               <e p="keymap" t="Include">
                 <e p="emacs.js" t="Include" />
                 <e p="sublime.js" t="Include" />
@@ -261,7 +278,6 @@
                 <e p="codemirror.css" t="Include" />
                 <e p="codemirror.js" t="Include" />
               </e>
-              <e p="LICENSE" t="Include" />
               <e p="mode" t="Include">
                 <e p="apl" t="Include">
                   <e p="apl.js" t="Include" />
@@ -471,7 +487,7 @@
                 <e p="powershell" t="Include">
                   <e p="powershell.js" t="Include" />
                 </e>
-                <e p="Properties" t="Include">
+                <e p="properties" t="Include">
                   <e p="properties.js" t="Include" />
                 </e>
                 <e p="protobuf" t="Include">
@@ -631,7 +647,6 @@
                 </e>
               </e>
               <e p="package.json" t="Include" />
-              <e p="README.md" t="Include" />
               <e p="rollup.config.js" t="Include" />
               <e p="src" t="Include">
                 <e p="codemirror.js" t="Include" />
@@ -653,7 +668,7 @@
                   <e p="view_tracking.js" t="Include" />
                 </e>
                 <e p="edit" t="Include">
-                  <e p="codemirror.js" t="Include" />
+                  <e p="CodeMirror.js" t="Include" />
                   <e p="commands.js" t="Include" />
                   <e p="deleteNearSelection.js" t="Include" />
                   <e p="drop_events.js" t="Include" />
@@ -669,12 +684,12 @@
                 </e>
                 <e p="input" t="Include">
                   <e p="ContentEditableInput.js" t="Include" />
+                  <e p="TextareaInput.js" t="Include" />
                   <e p="indent.js" t="Include" />
                   <e p="input.js" t="Include" />
                   <e p="keymap.js" t="Include" />
                   <e p="keynames.js" t="Include" />
                   <e p="movement.js" t="Include" />
-                  <e p="TextareaInput.js" t="Include" />
                 </e>
                 <e p="line" t="Include">
                   <e p="highlight.js" t="Include" />
@@ -689,10 +704,10 @@
                   <e p="widgets.js" t="Include" />
                 </e>
                 <e p="model" t="Include">
+                  <e p="Doc.js" t="Include" />
                   <e p="change_measurement.js" t="Include" />
                   <e p="changes.js" t="Include" />
                   <e p="chunk.js" t="Include" />
-                  <e p="Doc.js" t="Include" />
                   <e p="document_data.js" t="Include" />
                   <e p="history.js" t="Include" />
                   <e p="line_widget.js" t="Include" />
@@ -702,6 +717,7 @@
                 </e>
                 <e p="modes.js" t="Include" />
                 <e p="util" t="Include">
+                  <e p="StringStream.js" t="Include" />
                   <e p="bidi.js" t="Include" />
                   <e p="browser.js" t="Include" />
                   <e p="dom.js" t="Include" />
@@ -709,7 +725,6 @@
                   <e p="feature_detection.js" t="Include" />
                   <e p="misc.js" t="Include" />
                   <e p="operation_group.js" t="Include" />
-                  <e p="StringStream.js" t="Include" />
                 </e>
               </e>
               <e p="theme" t="Include">
@@ -793,9 +808,7 @@
           </e>
         </e>
       </e>
-      <e p="packages" t="ExcludeRecursive" />
       <e p="Tests" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
         <e p="ExpectedHtml" t="Include">
           <e p="ExpectedConditionalSection.html" t="Include" />
           <e p="ExpectedEmptyConditionalSection.html" t="Include" />
@@ -810,11 +823,19 @@
           <e p="RowRepeatingSection.html" t="Include" />
           <e p="TableRepeatingSection.html" t="Include" />
         </e>
-        <e p="obj" t="ExcludeRecursive" />
         <e p="ParsePlaceholdersTests.cs" t="Include" />
         <e p="PerformanceTest.cs" t="Include" />
         <e p="Tests.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
       </e>
+      <e p="packages" t="ExcludeRecursive" />
     </e>
   </component>
 </project>

@@ -18,8 +18,8 @@ namespace Documo.Strategies.HtmlProcessing
         {
             var repeatingSectionPlaceholder = (ConditionalPlaceholder) placeholder;
             
-            var startNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetPlaceholder());
-            var endNode = HtmlNodeExtractor.GetSinglePlaceholderNode(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
+            var startNode = HtmlNodeExtractor.GetRepeatingSectionPlaceholder(doc, repeatingSectionPlaceholder.GetPlaceholder());
+            var endNode = HtmlNodeExtractor.GetRepeatingSectionPlaceholder(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
             var nodes = HtmlNodeExtractor.GetNodesBetweenStartAndEnd(startNode, endNode).ToList();
             
             object data;
@@ -80,19 +80,9 @@ namespace Documo.Strategies.HtmlProcessing
         
         private void ProcessNodes(IElement doc, IElement node, object jsonData)
         {
-            var placeholdersFromNode = HtmlNodeExtractor.GetPlaceholderNodes(node).Select(x => x.TextContent.Trim()).ToList();
-            var placeholders = new List<string>();
-            
-            if (node.ClassList.Contains("placeholder"))
-            {
-                placeholders.Add(node.TextContent.Trim());
-            }
-            
-            placeholders.AddRange(placeholdersFromNode);
-                    
-            var input = string.Join("", placeholders);
-                    
-            var parsedPlaceholders = AntlrService.Parse(input); // inner table placeholders
+            var placeholdersFromNode = HtmlNodeExtractor.GetAllPlaceholders(node);
+
+            var parsedPlaceholders = AntlrService.Parse(placeholdersFromNode); // inner table placeholders
                     
             foreach (var parsedPlaceholder in parsedPlaceholders)
             {  

@@ -20,24 +20,24 @@ namespace Documo.TestData
                 CreatedDate = new DateTime(2019, 08, 12).ToString("dd/MM/yyy"),
                 DueDate = new DateTime(2020, 01, 12).ToString("dd/MM/yyy"),
                 InvoiceNumber = 56998735,
-                Payments = new[]
-                {
-                    new
-                    {
-                        Name = "Bank transfer 02/07",
-                        Amount = 50.0m
-                    },
-                    new
-                    {
-                        Name = "Bank transfer 24/06",
-                        Amount = 20.0m
-                    },
-                    new
-                    {
-                        Name = "Bank transfer 16/04",
-                        Amount = 200.0m
-                    }
-                },
+                Payments = new object[]{},
+//                {
+//                    new
+//                    {
+//                        Name = "Bank transfer 02/07",
+//                        Amount = 50.0m
+//                    },
+//                    new
+//                    {
+//                        Name = "Bank transfer 24/06",
+//                        Amount = 20.0m
+//                    },
+//                    new
+//                    {
+//                        Name = "Bank transfer 16/04",
+//                        Amount = 200.0m
+//                    }
+//                },
                 TotalPayments = 270.0m,
                 Services = new[]
                 {
