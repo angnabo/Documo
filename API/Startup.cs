@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using jsreport.AspNetCore;
-using jsreport.Binary.Linux;
+﻿using jsreport.AspNetCore;
+using jsreport.Binary;
 using jsreport.Local;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

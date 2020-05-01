@@ -16,6 +16,7 @@ namespace DocumoWeb.Controllers
             var model = new HomeModel
             {
                 Html = "",
+                TemplateTypeId = null,
                 TemplateTypes = TemplateTypes.GetTemplateTypes()
                     .ToDictionary(x => x.Id,x => x.Name)
             };
@@ -25,7 +26,12 @@ namespace DocumoWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Render(HomeModel model)
         {
-            var testData = TestJsonObject.GetData();
+            var testData = model.TemplateTypeId switch
+            {
+                1 => TestJsonObject.GetData(),
+                2 => ReceiptTestData.GetData(),
+                _ => null
+            };
             var file = await PdfRenderer.Render(model.Html, testData);
             return new FileContentResult(file, "application/pdf");
         }

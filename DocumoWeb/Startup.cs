@@ -1,5 +1,5 @@
 ﻿using jsreport.AspNetCore;
-using jsreport.Binary.Linux;
+using jsreport.Binary;
 using jsreport.Local;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +21,7 @@ namespace DocumoWeb
 
             services.AddJsReport(new LocalReporting()
                 .UseBinary(JsReportBinary.GetBinary())
+                .Configure(cfg =>cfg.AllowedLocalFilesAccess().BaseUrlAsWorkingDirectory())
                 .AsUtility()
                 .Create());
         }

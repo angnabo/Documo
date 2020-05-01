@@ -15,7 +15,8 @@
                 <li>
                     <a class="template-type" 
                        data-template-url="@Url.Action("GetInvoiceTemplate", "Home", new {id = templateType.Key})"
-                       data-html-code-url="@Url.Action("GetInvoiceTemplateHtmlCode", "Home", new {id = templateType.Key})">
+                       data-html-code-url="@Url.Action("GetInvoiceTemplateHtmlCode", "Home", new {id = templateType.Key})"
+                       data-id="@templateType.Key">
                         @templateType.Value
                     </a>
                 </li>
@@ -50,6 +51,7 @@
         <div id="code-form-container" class="container is-hidden">
             @using (Html.BeginForm("Render", "Home", FormMethod.Post, new {@id = "code-form", target = "pdf"}))
             {
+                <input id="code-template-type-id" name="TemplateTypeId" type="hidden" value="">
                 @Html.TextAreaFor(o => o.Html, new {@id = "code-textarea"})
             }
             <input id="render-code-form" class="button is-primary margin-10" type="submit" value="Render">
@@ -58,6 +60,7 @@
         <div id="editor-form-container" class="container editor-container is-hidden">
             @using (Html.BeginForm("Render", "Home", FormMethod.Post, new {@id = "editor-form", @class="editor-container", target = "pdf"}))
             {
+                <input id="editor-template-type-id" name="TemplateTypeId" type="hidden" value="">
                 @Html.TextAreaFor(o => o.Html, new {@id = "editor-textarea"})
             }
             <input id="render-editor-form" class="button is-primary margin-10" type="submit" value="Render">
@@ -181,10 +184,12 @@ $( document ).ready(function() {
                 class: "frame"
             })
         );       
-   
+        let id = $(this).data("id");
         let htmlCodeUrl = $(this).data('html-code-url');
         $.get(htmlCodeUrl, function(data) {
-          codeArea.getDoc().setValue(data);       
+          codeArea.getDoc().setValue(data);      
+          $("#code-template-type-id").val(id);
+          $("#editor-template-type-id").val(id);
         }).fail((function(data) {
            console.log(data.error);
         })).then(function() {

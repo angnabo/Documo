@@ -1,6 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
-using jsreport.Binary.Linux;
+using jsreport.Binary;
 using jsreport.Local;
 using jsreport.Types;
 
@@ -12,7 +12,13 @@ namespace Documo.Renderer
         {
             var renderer = new HtmlRenderer();
             var content = await renderer.Render(template, data);
-            var rs = new LocalReporting().UseBinary(JsReportBinary.GetBinary()).AsUtility().Create();
+            var rs = new LocalReporting()
+                .UseBinary(JsReportBinary.GetBinary())
+                .Configure(cfg =>cfg.AllowedLocalFilesAccess().BaseUrlAsWorkingDirectory())
+                .TempDirectory("C:\\Users\\angel\\Documents\\JsReportTemp")
+                .AsUtility()
+                .Create();
+            
             var pdf = await rs.RenderAsync(new RenderRequest
             {
                 Template = new Template

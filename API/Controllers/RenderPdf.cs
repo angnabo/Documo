@@ -1,8 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Documo.Renderer;
-using jsreport.AspNetCore;
-using jsreport.Binary.Linux;
+using jsreport.Binary;
 using jsreport.Local;
 using jsreport.Types;
 using Microsoft.AspNetCore.Mvc;
