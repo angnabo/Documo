@@ -88,6 +88,7 @@
           </e>
         </e>
         <e p="TestData" t="Include">
+          <e p="InvoiceTestData.cs" t="Include" />
           <e p="ReceiptTestData.cs" t="Include" />
           <e p="Templates" t="Include">
             <e p="InvoiceTemplate.html" t="Include" />
@@ -99,8 +100,8 @@
             <e p="ReceiptTemplate.html" t="Include" />
             <e p="Repeating_Row_Template.html" t="Include" />
             <e p="Repeating_Table_Template.html" t="Include" />
+            <e p="test.js" t="Include" />
           </e>
-          <e p="TestJsonObject.cs" t="Include" />
         </e>
       </e>
       <e p="Documo.sln" t="IncludeFlat" />
@@ -136,18 +137,6 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
-        <e p="Temp" t="Include">
-          <e p="compile" t="Include">
-            <e p="jsreport-2.7.1-rkb7tS0VI" t="Include">
-              <e p="WinRun.exe" t="Include" />
-            </e>
-          </e>
-          <e p="dotnet" t="Include">
-            <e p="binary-default-2.7.1.0" t="Include">
-              <e p="jsreport.exe" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="Views" t="Include">
           <e p="_Template.cshtml" t="Include" />
           <e p="Home" t="Include">

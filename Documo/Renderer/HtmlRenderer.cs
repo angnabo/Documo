@@ -41,17 +41,6 @@ namespace Documo.Renderer
                     
                     _placeholderProcessor.Process(doc.Body, placeholder, jsonData);
                 }
-
-                // var imagePlaceholders = HtmlNodeExtractor.GetAllImagePlaceholders(doc);
-                // var parsedImagePlaceholders = AntlrService.Parse(imagePlaceholders);
-                // foreach (var placeholder in parsedImagePlaceholders)
-                // {  
-                //     var placeholderNodes = HtmlNodeExtractor.GetImagePlaceholderNode(doc.Body, placeholder.GetPlaceholder());
-                //     if (!placeholderNodes.Any()) continue;
-                //     
-                //     _placeholderProcessor.Process(doc.Body, placeholder, jsonData);
-                // }
-                
                 
                 var sw = new StringWriter();
                 doc.ToHtml(sw, new PrettyMarkupFormatter());

@@ -20,8 +20,15 @@ namespace Documo.Strategies.HtmlProcessing
             
             var startNode = HtmlNodeExtractor.GetRepeatingSectionPlaceholder(doc, repeatingSectionPlaceholder.GetPlaceholder());
             var endNode = HtmlNodeExtractor.GetRepeatingSectionPlaceholder(doc, repeatingSectionPlaceholder.GetEndPlaceholder());
-            var nodes = HtmlNodeExtractor.GetNodesBetweenStartAndEnd(startNode, endNode).ToList();
-            
+
+            var nodes = new List<IElement>{startNode};
+            if (startNode != endNode)
+            {
+                nodes = HtmlNodeExtractor.GetNodesBetweenStartAndEnd(startNode, endNode).ToList();
+                startNode.Remove();
+                endNode.Remove();
+            }
+
             object data;
             try
             {
@@ -29,15 +36,16 @@ namespace Documo.Strategies.HtmlProcessing
             }
             catch (ArgumentException e) when (e.Message.Equals($"The property {placeholder.ObjectName} could not be found."))
             {
-                var value = $"{{{{Not found: {placeholder.ObjectName}}}}}";
-                startNode.TextContent = value;
-                HtmlNodeModifier.SetErrorColour(startNode);
+                foreach (var n in nodes)
+                {
+                    n.Remove();
+                }
                 return;
             }
             
             try
             {
-                var dataArray = (object[]) data;
+                var dataArray = (object[]) JsonResolver.Resolve(jsonData, placeholder.ObjectName);
                 if (dataArray.Any())
                 {
                     foreach (var node in nodes)
@@ -70,18 +78,11 @@ namespace Documo.Strategies.HtmlProcessing
                     }
                 }
             }
-            
-            startNode.Remove();
-            endNode.Remove();
-
         }
-        
-        
-        
+
         private void ProcessNodes(IElement doc, IElement node, object jsonData)
         {
             var placeholdersFromNode = HtmlNodeExtractor.GetAllPlaceholders(node);
-
             var parsedPlaceholders = AntlrService.Parse(placeholdersFromNode); // inner table placeholders
                     
             foreach (var parsedPlaceholder in parsedPlaceholders)

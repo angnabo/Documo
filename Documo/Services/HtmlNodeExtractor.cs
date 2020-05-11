@@ -44,8 +44,8 @@ namespace Documo.Services
         {
             var regex = new Regex($"({{{{)({placeholderName})(}}}})");
             //var elements = doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
-            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent) || 
-                                                                (x.LocalName == "img" && regex.IsMatch(x.Attributes["alt"].Value)));
+            var elements = doc.QuerySelectorAll("*").Where(x => (regex.IsMatch(x.TextContent) || 
+                                                                (x.LocalName == "img" && regex.IsMatch(x.Attributes["alt"].Value))));
             return elements;
         }
         
@@ -66,7 +66,7 @@ namespace Documo.Services
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
             var placeholderRegex = new Regex($"({{{{)({placeholderName})(}}}})");
             var placeholder =  doc.QuerySelectorAll("*").SingleOrDefault(x => (!x.Children.Any()
-                                                                             || x.Children.All(x => x.OuterHtml == "<br>"))
+                                                                             || x.Children.All(x => x.LocalName == "br"))
                                                                              && placeholderRegex.IsMatch(x.TextContent));
 
             // get element 

@@ -4,19 +4,14 @@ grammar Documo;
  * Parser Rules
  */
 stmt                          : placeholder + EOF;
-placeholder                   : STARTPLACEHOLDER object  ENDPLACEHOLDER | repeatingSection | imagePlaceholder | conditionalSection;
-
+placeholder                   : STARTPLACEHOLDER object ENDPLACEHOLDER | repeatingSection | imagePlaceholder | conditionalSection;
 startRepeatingSection         : STARTPLACEHOLDER STARTREPEATINGSECTION object ENDPLACEHOLDER;
 endRepeatingSection           : STARTPLACEHOLDER ENDREPEATINGSECTION object ENDPLACEHOLDER;
 repeatingSection              : startRepeatingSection placeholder+ endRepeatingSection; 
-
-
-startConditionalSection              : STARTPLACEHOLDER IF object ENDPLACEHOLDER;
-endConditionalSection                : STARTPLACEHOLDER ENDIF object ENDPLACEHOLDER;
+startConditionalSection       : STARTPLACEHOLDER IF object ENDPLACEHOLDER;
+endConditionalSection         : STARTPLACEHOLDER ENDIF object ENDPLACEHOLDER;
 conditionalSection            : startConditionalSection placeholder+ endConditionalSection;
-
 imagePlaceholder              : STARTPLACEHOLDER IMAGEPLACEHOLDER object ENDPLACEHOLDER;
-
 object                        : objectFieldAccess | objectName;
 objectFieldAccess             : objectName ACCESSOPERATOR objectField;
 objectName                    : WORD ;

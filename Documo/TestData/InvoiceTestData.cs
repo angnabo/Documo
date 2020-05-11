@@ -2,10 +2,17 @@ using System;
 
 namespace Documo.TestData
 {
-    public static class TestJsonObject
+    public static class InvoiceTestData
     {
         public static object GetData()
         {
+            var placeholder  = new
+            {
+                Object = "Account",
+                Field = "FullName"
+            };
+
+
             return new
             {
                 Address = new
@@ -20,26 +27,50 @@ namespace Documo.TestData
                 CreatedDate = new DateTime(2019, 08, 12).ToString("dd/MM/yyy"),
                 DueDate = new DateTime(2020, 01, 12).ToString("dd/MM/yyy"),
                 InvoiceNumber = 56998735,
-                Payments = new object[]{},
-//                {
-//                    new
-//                    {
-//                        Name = "Bank transfer 02/07",
-//                        Amount = 50.0m
-//                    },
-//                    new
-//                    {
-//                        Name = "Bank transfer 24/06",
-//                        Amount = 20.0m
-//                    },
-//                    new
-//                    {
-//                        Name = "Bank transfer 16/04",
-//                        Amount = 200.0m
-//                    }
-//                },
+                Payments = new []
+                {
+                    new
+                    {
+                        Name = "Bank transfer 02/07",
+                        Amount = 50.0m,
+                        Charges = new[]
+                        {
+                            new
+                            {
+                                Description = "a",
+                                Cost = 1.00
+                            }
+                        }
+                    },
+                    new
+                    {
+                        Name = "Bank transfer 24/06",
+                        Amount = 20.0m,
+                        Charges = new[]
+                        {
+                        new
+                        {
+                        Description = "a",
+                        Cost = 1.00
+                    }
+                    }
+                    },
+                    new
+                    {
+                        Name = "Bank transfer 16/04",
+                        Amount = 200.0m,
+                        Charges = new[]
+                        {
+                            new
+                            {
+                                Description = "a",
+                                Cost = 1.00
+                            }
+                        }
+                    }
+                },
                 TotalPayments = 270.0m,
-                Services = new[]
+                Services = new []
                 {
                     new
                     {

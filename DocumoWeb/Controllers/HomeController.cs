@@ -28,7 +28,7 @@ namespace DocumoWeb.Controllers
         {
             var testData = model.TemplateTypeId switch
             {
-                1 => TestJsonObject.GetData(),
+                1 => InvoiceTestData.GetData(),
                 2 => ReceiptTestData.GetData(),
                 _ => null
             };
@@ -39,7 +39,7 @@ namespace DocumoWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> RenderEditor(string html)
         {
-            var testData = TestJsonObject.GetData();
+            var testData = InvoiceTestData.GetData();
             var file = await PdfRenderer.Render(html, testData);
             return new FileContentResult(file, "application/pdf");
         }

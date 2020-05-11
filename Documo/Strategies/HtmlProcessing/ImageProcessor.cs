@@ -46,8 +46,8 @@ namespace Documo.Strategies
                 {
                     node.SetAttribute("src", ImageNotFoundError);
                     var context = BrowsingContext.New(Configuration.Default);
-                    var document = await context.OpenAsync(r => r.Content($"<span>Image error: {e.Message}</span>"));
-                    var errorNode = document.QuerySelector("span");
+                    var document = await context.OpenAsync(r => r.Content($"<p><span>Image error: {e.Message}</span></p>"));
+                    var errorNode = document.QuerySelector("p");
                     HtmlNodeModifier.SetErrorColour(errorNode);
                     node.After(errorNode);
                 }

@@ -9,7 +9,7 @@ namespace Documo
     {
         static async Task Main(string[] args)
         {
-            var testData = TestJsonObject.GetData();
+            var testData = InvoiceTestData.GetData();
             //var template = File.ReadAllText("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/InvoiceTemplateTinymce.html");
             //var template = File.ReadAllText("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/ReceiptTemplate.html");
             var template = File.ReadAllText("D:\\src\\Documo\\Documo\\TestData\\Templates\\ReceiptTemplate.html");

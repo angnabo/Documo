@@ -3,46 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title></title>
-    <style></style>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 <div class="invoice-box">
-    <span class="placeholder" style="color:red;">{{Not found: Services}}</span>
-    <table class="padding-top" cellpadding="0" cellspacing="0">
-        <thead class="heading">
-        <tr>
-            <th>All Services</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="placeholder" data-placeholder="rs_Services">
-            <td>
-                <p>{{rs_Services}}</p>
-            </td>
-        </tr>
-        <tr class="item">
-            <td>
-                <span class="placeholder">{{Name}}</span>
-            </td>
-            <td>
-                <span class="placeholder">{{Cost.Net}}</span>
-            </td>
-        </tr>
-        <tr class="placeholder">
-            <td>
-                <p>{{es_Services}}</p>
-            </td>
-        </tr>
-        <tr class="total">
-            <td></td>
-            <td>
-                Total: £<span class="placeholder">{{TotalServices}}</span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <span class="placeholder">{{endif_Services}}</span>
 </div>
 </body>
 </html>

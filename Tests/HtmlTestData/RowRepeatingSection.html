@@ -3,6 +3,19 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="invoice-box">
@@ -13,6 +26,7 @@
             </thead>
             <tr class="placeholder">
                 <td><p>{{rs_Payments}}</p></td>
+                <td></td>
             </tr>
             <tr class="item">
                 <td><span class="placeholder">{{Name}}</span></td>
@@ -20,6 +34,7 @@
             </tr>
             <tr class="placeholder">
                 <td><p>{{es_Payments}}</p></td>
+                <td></td>
             </tr>
             <tr class="total">
                 <td></td>

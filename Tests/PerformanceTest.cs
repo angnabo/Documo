@@ -21,20 +21,21 @@ namespace Tests
         public async Task TestPerformance()
         {
             var htmlRenderer = new HtmlRenderer();
-            var testData = TestJsonObject.GetData();
-            var template = File.ReadAllText("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/InvoiceTemplateWithConditional.html");
+            var testData = InvoiceTestData.GetData();
+            //var template = File.ReadAllText("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/InvoiceTemplateWithConditional.html");
+            var template = File.ReadAllText("D:\\src\\Documo\\Documo\\TestData\\Templates\\InvoiceTemplateWithConditional.html");
             var watch = new System.Diagnostics.Stopwatch();
             
             watch.Start();
             
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 100; i++)
             {
                 var pdf = await htmlRenderer.Render(template, testData);
             }
             
             watch.Stop();
             
-            _testOutputHelper.WriteLine($"Execution Time: {watch.ElapsedMilliseconds/10.0m} ms");
+            _testOutputHelper.WriteLine($"Execution Time: {watch.ElapsedMilliseconds/100.0m} ms");
         }
     }
 }

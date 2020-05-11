@@ -3,7 +3,19 @@
 <head>
     <meta charset="utf-8">
     <title></title>
-    <style></style>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,6 +29,7 @@
 
         <tr class="placeholder" data-placeholder="rs_Services">
             <td><p>{{rs_Services}}</p></td>
+            <td></td>
         </tr>
 
         <tr class="item">
@@ -26,6 +39,7 @@
 
         <tr class="placeholder">
             <td><p>{{es_Services}}</p></td>
+            <td></td>
         </tr>
 
         <tr class="total">
