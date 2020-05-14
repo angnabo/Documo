@@ -63,6 +63,7 @@
           </e>
         </e>
         <e p="Program.cs" t="Include" />
+        <e p="README.md" t="Include" />
         <e p="Renderer" t="Include">
           <e p="HtmlRenderer.cs" t="Include" />
           <e p="PdfRenderer.cs" t="Include" />
@@ -136,6 +137,7 @@
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
+        <e p="README.md" t="Include" />
         <e p="Startup.cs" t="Include" />
         <e p="Views" t="Include">
           <e p="_Template.cshtml" t="Include" />

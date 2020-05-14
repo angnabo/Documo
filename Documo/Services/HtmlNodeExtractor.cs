@@ -11,14 +11,8 @@ namespace Documo.Services
         public static string GetAllPlaceholders(IElement doc)
         {
             var regex = new Regex("({{)[a-zA-Z0-9._]+(}})");
-            //TODO: select leaf elements
-            var elements = doc.QuerySelectorAll("*").Where(x => regex.IsMatch(x.TextContent) 
-                                                                || (x.LocalName == "img" && regex.IsMatch(x.Attributes["alt"].Value)));
-
-
-            var b = regex.Match(doc.InnerHtml);
-            var bn = Regex.Split(doc.InnerHtml, @"(?={{)");
-            var matched = bn.Where(x => x != string.Empty).Select(x => regex.Match(x).ToString());
+            var elements = Regex.Split(doc.InnerHtml, @"(?={{)");
+            var matched = elements.Where(x => x != string.Empty).Select(x => regex.Match(x).ToString());
             return string.Join("", matched);
         }
         
@@ -43,7 +37,6 @@ namespace Documo.Services
         public static IEnumerable<IElement> GetPlaceholderNodes(IElement doc, string placeholderName)
         {
             var regex = new Regex($"({{{{)({placeholderName})(}}}})");
-            //var elements = doc.QuerySelectorAll("*").Where(x => !x.Children.Any() && regex.IsMatch(x.TextContent));
             var elements = doc.QuerySelectorAll("*").Where(x => (regex.IsMatch(x.TextContent) || 
                                                                 (x.LocalName == "img" && regex.IsMatch(x.Attributes["alt"].Value))));
             return elements;

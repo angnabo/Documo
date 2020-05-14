@@ -46,7 +46,7 @@ namespace Documo.Renderer
                 doc.ToHtml(sw, new PrettyMarkupFormatter());
                 
                 //File.WriteAllText ("/home/angelica/RiderProjects/Documo/Documo/TestData/Templates/OutputHtml.html", sw.ToString());
-                File.WriteAllText ("D:\\src\\Documo\\Documo\\TestData\\Templates\\OutputHtml.html", sw.ToString());
+                File.WriteAllText ("../../../TestData/Templates/OutputHtml.html", sw.ToString());
                 
                 return sw.ToString();
             }
