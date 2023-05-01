@@ -1,4 +1,4 @@
 # Documo
-The easiest way to run DocumoWeb is using an IDE like Visual Studio or Jetbrains Rider. 
+Final year project.
+A document renderer which consists of a front end web application and an api to render a PDF document given a template with placeholders. 
 
-The project contains libraries which will need to be restored prior to running.
